@@ -1,0 +1,8 @@
+footer {
+  height: 120px;
+
+  @media screen and (min-width: $tablet) {
+    height: 146px;
+  }
+  background-color: $color-footer-background;
+}
