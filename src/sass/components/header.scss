@@ -1,0 +1,31 @@
+.page-header {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.navigation__logo {
+  padding-top: 28px;
+  padding-bottom: 28px;
+
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 1.4;
+
+  color: $color-text;
+}
+
+.navigation {
+  padding-top: 24px;
+  padding-bottom: 22px;
+
+  @media screen and (min-width: $tablet) {
+    padding-top: 32px;
+    padding-bottom: 28px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+}
