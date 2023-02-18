@@ -1,3 +1,19 @@
+/****************************
+ * структура объекта новости
+ * {
+ *    uri - идентификатор статьи
+ *    url - адресс статьи
+ *    image - адресс картинки
+ *    snipet - краткая новость
+ *    newsDate - дата новости
+ *    readDate - дата прочтения
+ *    section - название категории
+ *    isRead - прочитана
+ *    isFavorite - избранная
+ *
+ * }
+ */
+
 export default class LocalStorage {
   _storageKey = '';
   _data = { theme: '', news: [{}] };
@@ -11,7 +27,7 @@ export default class LocalStorage {
     if (this._storageKey) {
       try {
         const tmp = window.localStorage.getItem(this._storageKey);
-        return tmp ? tmp : empty;
+        return tmp ? JSON.parse(tmp) : empty;
       } catch (error) {
         console.error(error);
       }
@@ -23,7 +39,10 @@ export default class LocalStorage {
     // console.log(value);
     if (this._storageKey) {
       try {
-        window.localStorage.setItem(this._storageKey, this._data);
+        window.localStorage.setItem(
+          this._storageKey,
+          JSON.stringify(this._data)
+        );
         return true;
       } catch (error) {
         console.error(error);
@@ -40,10 +59,17 @@ export default class LocalStorage {
     return this._data.news.filter(value => value.read === true);
   }
 
-  addToFavorites(value) {
+  addToFavorites(newFavorite) {
     // проверить есть ли эта новость со свойством read=true;
-    //this._data.push(value);
-    //this.save();
+    const index = this._data.news.findIndex(
+      value => value.uri === newFavorite.uri
+    );
+    if (index === -1) {
+      this._data.news.push(newFavorite);
+    } else {
+      this._data.news[index].isFavorite = true;
+    }
+    this.save();
   }
 
   deleteFromFavorites(value) {
