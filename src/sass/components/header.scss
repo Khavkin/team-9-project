@@ -70,22 +70,23 @@
         @media screen and (min-width: $tablet) and (min-width: $desktop) {
             display: block;
             position: relative;
-        }
-        &--active {
-            &::after {
-                @media screen and (min-width: $tablet) and (min-width: $desktop) {
-                    content: "";
-                    position: absolute;
-                    bottom: -8px;
-                    left: -10%;
-                    width: 120%;
-                    height: 0px;
-                    background-color: $color-button-hover;
-                    border: 1px solid $color-text-link;
-                    display: block;
-                }
-            }
-        
         }   
+    }
+
+    .active {
+        &::after {
+            @media screen and (min-width: $tablet) and (min-width: $desktop) {
+                content: "";
+                position: absolute;
+                bottom: -8px;
+                left: -10%;
+                width: 120%;
+                height: 0px;
+                background-color: $color-button-hover;
+                border: 1px solid $color-text-link;
+                display: block;
+            }
+        }
+    
     }
 }
