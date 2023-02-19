@@ -7,6 +7,8 @@ const localStorage = new LocalStorage('team-9-project');
 
 console.dir(FakeAPI.getPopularNews());
 console.dir(FakeAPI.getNewsByCategory());
+console.dir(FakeAPI.getNewsBySearch());
+console.dir(FakeAPI.getSectionList());
 
 refsThemeSwitcher.body.classList.add(Theme.LIGHT);
 refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
