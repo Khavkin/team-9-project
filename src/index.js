@@ -1,4 +1,5 @@
 import './js/navigation.js';
+import './js/api/nytimes-api';
 import  {Theme, refsThemeSwitcher, onCheckboxClick, changeTheme} from './js/components/theme_switcher' ;
 import LocalStorage from './js/api/local-storage-api';
 import * as FakeAPI from './js/api/fake-api';
