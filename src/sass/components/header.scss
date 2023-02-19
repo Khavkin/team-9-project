@@ -42,7 +42,7 @@
     }
 
     &__list {
-        color: $color-background-dark;
+        color: inherit;
         @media screen and (min-width: $tablet) {
            display: flex;
            margin-right: 32px; 
