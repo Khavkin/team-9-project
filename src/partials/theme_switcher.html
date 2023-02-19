@@ -1,8 +1,8 @@
 <div class="theme-switch">
-    <svg class="theme-switch__icon" role="img" aria-label="Sun">
+    <svg class="theme-switch__icon theme-switch__icon--light">
       <use href="./images/icons.svg#icon-sun"></use>
     </svg>
-    <p class="theme-switch__text">Light</p>
+    <p class="theme-switch__text theme-switch__text--light">Light</p>
 
     <div class="theme-switch__control">
       <input
@@ -10,19 +10,17 @@
         type="checkbox"
         name="theme"
         id="theme-switch-toggle"
-        aria-label="Переключить между тёмной и светлой темой"
       />
       <label
-        aria-hidden="true"
         class="theme-switch__track"
         for="theme-switch-toggle"
       >
       </label>
-      <div aria-hidden="true" class="theme-switch__marker"></div>
+      <div class="theme-switch__marker"></div>
     </div>
 
-    <svg class="theme-switch__icon" aria-label="Moon">
+    <svg class="theme-switch__icon theme-switch__icon--dark">
       <use href="./images/icons.svg#icon-moon"></use>
     </svg>
-    <p class="theme-switch__text">Dark</p>
+    <p class="theme-switch__text theme-switch__text--dark">Dark</p>
   </div>
