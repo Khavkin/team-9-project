@@ -1,3 +1,4 @@
+const noImageURL = '';
 const popular = {
   status: 'OK',
   copyright:
@@ -2801,8 +2802,41 @@ export function getPopularNews() {
         isFavorite: false,
         isRead: false,
       };
-      if (media.length === 0) result.image = '';
+      if (media.length === 0) result.image = noImageURL;
       else result.image = media[0]['media-metadata'][2].url;
+      return result;
+    }
+  );
+  return result;
+}
+export function getNewsByCategory() {
+  const result = newsByCategory.results.map(
+    (
+      {
+        uri,
+        url,
+        section,
+        published_date,
+        abstract,
+        title,
+        multimedia,
+      },
+      index
+    ) => {
+      console.log(`index=${index}-`, multimedia);
+      const result = {
+        uri,
+        url,
+        sectionName: section,
+        section: 'business',
+        newsDate: published_date,
+        snippet: abstract,
+        title,
+        isFavorite: false,
+        isRead: false,
+      };
+      if (multimedia.length === 0) result.image = noImageURL;
+      else result.image = multimedia[2].url;
       return result;
     }
   );

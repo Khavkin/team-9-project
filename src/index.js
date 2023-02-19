@@ -6,6 +6,7 @@ import * as FakeAPI from './js/api/fake-api';
 const localStorage = new LocalStorage('team-9-project');
 
 console.dir(FakeAPI.getPopularNews());
+console.dir(FakeAPI.getNewsByCategory());
 
 refsThemeSwitcher.body.classList.add(Theme.LIGHT);
 refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
