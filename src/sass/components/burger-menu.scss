@@ -1,0 +1,164 @@
+@media screen and (min-width: $mobile) {
+
+    .nav__img,
+    .nav__pointer {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: $mobile) {
+
+    .page-header {
+
+        height: 568px;
+        font-weight: 500;
+    }
+
+
+    .nav__pointer {
+        margin-left: auto;
+
+    }
+
+    .navigation__item:hover {
+        background-color: rgba(68, 64, 246, 1);
+
+    }
+
+
+    li:hover a {
+        color: rgba(244, 244, 244, 1);
+    }
+
+    .nav__img {
+
+        border: 1px solid rgba(244, 244, 244, 1);
+        border-radius: 50%;
+        background-color: rgba(244, 244, 244, 1);
+
+    }
+
+
+    .navigation__link {
+        padding-left: 14px;
+
+
+    }
+
+
+    .container {
+        height: 100%;
+        margin: 0;
+        padding: 24px 16px 0px 0px;
+    }
+
+
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .navigation__logo {
+        padding: 0;
+        margin-left: 16px;
+    }
+
+
+    .navigation__list {
+        flex-direction: column;
+        position: fixed;
+        top: -100%;
+        transition: all 0.4s ease;
+    }
+
+    .navigation__list.open-menu {
+
+        margin-top: 125px;
+        top: 0;
+        height: 100%;
+        transition: all 0.4s ease;
+
+    }
+
+
+    .navigation__item {
+        width: 320px;
+        padding: 11px 16px;
+        display: flex;
+        align-items: center;
+    }
+
+    .menu-burger__header {
+        position: relative;
+        width: 16px;
+        height: 18px;
+        display: block;
+        margin-right: 16px;
+
+    }
+
+    .menu-burger__header span,
+    .menu-burger__header:after,
+    .menu-burger__header:before {
+        height: 2px;
+        width: 100%;
+        position: absolute;
+        background: #515758;
+        margin: 0 auto;
+    }
+
+    .menu-burger__header span {
+        top: 16px;
+    }
+
+
+    .menu-burger__header:after,
+    .menu-burger__header:before {
+        content: '';
+
+    }
+
+    .menu-burger__header:after {
+        bottom: 5px;
+    }
+
+    .menu-burger__header:before {
+        top: 6px;
+    }
+
+    .menu-burger__header.open-menu {
+        left: 0;
+    }
+
+    .menu-burger__header.open-menu span {
+        opacity: 0;
+        transition: 0.5s;
+    }
+
+    .menu-burger__header.open-menu:before {
+        transform: rotate(47deg);
+        top: 11px;
+        transition: 0.4s;
+    }
+
+    .menu-burger__header.open-menu:after {
+        transform: rotate(-47deg);
+        transition: 0.4s;
+    }
+
+    header {
+        height: 60px;
+    }
+
+
+    .theme-switch {
+        margin-top: 239px;
+        margin-bottom: 20.5px;
+        margin-left: 16px;
+    }
+
+
+
+}
