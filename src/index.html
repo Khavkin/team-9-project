@@ -9,40 +9,9 @@
     <body data-name="home">
         <!-- ❗️❗️❗️ Add partials like so for every page -->
         <include src="./partials/header.html"></include>
-        <!-- <include src="./partials/main.html"></include> -->
+        <include src="./partials/main.html"></include>
         <include src="./partials/footer.html"></include>
 
-        <main>
-           <section class="bad-request bad-request--hidden">
-    <!-- <div class="container"> -->
-        <p class="bad-request__title">We haven't found news from </br> this category</p>
-        <picture >
-            <source 
-                srcset="./images/rip-desk.png" 
-                type="image/png" 
-                media="(max-width: 480px)"
-                alt="underfined-picture"/>
-            <source 
-                srcset="./images/rip-tab.png" 
-                type="image/png" 
-                media="(max-width:768px)" 
-                alt="underfined-picture"/>
-            <source 
-                srcset="./images/rip-mob.png" 
-                type="image/png" 
-                media="(min-width: 320px)"
-                alt="underfined-picture"/>
-            <img 
-                class="bad-request__default-picture"
-                src="./images/rip-mob.png" 
-                alt="underfined-picture" 
-                width="248" 
-                height="198"/>
-        </picture>
-    <!-- </div> -->
-</section>
-
-        </main>
         <script type="module" src="index.js"></script>
     </body>
 </html>
