@@ -89,7 +89,3 @@ const insideBut = P.map(paragraf =>`<li class = "inside_li"> <button type = "but
  
 
   otherUl.insertAdjacentHTML("afterend",insideOth.join(""))
-
-
-
-
