@@ -1,0 +1,92 @@
+.page-header {
+    min-width: $mobile;
+    @media screen and (min-width: $tablet) and (min-width: $desktop) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }  
+}
+
+.navigation__logo {
+    padding-top: 28px;
+    padding-bottom: 28px;
+
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.4;
+    color: inherit;
+
+
+    @media screen and (min-width: $tablet) {
+        font-size: 32px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        font-size: 42px;
+    }
+}
+
+.navigation {
+    @media screen and (min-width: $tablet) {
+        display: flex;
+        align-items: baseline;
+        padding-top: 32px;
+        padding-bottom: 28px;
+    }
+        
+    @media screen and (min-width: $desktop) {
+        padding-top: 28px;
+        padding-bottom: 28px;
+        padding-left: 16px;
+
+    }
+
+    &__list {
+        color: inherit;
+        @media screen and (min-width: $tablet) {
+           display: flex;
+           margin-right: 32px; 
+           margin-left: 48px;
+           font-weight: 700;
+        } 
+        @media screen and (min-width: $desktop) {
+            margin-right: 147px;
+            margin-left: 102px;
+        }
+    }
+
+    &__item {
+        &:not(:first-child) {
+            @media screen and (min-width: $tablet) {
+                margin-left: 44px;
+            }
+            @media screen and (min-width: $desktop) {
+                margin-left: 69px;
+            }
+        }    
+    }
+
+    &__link {
+        @media screen and (min-width: $tablet) and (min-width: $desktop) {
+            display: block;
+            position: relative;
+        }   
+    }
+
+    .active {
+        &::after {
+            @media screen and (min-width: $tablet) and (min-width: $desktop) {
+                content: "";
+                position: absolute;
+                bottom: -8px;
+                left: -10%;
+                width: 120%;
+                height: 0px;
+                background-color: $color-button-hover;
+                border: 1px solid $color-text-link;
+                display: block;
+            }
+        }
+    
+    }
+}
