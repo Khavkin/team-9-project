@@ -1,8 +1,14 @@
 import './js/navigation.js';
 import './js/api/nytimes-api';
-import  {Theme, refsThemeSwitcher, onCheckboxClick, changeTheme} from './js/components/theme_switcher' ;
+import {
+    Theme,
+    refsThemeSwitcher,
+    onCheckboxClick,
+    changeTheme,
+} from './js/components/theme_switcher';
 import LocalStorage from './js/api/local-storage-api';
 import * as FakeAPI from './js/api/fake-api';
+import './js/news-cards.js';
 
 const localStorage = new LocalStorage('team-9-project');
 
@@ -14,4 +20,3 @@ console.dir(FakeAPI.getSectionList());
 refsThemeSwitcher.body.classList.add(Theme.LIGHT);
 refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
 changeTheme();
-
