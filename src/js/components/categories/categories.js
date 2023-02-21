@@ -56,36 +56,38 @@ const P = [
 
 const but = document.querySelectorAll('button');
 
-const generalUl = document.querySelector(".categories_ul");
+const generalUl = document.querySelector('.categories_ul');
 
-const otherUl = document.querySelector(".special")
+const otherUl = document.querySelector('.special');
 
-
-const butOther = document.querySelector(".categories_button")
+const butOther = document.querySelector('.categories_button');
 // query
 
-butOther.addEventListener("click",clickOth)
-window.addEventListener("click",remclickOth)
+butOther.addEventListener('click', clickOth);
+window.addEventListener('click', remclickOth);
 
-function remclickOth () {
+function remclickOth() {
   // butOther.classList.("la")
 }
 
-function clickOth () {
-butOther.classList.toggle("la")
-otherUl.classList.toggle("is-hidden")
+function clickOth() {
+  butOther.classList.toggle('la');
+  otherUl.classList.toggle('is-hidden');
 }
 
-const buttons = P.map(paragraf =>`<li> <button type = "button" class ="categories_button" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`);
+const buttons = P.map(
+  paragraf =>
+    `<li> <button type = "button" class ="categories_button" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+);
 
+const insideBut = P.map(
+  paragraf =>
+    `<li class = "inside_li"> <button type = "button" class ="other_but" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+);
 
-const insideBut = P.map(paragraf =>`<li class = "inside_li"> <button type = "button" class ="other_but" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`);
+const genBut = buttons.slice(1, 7);
+generalUl.insertAdjacentHTML('afterbegin', genBut.join(''));
 
+const insideOth = insideBut.slice(7, 19);
 
-  const genBut = buttons.slice(1,7);
-  generalUl.insertAdjacentHTML("afterbegin",genBut.join(""))  
-
-  const insideOth = insideBut.slice(7,19)
- 
-
-  otherUl.insertAdjacentHTML("afterend",insideOth.join(""))
+otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
