@@ -15,5 +15,14 @@ refsThemeSwitcher.body.classList.add(Theme.LIGHT);
 refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
 changeTheme();
 
+const calendarFild = document.querySelector('.calendar__fild');
 const calendarInput = document.querySelector('.calendar__input');
+
+calendarInput.addEventListener('focus', onCalendarInputFocus);
+
+function onCalendarInputFocus () {
+    calendarFild.classList.add('focus');
+    calendarInput.classList.add('focus');
+}
+
 // calendarInput.placeholder = 'Hello!';
