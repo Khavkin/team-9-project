@@ -1,37 +1,64 @@
 <header class="page-header">
-    <div class="page-header__container container">
-        <nav class="navigation">
-            <a class="navigation__logo" href="./index.html">News</a>
-            <ul class="navigation__list">
-                <li class="navigation__item">
-                    <a class="navigation__link home" href="./index.html"
-                        >Home</a
-                    >
-                </li>
-                <li class="navigation__item">
-                    <a class="navigation__link favorite" href="./favorite.html"
-                        >Favorite</a
-                    >
-                </li>
-                <li class="navigation__item">
-                    <a class="navigation__link read" href="./read.html">Read</a>
-                </li>
-            </ul>
-            <form class="search-form" id="search-form">
-                <button class="search-form__btn">
-                    <svg class="search-form__icon" width="15.59" height="14.81">
-                        <use href="./images/icons.svg#icon-search"></use>
-                    </svg>
-                </button>
-                <input
-                    type="text"
-                    class="search-form__input"
-                    id="search-form__input"
-                    placeholder="Search"
-                />
-            </form>
+  <div class="page-header__container container">
+    <nav class="navigation">
+      <a class="navigation__logo" href="./index.html">News</a>
 
-            <include src="./partials/theme_switcher.html"></include>
-        </nav>
-    </div>
+      <div class="menu-burger__header">
+        <span> </span>
+      </div>
+
+      <ul class="navigation__list">
+
+        <li class="navigation__item">
+          <svg class="nav__img" width="32px" height="32px">
+            <use href="./images/icons.svg#icon-home-color"></use>
+          </svg>
+
+          <a class="navigation__link home" href="./index.html">Home</a>
+
+          <svg class="nav__pointer" width="24px" height="24px">
+            <use href="./images/icons.svg#icon-chevron-right"></use>
+          </svg>
+        </li>
+
+        <li class="navigation__item">
+          <svg class="nav__img" width="32px" height="32px">
+            <use href="./images/icons.svg#icon-heart-color"></use>
+          </svg>
+
+          <a class="navigation__link favorite" href="./favorite.html">Favorite</a>
+
+          <svg class="nav__pointer" width="24px" height="24px">
+            <use href="./images/icons.svg#icon-chevron-right"></use>
+          </svg>
+        </li>
+        <li class="navigation__item">
+          <svg class="nav__img" width="32px" height="32px">
+            <use href="./images/icons.svg#icon-book"></use>
+          </svg>
+
+          <a class="navigation__link read" href="./read.html">Read</a>
+
+          <svg class="nav__pointer" width="24px" height="24px">
+            <use href="./images/icons.svg#icon-chevron-right"></use>
+          </svg>
+        </li>
+      </ul>
+    
+      <form class="search-form" id="search-form">
+       <button class="search-form__btn">
+          <svg class="search-form__icon" width="15.59" height="14.81">
+              <use href="./images/icons.svg#icon-search"></use>
+          </svg>
+       </button>
+       <input
+          type="text"
+          class="search-form__input"
+          id="search-form__input"
+          placeholder="Search"
+       />
+      </form>
+      <include src="./partials/theme_switcher.html"></include>
+    </nav> 
+  </div>
 </header>
