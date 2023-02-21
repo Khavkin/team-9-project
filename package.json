@@ -18,7 +18,6 @@
     "url": "https://github.com/Khavkin/team-9-project/issues"
   },
   "dependencies": {
-    "calendar-dates": "^2.7.2",
     "modern-normalize": "^1.1.0"
   },
   "devDependencies": {
