@@ -1,8 +1,11 @@
-$(document).ready(function() {
-	$('.menu-burger__header').click(function(){
-        $('.menu-burger__header').toggleClass('open-menu');
-        $('.navigation__list').toggleClass('open-menu');
-        $('body').toggleClass('fixed-page');
-	});
+document.addEventListener("DOMContentLoaded", function() {
+  var menuBurger = document.querySelector('.menu-burger__header');
+  var navigationList = document.querySelector('.navigation__list');
+  var body = document.querySelector('body');
+  
+  menuBurger.addEventListener('click', function() {
+    menuBurger.classList.toggle('open-menu');
+    navigationList.classList.toggle('open-menu');
+    body.classList.toggle('fixed-page');
+  });
 });
-
