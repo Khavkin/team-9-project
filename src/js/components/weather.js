@@ -6,7 +6,7 @@ import svgSnow from '../../images/iconsweather/snow.svg';
 import svgStorm from '../../images/iconsweather/storm.svg';
 import svgGeolocation from '../../images/iconsweather/carbonLocation.svg';
 console.log(svgGeolocation);
-const content = document.querySelector('section div.container');
+const content = document.querySelector('ul.list-news');
 
 markupWeather()
 
@@ -95,12 +95,14 @@ function onError (err) {
 
 function weatherDet(data) {
   const city = data.name;
+  const cityId = data.id;
   const temperature = Math.floor(data.main.temp);
   const sky = data.weather[0].main;
   const idWeather = data.weather[0].id;
   refs.geolocation.value = city;
   refs.sky.textContent = sky;
-  refs.temperature.textContent = temperature;
+  refs.temperature.textContent = `${temperature} º`;
+  refs.linkForWeatherSevenDay.href = `https://www.gismeteo.ua/ua/weather-${city.toLowerCase()}-${cityId}/10-days/`
   // refs.iconWeather = iconWeather;
   if (idWeather == 800) {
       refs.iconWeather.src = `${svgClear}`; 
@@ -119,10 +121,12 @@ function weatherDet(data) {
   return
 }
 
-content.insertAdjacentElement('beforebegin', `
-  <div class="weather">
+        
+function markupWeather() {
+  return (content.innerHTML = `
+  <li class="weather">
             <div class="weather__container">
-                <span class="weather__temperature">23º</span>
+                <span class="weather__temperature">2º</span>
                 <div class="weather__iformation-for-weather">
                     <p class="weather__sky">Sunny</p>
                     <img class="weather__icon-geolocation" src=${svgGeolocation} alt="icon-geoloc">
@@ -134,25 +138,10 @@ content.insertAdjacentElement('beforebegin', `
             <p class="weather__date">21 Jan 2021</p>
             <button class="weather__button"><a class="weather__link" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2" target="_blank" 
                 rel="noopener noreferrer">weather for week</a></button>
-        </div>`);
-// function markupWeather() {
-//   return (content.innerHTML = `
-//   <div class="weather">
-//             <div class="weather__container">
-//                 <span class="weather__temperature">23º</span>
-//                 <div class="weather__iformation-for-weather">
-//                     <p class="weather__sky">Sunny</p>
-//                     <img class="weather__icon-geolocation" src=${svgGeolocation} alt="icon-geoloc">
-//                     <input class="weather__geolocation" type="text" name="geolocation" value="geolocation">
-//                 </div>
-//             </div>
-//             <img class="weather__icon" src="" alt="Weather Icon">
-//             <p class="weather__weekday">Mon</p>
-//             <p class="weather__date">21 Jan 2021</p>
-//             <button class="weather__button"><a class="weather__link" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2" target="_blank" 
-//                 rel="noopener noreferrer">weather for week</a></button>
-//         </div>`);
-// }
+        </li>`);
+}
+
+
 
 
 export {getMon, getMonDay, getWeekday, getYear, onSuccess, onError, weatherDet, markupWeather};
