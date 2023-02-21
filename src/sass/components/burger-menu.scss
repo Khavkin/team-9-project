@@ -22,20 +22,20 @@
     }
 
     .navigation__item:hover {
-        background-color: rgba(68, 64, 246, 1);
+        background-color: $color-text-link;
 
     }
 
 
     li:hover a {
-        color: rgba(244, 244, 244, 1);
+        color: $color-background;
     }
 
     .nav__img {
 
-        border: 1px solid rgba(244, 244, 244, 1);
+        border: 1px solid $color-background;
         border-radius: 50%;
-        background-color: rgba(244, 244, 244, 1);
+        background-color: $color-background;
 
     }
 
@@ -105,7 +105,7 @@
         height: 2px;
         width: 100%;
         position: absolute;
-        background: #515758;
+        background: $burger-menu-color;
         margin: 0 auto;
     }
 
@@ -162,7 +162,7 @@
 body.dark-theme .menu-burger__header span,
 body.dark-theme .menu-burger__header:after,
 body.dark-theme .menu-burger__header:before {
-    background: rgba(244, 244, 244, 1);
+    background: $color-background;
     
 }
 }
