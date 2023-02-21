@@ -20,7 +20,7 @@
     line-height: 1.75;
     cursor: pointer;
     outline: none;
-    color: $color-text;
+    color: $color-themeSwitcher-passive;
 
     @media screen and (min-width: $tablet) {
         font-size: 14px;
@@ -30,6 +30,7 @@
     &:hover {
         background-color: $color-button-hover;
         border-color: $color-button-hover;
+        color: $color-background;
 
         &::placeholder {
             color: $color-background;
@@ -44,6 +45,7 @@
 .calendar__input.focus {
     background-color: $color-button-hover;
     border-color: $color-button-hover;
+    color: $color-background;
 
     &::placeholder {
         color: $color-background;
@@ -84,6 +86,11 @@ body.dark-theme .calendar__input.focus {
         height: 17px;
         width: 17px;
     }
+}
+
+.calendar__icon--up {
+    pointer-events: all;
+    cursor: pointer;
 }
 
 .calendar__input:hover ~ .calendar__icon {
