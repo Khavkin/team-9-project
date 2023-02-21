@@ -2,7 +2,7 @@
     min-width: $mobile;
     @media screen and (min-width: $tablet) and (min-width: $desktop) {
         border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    }  
+    }
 }
 
 .navigation__logo {
@@ -15,7 +15,6 @@
     font-size: 24px;
     line-height: 1.4;
     color: inherit;
-
 
     @media screen and (min-width: $tablet) {
         font-size: 32px;
@@ -33,22 +32,21 @@
         padding-top: 32px;
         padding-bottom: 28px;
     }
-        
+
     @media screen and (min-width: $desktop) {
         padding-top: 28px;
         padding-bottom: 28px;
         padding-left: 16px;
-
     }
 
     &__list {
         color: inherit;
         @media screen and (min-width: $tablet) {
-           display: flex;
-           margin-right: 32px; 
-           margin-left: 48px;
-           font-weight: 700;
-        } 
+            display: flex;
+            margin-right: 32px;
+            margin-left: 48px;
+            font-weight: 700;
+        }
         @media screen and (min-width: $desktop) {
             margin-right: 147px;
             margin-left: 102px;
@@ -63,20 +61,20 @@
             @media screen and (min-width: $desktop) {
                 margin-left: 69px;
             }
-        }    
+        }
     }
 
     &__link {
         @media screen and (min-width: $tablet) and (min-width: $desktop) {
             display: block;
             position: relative;
-        }   
+        }
     }
 
     .active {
         &::after {
             @media screen and (min-width: $tablet) and (min-width: $desktop) {
-                content: "";
+                content: '';
                 position: absolute;
                 bottom: -8px;
                 left: -10%;
@@ -87,6 +85,5 @@
                 display: block;
             }
         }
-    
     }
 }
