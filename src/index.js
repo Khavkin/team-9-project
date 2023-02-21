@@ -15,3 +15,5 @@ refsThemeSwitcher.body.classList.add(Theme.LIGHT);
 refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
 changeTheme();
 
+const calendarInput = document.querySelector('.calendar__input');
+// calendarInput.placeholder = 'Hello!';
