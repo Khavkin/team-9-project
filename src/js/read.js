@@ -14,6 +14,12 @@
 
 import LocalStorage from './api/local-storage-api';
 import icons from '../images/icons.svg';
+import './navigation.js';
+import { Theme, refsThemeSwitcher, onCheckboxClick, changeTheme } from './components/theme_switcher';
+
+refsThemeSwitcher.body.classList.add(Theme.LIGHT);
+refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
+changeTheme();
 
 // // Fake data. 
 // // TODO: Remove
@@ -146,7 +152,7 @@ import icons from '../images/icons.svg';
 //             },
 // ];
 
-const ls = new LocalStorage("readNews");
+const ls = new LocalStorage("team-9-project");
 // ls.addToRead(news[0]);
 // ls.addToRead(news[3]);
 // ls.addToRead(news[5]);
