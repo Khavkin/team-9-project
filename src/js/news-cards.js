@@ -10,10 +10,10 @@ import LocalStorage from './api/local-storage-api';
 const bodyEl = document.querySelector('[data-name="home"]');
 const ulEl = document.querySelector('.list-news-card');
 
-const LocalStorage = new LocalStorage();
+const localStorage = new LocalStorage('team-9-project');
 
 mostPopularNews().then(onPageLoadNews);
-getSearchArticles().then(onPageLoadNews);
+//getSearchArticles().then(onPageLoadNews);
 
 async function onPageLoadNews(news) {
     try {
@@ -24,12 +24,20 @@ async function onPageLoadNews(news) {
         onError(error);
     }
 }
-function createMarkup({ abstract, title, updated, nytdsection, url, media }) {
+function createMarkup({
+    abstract,
+    title,
+    updated,
+    nytdsection,
+    url,
+    media,
+    uri,
+}) {
     let mediaUrl = '../../images/defaultImg.jpg';
     if (media[0]) {
         mediaUrl = media[0]['media-metadata'][2].url;
     }
-    return `<li class="list-news-card__item">
+    return `<li class="list-news-card__item" data-uri="${uri}" data-uri="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated}" data-sectionName="${nytdsection}" data-section="${nytdsection}" data-image="${mediaUrl}">
   <img src="${mediaUrl}" alt="" class="list-news-card__img" />
   <h2 class="list-news-card__title">${title}</h2>
   <span class="list-news-card__category">${nytdsection}</span>
@@ -79,6 +87,11 @@ function onBtnClick(e) {
         e.parentNode.firstElementChild.nextElementSibling.nextElementSibling.classList.add(
             'color-svg2'
         );
+
+        const parent = e.closest('li');
+        console.dir(parent.dataset);
+        const toSave = { ...parent.dataset, isFavorite: true, isRead: false };
+        localStorage.addToFavorites(toSave);
     } else {
         //Значит новость добавлена и нужно ее удалить
         e.parentNode.firstElementChild.textContent = 'Add to favorite';
@@ -89,5 +102,13 @@ function onBtnClick(e) {
         e.parentNode.firstElementChild.nextElementSibling.nextElementSibling.classList.add(
             'hidden'
         );
+        const parent = e.closest('li');
+        console.dir(parent.dataset);
+        const toDel = {
+            ...parent.dataset,
+            isFavorite: true,
+            isRead: false,
+        };
+        localStorage.deleteFromFavorites(toDel);
     }
 }
