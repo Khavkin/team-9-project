@@ -37,7 +37,7 @@ function createMarkup({
     if (media[0]) {
         mediaUrl = media[0]['media-metadata'][2].url;
     }
-    return `<li class="list-news-card__item" data-uri="${uri}" data-uri="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated}" data-sectionName="${nytdsection}" data-section="${nytdsection}" data-image="${mediaUrl}">
+    return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated}" data-sectionName="${nytdsection}" data-section="${nytdsection}" data-image="${mediaUrl}">
   <img src="${mediaUrl}" alt="" class="list-news-card__img" />
   <h2 class="list-news-card__title">${title}</h2>
   <span class="list-news-card__category">${nytdsection}</span>
@@ -55,7 +55,7 @@ function createMarkup({
 </svg>
 </button>
     <div class="container-news-list__date-read"><span class="list-news-card__newsDate">${updated}</span>
-  <a href="${url}" class="list-news-card__link-read-more" target="_blank">Read more</a></div>
+  <a href="${url}" class="list-news-card__link-read-more" target="_blank" data-link='link'>Read more</a></div>
 </li>`;
 }
 function updateNews(markup) {
@@ -70,36 +70,35 @@ ulEl.addEventListener('click', onBtnClick);
 function onBtnClick(e) {
     e = e.target;
 
-    if (!e.parentNode.dataset.add) {
+    let btn = e.parentNode;
+
+    if (btn.type !== 'button') {
         return;
     }
 
-    if (e.parentNode.dataset.add === 'true') {
+    if (btn.dataset.add === 'true') {
         //Значит новость не добавлена и нужно ее добавить
-        e.parentNode.firstElementChild.textContent = 'Remove from favorite';
-        e.parentNode.dataset.add = false;
-        e.parentNode.firstElementChild.nextElementSibling.classList.add(
+        btn.firstElementChild.textContent = 'Remove from favorite';
+        btn.dataset.add = false;
+        btn.firstElementChild.nextElementSibling.classList.add('hidden');
+        btn.firstElementChild.nextElementSibling.nextElementSibling.classList.remove(
             'hidden'
         );
-        e.parentNode.firstElementChild.nextElementSibling.nextElementSibling.classList.remove(
-            'hidden'
-        );
-        e.parentNode.firstElementChild.nextElementSibling.nextElementSibling.classList.add(
+        btn.firstElementChild.nextElementSibling.nextElementSibling.classList.add(
             'color-svg2'
         );
 
         const parent = e.closest('li');
         console.dir(parent.dataset);
         const toSave = { ...parent.dataset, isFavorite: true, isRead: false };
+
         localStorage.addToFavorites(toSave);
     } else {
         //Значит новость добавлена и нужно ее удалить
-        e.parentNode.firstElementChild.textContent = 'Add to favorite';
-        e.parentNode.dataset.add = true;
-        e.parentNode.firstElementChild.nextElementSibling.classList.remove(
-            'hidden'
-        );
-        e.parentNode.firstElementChild.nextElementSibling.nextElementSibling.classList.add(
+        btn.firstElementChild.textContent = 'Add to favorite';
+        btn.dataset.add = true;
+        btn.firstElementChild.nextElementSibling.classList.remove('hidden');
+        btn.firstElementChild.nextElementSibling.nextElementSibling.classList.add(
             'hidden'
         );
         const parent = e.closest('li');
@@ -111,4 +110,25 @@ function onBtnClick(e) {
         };
         localStorage.deleteFromFavorites(toDel);
     }
+}
+
+ulEl.addEventListener('click', onLinkClick);
+
+function onLinkClick(event) {
+    event.preventDefault();
+    const link = event.target;
+
+    if (link.dataset.link !== 'link') {
+        return;
+    }
+
+    const parent = link.closest('li');
+    console.dir(parent.dataset);
+    const toSave = { ...parent.dataset, isFavorite: true, isRead: true };
+
+    // if (!toSave.isRead) {
+    //     return;
+    // }
+    link.parentNode.parentNode.classList.add('opacity');
+    localStorage.addToReaded(toSave);
 }

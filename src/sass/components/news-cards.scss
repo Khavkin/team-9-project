@@ -3,7 +3,7 @@
     margin: 0 auto;
 
     @media screen and (min-width: $tablet) {
-        margin-top: 48px;
+        margin-top: 50px;
         margin-bottom: 50px;
     }
 
@@ -25,10 +25,15 @@
 .list-news-card__item {
     flex-basis: calc((100% - 30px) / 2);
     position: relative;
+    max-height: none;
 
     @media screen and (min-width: $desktop) {
         flex-basis: calc((100% - 60px) / 3);
     }
+}
+
+.opacity {
+    opacity: 40%;
 }
 
 .list-news-card__item:not(:last-child) {
@@ -193,7 +198,7 @@
     margin-left: 5px;
 }
 
-.color-svg {
+.color-svg1 {
     stroke: $color-button-hover;
 }
 
