@@ -37,13 +37,8 @@ body.dark-theme .theme-switch__marker {
 }
 
 .theme-switch {
-  
+  display: flex;
   align-items: center;
- 
-  @media screen and (min-width: 321px) {
-      display: flex;
-    }
-
 }
 
 .theme-switch__icon {
