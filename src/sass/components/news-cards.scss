@@ -1,0 +1,221 @@
+.container-news-card {
+    padding: 0 16px;
+    margin: 0 auto;
+
+    @media screen and (min-width: $tablet) {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        max-width: 1280;
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+}
+
+.list-news-card {
+    @media screen and (min-width: $tablet) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+}
+
+.list-news-card__item {
+    position: relative;
+    max-height: none;
+
+    @media screen and (min-width: $tablet) {
+        flex-basis: calc((100% - 30px) / 2);
+    }
+
+    @media screen and (min-width: $desktop) {
+        flex-basis: calc((100% - 60px) / 3);
+    }
+}
+
+.opacity {
+    opacity: 40%;
+}
+
+.list-news-card__item:not(:last-child) {
+    margin-bottom: 28px;
+
+    @media screen and (min-width: $tablet) {
+        margin-bottom: 0;
+    }
+}
+
+.list-news-card__item:last-child {
+    margin-bottom: 40;
+}
+
+.list-news-card__img {
+    width: 288px;
+    height: 395px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    object-fit: cover;
+
+    @media screen and (min-width: $tablet) {
+        width: 353px;
+        height: 395px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        width: 395px;
+        height: 395px;
+    }
+}
+
+.list-news-card__category {
+    position: absolute;
+    top: 40px;
+    right: 176px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 112px;
+    height: 24px;
+    border-radius: 0 4px 4px 0;
+
+    background-color: $color-label-background;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.36;
+    text-align: center;
+    color: $color-background;
+
+    @media screen and (min-width: $tablet) {
+        right: 241px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        right: 283px;
+    }
+}
+
+.list-news-card__container-title {
+    overflow: hidden;
+
+    height: 99px;
+    @media screen and (min-width: $tablet) {
+        height: 132px;
+    }
+}
+
+.list-news-card__title {
+    font-size: 24px;
+    line-height: 1.36;
+    font-weight: 700;
+
+    color: $color-text;
+
+    @media screen and (min-width: $tablet) {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 1.37;
+        color: $color-background-dark;
+    }
+}
+
+.list-news-card__description {
+    font-size: 14px;
+    line-height: 1.36;
+    color: $color-text;
+    margin: 20px 0;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    @media screen and (min-width: $tablet) {
+        font-size: 16px;
+        line-height: 1.37;
+        color: $color-background-dark;
+        -webkit-line-clamp: 2;
+    }
+}
+
+.list-news-card__newsDate {
+    font-size: 14px;
+    line-height: 1.36;
+    color: $color-date;
+
+    @media screen and (min-width: $tablet) {
+        font-size: 16px;
+        line-height: 1.37;
+    }
+}
+
+.list-news-card__link-read-more {
+    font-size: 14px;
+    line-height: 1.36;
+    color: $color-button-hover;
+
+    @media screen and (min-width: $tablet) {
+        font-size: 16px;
+        line-height: 1.37;
+    }
+}
+
+.container-news-list__date-read {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-news-card__btn-add-favorite {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.36;
+    color: $color-text;
+    min-width: 126px;
+    min-height: 28px;
+    background-color: $color-background;
+    border-radius: 20px;
+    display: flex;
+
+    align-items: center;
+    padding: 6px 12px;
+    position: absolute;
+    top: 355px;
+    left: 155px;
+
+    @media screen and (min-width: $tablet) {
+        top: 355px;
+        left: 215px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        left: 257px;
+    }
+}
+
+.list-news-card__btn-add-favorite--text {
+    font-size: 12px;
+    line-height: 1.36;
+    font-weight: 500;
+    color: $color-text;
+    white-space: nowrap;
+}
+
+.hidden {
+    display: none;
+}
+
+.list-news-card__add-favorite--svg {
+    width: 13px;
+    height: 12px;
+    margin-left: 5px;
+}
+
+.color-svg1 {
+    stroke: $color-button-hover;
+}
+
+.color-svg2 {
+    fill: $color-svg-fill;
+    stroke: $color-button-hover;
+}
