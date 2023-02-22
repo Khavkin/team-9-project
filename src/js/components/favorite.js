@@ -3,6 +3,7 @@ import '../navigation.js';
 import icons from '../../images/icons.svg';
 import { Theme, refsThemeSwitcher, onCheckboxClick, changeTheme } from '../components/theme_switcher';
 
+
 refsThemeSwitcher.body.classList.add(Theme.LIGHT);
 refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
 changeTheme();
