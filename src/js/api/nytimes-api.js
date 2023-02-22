@@ -4,72 +4,74 @@ const mostPopularNewsUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.
 
 // Запит на популярні новини
 async function mostPopularNews() {
-  const articleFetch = await fetch(mostPopularNewsUrl);
-  const articles = await articleFetch.json();
-  const response = articles.results;
-  //   console.log(response);
-  return response;
+    const articleFetch = await fetch(mostPopularNewsUrl);
+    const articles = await articleFetch.json();
+    const response = articles.results;
+    //   console.log(response);
+    return response;
 }
 
 // Запит по категоріям
 async function categoryOfNews() {
-  const categoryList = await fetch(
-    `${urlBase}//news/v3/content/section-list.json?${apiKey}`
-  );
-  const categories = await categoryList.json();
-  const response = categories.results;
-  //   console.log(response);
+    const categoryList = await fetch(
+        `${urlBase}//news/v3/content/section-list.json?${apiKey}`
+    );
+    const categories = await categoryList.json();
+    const response = categories.results;
+    //   console.log(response);
 
-  return response;
+    return response;
 }
 
 // Функція для отримання статей з New York Times за заданим запитом та сторінкою
 async function getSearchArticles(searchQuery, pageNumber) {
-  let dateForUrl = '';
-  try {
-    let date = JSON.parse(localStorage.getItem('date'))
-      .replace('/', '')
-      .replace('/', '');
-    dateForUrl = formatDateForUrl(date);
-  } catch (error) {
-    // Якщо не вдалося отримати дату з локального сховища, то не додаємо її в URL
-  }
+    let dateForUrl = '';
+    try {
+        let date = JSON.parse(localStorage.getItem('date'))
+            .replace('/', '')
+            .replace('/', '');
+        dateForUrl = formatDateForUrl(date);
+    } catch (error) {
+        // Якщо не вдалося отримати дату з локального сховища, то не додаємо її в URL
+    }
 
-  const articlesFetch = await fetch(
-    `${urlBase}/search/v2/articlesearch.json?q=${searchQuery}&${apiKey}&page=${pageNumber}${dateForUrl}`
-  );
-  const articles = await articlesFetch.json();
+    const articlesFetch = await fetch(
+        `${urlBase}/search/v2/articlesearch.json?q=${searchQuery}&${apiKey}&page=${pageNumber}${dateForUrl}`
+    );
+    const articles = await articlesFetch.json();
 
-  let { response, errors } = articles;
+    let { response, errors } = articles;
 
-  if (errors) {
-    handleErrors(errors);
-    return;
-  }
+    if (errors) {
+        handleErrors(errors);
+        return;
+    }
 
-  const sumPage = limitResults(response.meta.hits);
-  let { docs } = response;
+    const sumPage = limitResults(response.meta.hits);
+    let { docs } = response;
 
-  console.log(docs);
-  console.log(sumPage);
+    console.log(docs);
+    console.log(sumPage);
 
-  return docs;
+    return docs;
 }
 
 /* Службові функції */
 // Функція для форматування дати для використання в URL
 function formatDateForUrl(date) {
-  return `&begin_date=${date}&end_date=${date}`;
+    return `&begin_date=${date}&end_date=${date}`;
 }
 
 // Функція для обробки помилок
 function handleErrors(errors) {
-  alert(JSON.parse(errors));
+    alert(JSON.parse(errors));
 }
 
 // Функція для обмеження кількості результатів
 function limitResults(hits) {
-  return Math.min(hits, 1000);
+    return Math.min(hits, 1000);
 }
 
 export { mostPopularNews, categoryOfNews, getSearchArticles, limitResults };
+
+getSearchArticles('ukraine', 1);
