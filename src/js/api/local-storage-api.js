@@ -236,13 +236,13 @@ export default class LocalStorage {
     find(toFind) {
         // возвращает индекс в массиве новостей.
         //console.log(toFind);
-        if (typeOf(toGet) === 'object' && toGet.hasOwnProperty('uri'))
+        if (typeof toGet === 'object' && toGet.hasOwnProperty('uri'))
             return this._data.news.findIndex(value => value.uri === toFind.uri);
         else return -1;
     }
 
     getItem(toGet) {
-        if (typeOf(toGet) === 'object' && toGet.hasOwnProperty('uri')) {
+        if (typeof toGet === 'object' && toGet.hasOwnProperty('uri')) {
             const index = this.find(toGet);
             if (index >= 0) return this._data[index];
             else return null;
