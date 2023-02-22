@@ -101,12 +101,12 @@ body.dark-theme .calendar__input.focus {
     fill: $color-background;
 }
 
-.calendar__overlay {
+.calendar__lining {
     position: absolute;
     top: 31px;
     right: 0px;
     width: 250px;
-    height: 300px;
+    height: 350px;
     pointer-events: none;
     overflow: hidden;
 }
@@ -138,11 +138,23 @@ body.dark-theme .calendar__input.focus {
 }
 
 .calendar__button {
-    padding: 0 5px;
+    padding: 0 4px;
     color: $color-button-hover;
     background-color: inherit;
     font-size: 20px;
     cursor: pointer;
+}
+
+.calendar__month-span {
+    display: inline-flex;
+    width: 82;
+    justify-content: center;
+}
+
+.calendar__year-span {
+    display: inline-flex;
+    width: 40;
+    justify-content: center;
 }
 
 .calendar__day-names {
@@ -184,7 +196,7 @@ body.dark-theme .calendar__input.focus {
     }
 }
 
-.current-date {
+.calendar__current-date {
     color: $color-background;
     background-color: $color-button-hover;
 }
