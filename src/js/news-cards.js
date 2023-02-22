@@ -11,7 +11,6 @@ const bodyEl = document.querySelector('[data-name="home"]');
 const ulEl = document.querySelector('.list-news-card');
 
 const localStorage = new LocalStorage('team-9-project');
-
 mostPopularNews().then(onPageLoadNews);
 // getSearchArticles().then(onPageLoadNews);
 
@@ -66,7 +65,7 @@ function updateNews(markup) {
     ulEl.insertAdjacentHTML('beforeend', markup);
 }
 function onError(error) {
-    console.log(error);
+    console.error(error);
 }
 
 if (ulEl !== null) {

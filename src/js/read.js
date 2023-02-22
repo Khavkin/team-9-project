@@ -68,7 +68,7 @@ function createMarkupForOneDate(date, news) {
         newsList += createMarkup({
             abstract: newsEntity.snippet,
             title: newsEntity.title,
-            updated: newsEntity.newsDate,
+            updated: newsEntity.newsdate,
             nytdsection: newsEntity.sectionName,
             url: newsEntity.url,
             media: newsEntity.image,
@@ -109,7 +109,7 @@ function toggleDate(e) {
         span.children[0].style.display = "inline";
         span.children[1].style.display = "none";
         span.dataset.opened = "true";
-        span.parentElement.parentElement.children[2].style.display = "flex";
+        span.parentElement.parentElement.children[2].style.removeProperty('display');
     }
 }
 
@@ -120,5 +120,5 @@ const iconsArr = Array.from(iconsEl);
 iconsArr.map((galleryIcon) => galleryIcon.addEventListener("click", toggleDate));
 
 function onError(error) {
-  console.log(error);
+  console.error(error);
 }
