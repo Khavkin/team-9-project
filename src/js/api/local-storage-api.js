@@ -99,18 +99,18 @@ const news = [
 ls.addToFavorites(news[0]);
 ls.addToFavorites(news[1]);
 ls.addToFavorites(news[2]);
-ls.addToReaded(news[2]);
+ls.addToRead(news[2]);
 ls.deleteFromFavorites(news[2]);
-ls.addToReaded(news[3]);
-ls.addToReaded(news[4]);
-ls.addToReaded(news[5]);
+ls.addToRead(news[3]);
+ls.addToRead(news[4]);
+ls.addToRead(news[5]);
 ls.addToFavorites(news[5]);
-ls.deleteFromReaded(news[5]);
+ls.deleteFromRead(news[5]);
 ls.addToFavorites(news[6]);
 ls.addToFavorites(news[7]);
 
 console.log(ls.getFavorites());
-console.log(ls.getReaded());
+console.log(ls.getRead());
 
 ls.setTheme('light');
 console.log(ls.getTheme());
