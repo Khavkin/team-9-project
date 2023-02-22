@@ -23,9 +23,12 @@
 }
 
 .list-news-card__item {
-    flex-basis: calc((100% - 30px) / 2);
     position: relative;
     max-height: none;
+
+    @media screen and (min-width: $tablet) {
+        flex-basis: calc((100% - 30px) / 2);
+    }
 
     @media screen and (min-width: $desktop) {
         flex-basis: calc((100% - 60px) / 3);
@@ -93,10 +96,20 @@
     }
 }
 
-.listNewsCard__title {
+.list-news-card__container-title {
+    overflow: hidden;
+
+    height: 99px;
+    @media screen and (min-width: $tablet) {
+        height: 132px;
+    }
+}
+
+.list-news-card__title {
     font-size: 24px;
     line-height: 1.36;
     font-weight: 700;
+
     color: $color-text;
 
     @media screen and (min-width: $tablet) {

@@ -13,7 +13,7 @@ const ulEl = document.querySelector('.list-news-card');
 const localStorage = new LocalStorage('team-9-project');
 
 mostPopularNews().then(onPageLoadNews);
-//getSearchArticles().then(onPageLoadNews);
+// getSearchArticles().then(onPageLoadNews);
 
 async function onPageLoadNews(news) {
     try {
@@ -39,7 +39,7 @@ function createMarkup({
     }
     return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated}" data-sectionName="${nytdsection}" data-section="${nytdsection}" data-image="${mediaUrl}">
   <img src="${mediaUrl}" alt="" class="list-news-card__img" />
-  <h2 class="list-news-card__title">${title}</h2>
+   <div class='list-news-card__container-title'><h2 class="list-news-card__title">${title}</h2></div>
   <span class="list-news-card__category">${nytdsection}</span>
   <p class="list-news-card__description">${abstract}</p>
   <button
