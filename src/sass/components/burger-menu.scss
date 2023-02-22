@@ -1,25 +1,15 @@
-@media screen and (min-width: $mobile) {
+@media screen and (min-width: $tablet) {
 
     .nav__img,
     .nav__pointer {
         display: none;
+        
     }
 }
-
+   
 
 @media screen and (max-width: $mobile) {
 
-    .page-header {
-
-        height: 568px;
-        font-weight: 500;
-    }
-
-
-    .nav__pointer {
-        margin-left: auto;
-
-    }
 
     .navigation__item:hover {
         background-color: $color-text-link;
@@ -50,19 +40,24 @@
     .container {
         height: 100%;
         margin: 0;
-        padding: 24px 16px 0px 0px;
+        display: flex;
+        align-items: center;
+       
+        width: 288px;
+        
     }
 
 
     .navigation {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        height: 81px;
+        width: 288px;
     }
 
     .navigation__logo {
         padding: 0;
-        margin-left: 16px;
+       
     }
 
 
@@ -148,16 +143,9 @@
         transition: 0.4s;
     }
 
-    header {
-        height: 60px;
-    }
+    
 
-
-    .theme-switch {
-        margin-top: 239px;
-        margin-bottom: 20.5px;
-        margin-left: 16px;
-    }
+  
 
 body.dark-theme .menu-burger__header span,
 body.dark-theme .menu-burger__header:after,
@@ -165,4 +153,16 @@ body.dark-theme .menu-burger__header:before {
     background: $color-background;
     
 }
+
+.search-form {
+    margin-right: 20px;
 }
+
+}
+
+@media screen and (max-width: 321px) {
+.theme-switch {
+    display: none;
+}
+}
+
