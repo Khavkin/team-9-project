@@ -130,5 +130,5 @@ function onLinkClick(event) {
     //     return;
     // }
     link.parentNode.parentNode.classList.add('opacity');
-    localStorage.addToReaded(toSave);
+    localStorage.addToRead(toSave);
 }
