@@ -7,7 +7,7 @@
  *    snipet - краткая новость
  *    newsDate - дата новости
  *    readDate - дата прочтения
- *    sectionName - название категории
+ *    section - название категории
  *    isRead - прочитана
  *    isFavorite - избранная
  *
@@ -99,18 +99,18 @@ const news = [
 ls.addToFavorites(news[0]);
 ls.addToFavorites(news[1]);
 ls.addToFavorites(news[2]);
-ls.addToReaded(news[2]);
+ls.addToRead(news[2]);
 ls.deleteFromFavorites(news[2]);
-ls.addToReaded(news[3]);
-ls.addToReaded(news[4]);
-ls.addToReaded(news[5]);
+ls.addToRead(news[3]);
+ls.addToRead(news[4]);
+ls.addToRead(news[5]);
 ls.addToFavorites(news[5]);
-ls.deleteFromReaded(news[5]);
+ls.deleteFromRead(news[5]);
 ls.addToFavorites(news[6]);
 ls.addToFavorites(news[7]);
 
 console.log(ls.getFavorites());
-console.log(ls.getReaded());
+console.log(ls.getRead());
 
 ls.setTheme('light');
 console.log(ls.getTheme());
@@ -121,9 +121,10 @@ export default class LocalStorage {
     _data = { theme: '', news: [] };
     constructor(storageKey) {
         this._storageKey = storageKey;
+
         //this.hardcore();
+
         this._data = this.load();
-        // console.dir(this._data);
     }
 
     load() {
@@ -172,7 +173,6 @@ export default class LocalStorage {
         if (index === -1) {
             newFavorite.isFavorite = true;
             this._data.news.push(newFavorite);
-            //console.dir(this._data);
         } else {
             this._data.news[index].isFavorite = true;
         }
@@ -231,7 +231,7 @@ export default class LocalStorage {
 
     find(toFind) {
         // возвращает индекс в массиве новостей.
-        //console.log(toFind);
+        console.log(toFind);
         if (toFind)
             return this._data.news.findIndex(value => value.uri === toFind.uri);
     }
