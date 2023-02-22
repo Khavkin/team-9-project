@@ -3,11 +3,11 @@ import '../navigation.js';
 
 const localStorage = new LocalStorage('team-9-project');
 
-const galleryConteiner = document.querySelector('.gallery');
-console.log(galleryConteiner);
+const galleryContainer = document.querySelector('.gallery');
+console.log(galleryContainer);
 
 const cardMarkup = createCard(localStorage.getFavorites());
-galleryConteiner.insertAdjacentHTML('beforeend', cardMarkup);
+galleryContainer.insertAdjacentHTML('beforeend', cardMarkup);
 
 function createCard(images) {
     return images
