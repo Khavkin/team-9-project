@@ -61,18 +61,20 @@ const generalUl = document.querySelector('.categories_ul');
 const otherUl = document.querySelector('.special');
 
 const butOther = document.querySelector('.categories_button');
+
+
+
+const svg = document.querySelector(".icon")
+
 // query
 
 butOther.addEventListener('click', clickOth);
-window.addEventListener('click', remclickOth);
 
-function remclickOth() {
-  // butOther.classList.("la")
-}
 
 function clickOth() {
-  butOther.classList.toggle('la');
+  butOther.classList.toggle('chanhe-back');
   otherUl.classList.toggle('is-hidden');
+  svg.classList.toggle("icon-click")
 }
 
 const buttons = P.map(
@@ -88,6 +90,11 @@ const insideBut = P.map(
 const genBut = buttons.slice(1, 7);
 generalUl.insertAdjacentHTML('afterbegin', genBut.join(''));
 
-const insideOth = insideBut.slice(7, 19);
 
+const insideOth = insideBut.slice(7, 19);
 otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
+
+
+const displayBut = document.querySelector(".display_button")
+console.log(displayBut);
+
