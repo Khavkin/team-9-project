@@ -77,7 +77,7 @@ function clickOth() {
 
 const buttons = P.map(
   paragraf =>
-    `<li> <button type = "button" class ="categories_button" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+    `<li> <button type = "button" class ="categories_button display_button" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
 );
 
 const insideBut = P.map(
