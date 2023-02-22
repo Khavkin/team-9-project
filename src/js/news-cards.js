@@ -89,7 +89,7 @@ function onBtnClick(e) {
         );
 
         const parent = e.closest('li');
-        console.dir(parent.dataset);
+
         const toSave = { ...parent.dataset, isFavorite: true, isRead: false };
 
         localStorage.addToFavorites(toSave);
@@ -102,7 +102,7 @@ function onBtnClick(e) {
             'hidden'
         );
         const parent = e.closest('li');
-        console.dir(parent.dataset);
+
         const toDel = {
             ...parent.dataset,
             isFavorite: true,
@@ -123,7 +123,7 @@ function onLinkClick(event) {
     }
 
     const parent = link.closest('li');
-    console.dir(parent.dataset);
+
     const toSave = { ...parent.dataset, isFavorite: true, isRead: true };
 
     // if (!toSave.isRead) {
