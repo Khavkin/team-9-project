@@ -1,7 +1,7 @@
 .page-header {
     min-width: $mobile;
-    @media screen and (min-width: $tablet) and (min-width: $desktop) {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    @media screen and (min-width: $tablet) {
+        border-bottom: 1px solid $color-header-divider;
     }
 }
 
@@ -9,7 +9,7 @@
     padding-top: 28px;
     padding-bottom: 28px;
 
-    font-family: 'Manrope';
+    font-family: inherit;
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
@@ -26,6 +26,7 @@
 }
 
 .navigation {
+    display: none;
     @media screen and (min-width: $tablet) {
         display: flex;
         align-items: baseline;
@@ -43,13 +44,23 @@
         color: inherit;
         @media screen and (min-width: $tablet) {
             display: flex;
-            margin-right: 32px;
+            margin-right: 32px; 
             margin-left: 48px;
             font-weight: 700;
-        }
+            font-family: inherit;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 1.4;      
+        } 
         @media screen and (min-width: $desktop) {
             margin-right: 147px;
             margin-left: 102px;
+            font-family: inherit;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1.4;
         }
     }
 
@@ -65,7 +76,7 @@
     }
 
     &__link {
-        @media screen and (min-width: $tablet) and (min-width: $desktop) {
+        @media screen and (min-width: $tablet) {
             display: block;
             position: relative;
         }
@@ -73,7 +84,7 @@
 
     .active {
         &::after {
-            @media screen and (min-width: $tablet) and (min-width: $desktop) {
+            @media screen and (min-width: $tablet) {
                 content: '';
                 position: absolute;
                 bottom: -8px;
