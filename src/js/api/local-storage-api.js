@@ -121,7 +121,7 @@ export default class LocalStorage {
     _data = { theme: '', news: [] };
     constructor(storageKey) {
         this._storageKey = storageKey;
-        this.hardcore();
+        //this.hardcore();
         this._data = this.load();
         // console.dir(this._data);
     }
@@ -189,7 +189,7 @@ export default class LocalStorage {
             if (this._data.news[index].isRead) {
                 this._data.news[index].isFavorite = false;
             } else {
-                this._data.news = this._data.news.splice(index, 1);
+                this._data.news.splice(index, 1);
             }
             this.save();
         }
@@ -219,7 +219,7 @@ export default class LocalStorage {
             if (this._data.news[index].isRead) {
                 this._data.news[index].isFavorite = false;
             } else {
-                this._data.news = this._data.news.splice(index, 1);
+                this._data.news.splice(index, 1);
             }
             this.save();
         }
