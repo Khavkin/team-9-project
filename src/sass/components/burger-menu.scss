@@ -42,7 +42,7 @@
         margin: 0;
         display: flex;
         align-items: center;
-       
+        padding: 0;
         width: 288px;
         
     }
@@ -57,6 +57,7 @@
 
     .navigation__logo {
         padding: 0;
+        margin-left: 16px;
        
     }
 
@@ -87,6 +88,8 @@
 
     .menu-burger__header {
         position: relative;
+        margin-bottom: 6px;
+        margin-right: 16px;
         width: 18px;
         height: 18px;
         display: block;
@@ -164,5 +167,13 @@ body.dark-theme .menu-burger__header:before {
 .theme-switch {
     display: none;
 }
+
+.search-form__icon {
+
+    display: flex;
+
+}
+
+
 }
 
