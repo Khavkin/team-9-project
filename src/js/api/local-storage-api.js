@@ -121,6 +121,9 @@ export default class LocalStorage {
     _data = { theme: '', news: [] };
     constructor(storageKey) {
         this._storageKey = storageKey;
+
+        //this.hardcore();
+
         this._data = this.load();
     }
 
@@ -158,7 +161,7 @@ export default class LocalStorage {
         return this._data.news.filter(value => value.isFavorite === true);
     }
 
-    getReaded() {
+    getRead() {
         return this._data.news.filter(value => value.isRead === true);
     }
 
@@ -186,14 +189,14 @@ export default class LocalStorage {
             if (this._data.news[index].isRead) {
                 this._data.news[index].isFavorite = false;
             } else {
-                this._data.news = this._data.news.splice(index, 1);
+                this._data.news.splice(index, 1);
             }
             this.save();
         }
         // 3. сохранить сторедж
         // вернуть результат
     }
-    addToReaded(newReaded) {
+    addToRead(newReaded) {
         if (!newReaded) return false;
         const index = this.find(newReaded);
 
@@ -207,7 +210,7 @@ export default class LocalStorage {
         // проверить есть ли эта новость со свойством read=true;
     }
 
-    deleteFromReaded(toDelete) {
+    deleteFromRead(toDelete) {
         if (!toDelete) return false;
         const index = this.find(toDelete);
 
@@ -216,7 +219,7 @@ export default class LocalStorage {
             if (this._data.news[index].isRead) {
                 this._data.news[index].isFavorite = false;
             } else {
-                this._data.news = this._data.news.splice(index, 1);
+                this._data.news.splice(index, 1);
             }
             this.save();
         }

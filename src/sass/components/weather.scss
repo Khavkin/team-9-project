@@ -31,7 +31,7 @@
         @media screen and (min-width: $tablet) {
             width: 289px;
             height: 86px;
-            margin-bottom: 89px;
+            margin-bottom: 80px;
         }
 
     }
@@ -58,7 +58,6 @@
 
     &__sky {
         margin: 0px;
-        margin-bottom: 5px;
         font-size: 24px;
         color: $color-background;
 
@@ -71,12 +70,15 @@
         color: currentColor;
         background-position: center;
         position: absolute;
-        bottom: 8px;
+        max-width: 18px;
+            height: 18px;
+        bottom: 12px;
         left: 8px;
 
         @media screen and (min-width: $tablet) {
             max-width: 27px;
             height: 27px;
+            bottom: 3px;
         }
     }
 
@@ -105,7 +107,7 @@
         @media screen and (min-width: $tablet) {
             width: 165px;
             height: 156px;
-            margin-bottom: 90px;
+            margin-bottom: 80px;
         }
     }
 
