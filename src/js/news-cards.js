@@ -11,7 +11,6 @@ const bodyEl = document.querySelector('[data-name="home"]');
 const ulEl = document.querySelector('.list-news-card');
 
 const localStorage = new LocalStorage('team-9-project');
-
 mostPopularNews().then(onPageLoadNews);
 // getSearchArticles().then(onPageLoadNews);
 
@@ -33,9 +32,13 @@ function createMarkup({
     media,
     uri,
 }) {
+    // TODO: Default image doesnt work, need to fix it.
     let mediaUrl = '../../images/defaultImg.jpg';
-    if (media[0]) {
+    if (typeof(media) === 'object' && media[0]) {
+        // TODO: Нам це треба? в якому випадку в нас там об*єкт?
         mediaUrl = media[0]['media-metadata'][2].url;
+    } else if (typeof(media) === 'string') {
+        mediaUrl = media;
     }
     return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated}" data-sectionName="${nytdsection}" data-section="${nytdsection}" data-image="${mediaUrl}">
   <img src="${mediaUrl}" alt="" class="list-news-card__img" />
@@ -62,10 +65,12 @@ function updateNews(markup) {
     ulEl.insertAdjacentHTML('beforeend', markup);
 }
 function onError(error) {
-    console.log(error);
+    console.error(error);
 }
 
-ulEl.addEventListener('click', onBtnClick);
+if (ulEl !== null) {
+    ulEl.addEventListener('click', onBtnClick);
+};
 
 function onBtnClick(e) {
     e = e.target;
@@ -112,10 +117,12 @@ function onBtnClick(e) {
     }
 }
 
-ulEl.addEventListener('click', onLinkClick);
+if (ulEl !== null) {
+    ulEl.addEventListener('click', onLinkClick);
+};
 
 function onLinkClick(event) {
-    event.preventDefault();
+    // event.preventDefault();
     const link = event.target;
 
     if (link.dataset.link !== 'link') {
@@ -132,3 +139,5 @@ function onLinkClick(event) {
     link.parentNode.parentNode.classList.add('opacity');
     localStorage.addToRead(toSave);
 }
+
+export { createMarkup };
