@@ -4,6 +4,7 @@ import LocalStorage from './js/api/local-storage-api';
 import  {Theme, refsThemeSwitcher, onCheckboxClick, changeTheme} from './js/components/theme_switcher' ;
 import * as FakeAPI from './js/api/fake-api';
 import './js/components/weather';
+import './js/components/news-list'
 
 const localStorage = new LocalStorage('team-9-project');
 
