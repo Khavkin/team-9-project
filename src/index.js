@@ -28,3 +28,4 @@ function onDaysClick(e) {
     calendarFild.classList.remove('focus');
     calendarInput.classList.remove('focus');
 }
+
