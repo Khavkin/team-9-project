@@ -69,7 +69,7 @@ function createMarkupForOneDate(date, news) {
             abstract: newsEntity.snippet,
             title: newsEntity.title,
             updated: newsEntity.newsdate,
-            nytdsection: newsEntity.sectionname,
+            nytdsection: newsEntity.sectionName,
             url: newsEntity.url,
             media: newsEntity.image,
             uri: newsEntity.uri
