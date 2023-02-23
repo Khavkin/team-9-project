@@ -105,7 +105,9 @@ function onError(error) {
     console.error(error);
 }
 
-ulEl.addEventListener('click', onBtnClick);
+if (ulEl !== null) {
+    ulEl.addEventListener('click', onBtnClick);
+}
 
 function onBtnClick(e) {
     e = e.target;
