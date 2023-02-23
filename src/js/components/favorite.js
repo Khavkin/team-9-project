@@ -34,9 +34,9 @@ function createFavoriteMarkup({
 <p class="list-news-card__description">${snippet}</p>
 <button
     type="button"
-    class="list-news-card__btn-add-favorite"
+    class="list-news-card__btn-add-remove"
     data-add="true"
-  ><span class="list-news-card__btn-add-favorite--text">Remove from Favorite</span>
+  ><span class="list-news-card__btn-add-remove--text">Remove from Favorite</span>
   <svg class="list-news-card__add-favorite--svg color-svg1  hidden" width="16" height="16" viewBox="0 0 37 32">
   <path d="M10.67 1.143c-4.819 0-8.768 3.897-8.768 8.688 0 3.665 1.623 12.157 15.004 20.384l.003.002.006.003c.841.511 1.9.511 2.741 0l.015-.008-.006.003c13.382-8.227 15.004-16.719 15.004-20.384 0-4.791-3.949-8.688-8.768-8.688-4.066 0-6.587 2.8-7.616 4.063-1.029-1.262-3.55-4.063-7.616-4.063zm0 2.286c3.378 0 6.701 4.112 6.701 4.112a1.144 1.144 0 0 0 1.828.003l.002-.003s3.323-4.112 6.701-4.112c3.597 0 6.482 2.859 6.482 6.402 0 3.059-1.049 10.524-13.911 18.433a.357.357 0 0 1-.375 0C5.236 20.355 4.187 12.89 4.187 9.831c0-3.543 2.885-6.402 6.482-6.402z"/>
 </svg>
