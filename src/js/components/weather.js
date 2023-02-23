@@ -5,7 +5,7 @@ import svgRain from '../../images/iconsweather/rain.svg';
 import svgSnow from '../../images/iconsweather/snow.svg';
 import svgStorm from '../../images/iconsweather/storm.svg';
 import svgGeolocation from '../../images/iconsweather/carbonLocation.svg';
-console.log(svgGeolocation);
+
 const content = document.querySelector('ul.list-news');
 // const content = document.querySelector('ul.list-news');
 
@@ -32,7 +32,7 @@ let dayMonth = 0;
 function getMon() {
 month = months[data.getMonth()];
 // refs.weekday.textContent = month;
-console.log(month);
+
 }
 
 
@@ -40,19 +40,19 @@ console.log(month);
 function getMonDay() {
 dayMonth = data.getUTCDate();
 // refs.weekday.textContent = dayMonth;
-console.log(dayMonth);
+
 }
 
 function getWeekday() {
 weekday = weekdays[data.getUTCDay()];
 // refs.weekday.textContent = weekday;
-console.log(weekday);
+
 }
 
 function getYear() {
 year = data.getUTCFullYear();
 // refs.weekday.textContent = year;
-console.log(year);
+
 }
 
 // refs.dayYears.textContent = `${dayMonth} ${month} ${year}`;
@@ -71,8 +71,7 @@ function onSuccess (position) {
     .then(r => r.json())
     .then(result => weatherDet(result))
     .catch(error => { console.log(error) });
-    console.log(latitude);
-    console.log(longitude);
+   
 }
 
 function onError(err) {
@@ -101,7 +100,7 @@ function weatherDet(data) {
       `${svgRain}`; 
   }
   updateDate();
-  // console.log(iconWeather);
+
   return (content.innerHTML = `
     <li class="weather">
             <div class="weather__container">
