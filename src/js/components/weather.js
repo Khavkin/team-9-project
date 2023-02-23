@@ -6,9 +6,9 @@ import svgSnow from '../../images/iconsweather/snow.svg';
 import svgStorm from '../../images/iconsweather/storm.svg';
 import svgGeolocation from '../../images/iconsweather/carbonLocation.svg';
 console.log(svgGeolocation);
-const content = document.querySelector('ul.list-news');
+// const content = document.querySelector('ul.list-news');
 
-markupWeather()
+
 
 const refs = {
     weekday: document.querySelector('.weather__weekday'),
@@ -17,11 +17,12 @@ const refs = {
     sky: document.querySelector('.weather__sky'),
     geolocation: document.querySelector('.weather__geolocation'),
     iconWeather: document.querySelector('.weather__icon'),
-    buttonForWeatherSevenDay: document.querySelector('.weather__button'),
-    linkForWeatherSevenDay: document.querySelector('.weather__link-but'),
+    linkForWeatherSevenDay: document.querySelector('.weather__link'),
     content: document.querySelector('section div.container'),
   
 };
+
+
 
 const data = new Date();
 
@@ -81,12 +82,19 @@ console.log(coordinatsUser);
 
 function onSuccess (position) {
     const {latitude, longitude} = position.coords;
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=164a02a79a239efd4c817829a733c4d8`).then(r => r.json()).then(result => weatherDet(result)).catch(error => { console.log(error) });
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=164a02a79a239efd4c817829a733c4d8`)
+    .then(r => r.json())
+    .then(result => weatherDet(result))
+    .catch(error => { console.log(error) });
     console.log(latitude);
     console.log(longitude);
 }
 
-function onError (err) {
+function onError(err) {
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=50.4024049&lon=30.5353666&units=metric&appid=164a02a79a239efd4c817829a733c4d8`)
+    .then(r => r.json())
+    .then(result => weatherDet(result))
+    .catch(error => { console.log(error) });; 
     console.log(err.message)
 }
 
@@ -143,7 +151,7 @@ function markupWeather() {
             <p class="weather__weekday">Mon</p>
             <p class="weather__date">21 Jan 2021</p>
             <a class="weather__link-but" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2"
-            target="_blank" rel="noopener noreferrer">weather for week</a>
+                target="_blank" rel="noopener noreferrer">weather for week</a>
         </li>`);
 }
 
