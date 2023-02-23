@@ -1,4 +1,6 @@
+//import debounce from 'debounce';
 // import debounce from 'lodash.debounce';
+
 import './js/navigation.js';
 import './js/api/nytimes-api';
 import {dateForRequest, createCurrentMonth} from './js/components/calendar';
@@ -7,6 +9,8 @@ import LocalStorage from './js/api/local-storage-api';
 import * as FakeAPI from './js/api/fake-api';
 import './js/components/weather';
 import './js/news-cards.js';
+import './js/components/categories/categories.js'
+
 
 const localStorage = new LocalStorage('team-9-project');
 

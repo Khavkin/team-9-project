@@ -109,21 +109,18 @@
     font-size: 24px;
     line-height: 1.36;
     font-weight: 700;
-
-    color: $color-text;
+    color: inherit;
 
     @media screen and (min-width: $tablet) {
-        font-weight: 700;
         font-size: 32px;
         line-height: 1.37;
-        color: $color-background-dark;
     }
 }
 
 .list-news-card__description {
     font-size: 14px;
     line-height: 1.36;
-    color: $color-text;
+    color: inherit;
     margin: 20px 0;
     -webkit-line-clamp: 3;
     display: -webkit-box;
@@ -133,7 +130,6 @@
     @media screen and (min-width: $tablet) {
         font-size: 16px;
         line-height: 1.37;
-        color: $color-background-dark;
         -webkit-line-clamp: 2;
     }
 }

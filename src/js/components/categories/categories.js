@@ -1,3 +1,6 @@
+import { getArticleByCategory } from '../../api/nytimes-api';
+import { onPageLoadNews } from '../../news-cards';
+
 const P = [
   { section: 'admin', display_name: 'Admin' },
   { section: 'arts', display_name: 'Arts' },
@@ -7,24 +10,24 @@ const P = [
   { section: 'business', display_name: 'Business' },
   { section: 'climate', display_name: 'Climate' },
   { section: 'corrections', display_name: 'Corrections' },
-  {
-    section: 'crosswords \u0026 games',
-    display_name: 'Crosswords \u0026 Games',
-  },
+  // {
+  //   section: 'crosswords \u0026 games',
+  //   display_name: 'Crosswords \u0026 Games',
+  // },
   { section: 'education', display_name: 'Education' },
-  { section: 'en español', display_name: 'En Español' },
+  // { section: 'en español', display_name: 'En Español' },
   { section: 'fashion', display_name: 'Fashion' },
   { section: 'food', display_name: 'Food' },
   { section: 'guides', display_name: 'Guides' },
   { section: 'health', display_name: 'Health' },
-  { section: 'home \u0026 garden', display_name: 'Home \u0026 Garden' },
-  { section: 'home page', display_name: 'Home Page' },
-  { section: 'job market', display_name: 'Job Market' },
+  // { section: 'home \u0026 garden', display_name: 'Home \u0026 Garden' },
+  // { section: 'home page', display_name: 'Home Page' },
+  // { section: 'job market', display_name: 'Job Market' },
   { section: 'lens', display_name: 'Lens' },
   { section: 'magazine', display_name: 'Magazine' },
   { section: 'movies', display_name: 'Movies' },
   { section: 'multimedia/photos', display_name: 'Multimedia/Photos' },
-  { section: 'new york', display_name: 'New York' },
+  // { section: 'new york', display_name: 'New York' },
   { section: 'obituaries', display_name: 'Obituaries' },
   { section: 'opinion', display_name: 'Opinion' },
   { section: 'parenting', display_name: 'Parenting' },
@@ -60,26 +63,29 @@ const generalUl = document.querySelector('.categories_ul');
 
 const otherUl = document.querySelector('.special');
 
-const butOther = document.querySelector('.categories_button');
+const butOther = document.querySelector('.special_but');
 
-
+const allBut = document.querySelectorAll(".categories_button")
 
 const svg = document.querySelector(".icon")
+
+const display_button = document.querySelector(".display_buttons")
+
+ 
 
 // query
 
 butOther.addEventListener('click', clickOth);
 
-
 function clickOth() {
-  butOther.classList.toggle('chanhe-back');
   otherUl.classList.toggle('is-hidden');
-  svg.classList.toggle("icon-click")
+  svg.classList.toggle("icon-click");
+  butOther.classList.toggle("bek-for-other");
 }
 
 const buttons = P.map(
   paragraf =>
-    `<li> <button type = "button" class ="categories_button display_button" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+    `<li> <button type = "button" class ="categories_button display_button " data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
 );
 
 const insideBut = P.map(
@@ -87,14 +93,30 @@ const insideBut = P.map(
     `<li class = "inside_li"> <button type = "button" class ="other_but" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
 );
 
-const genBut = buttons.slice(1, 7);
-generalUl.insertAdjacentHTML('afterbegin', genBut.join(''));
-
 
 const insideOth = insideBut.slice(7, 19);
 otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
 
+const desktop = buttons.slice(1, 7);
 
-const displayBut = document.querySelector(".display_button")
-console.log(displayBut);
+const tablet = buttons.slice(1,5)
+   
+display_button.insertAdjacentHTML('afterbegin', desktop.join(''));
 
+otherUl.addEventListener("click", onTagClick);
+
+display_button.addEventListener("click", onTagClick);
+
+  function onTagClick (e) {
+    if (e.target.nodeName !== 'BUTTON') {
+      return;
+    }
+  
+    const currentButton = document.querySelector('.click-chang-bac');
+    if (currentButton) {
+      currentButton.classList.remove("click-chang-bac")
+    }
+    e.target.classList.add('click-chang-bac');
+    let category = e.target.dataset.section;
+    getArticleByCategory(category).then(onPageLoadNews);
+};
