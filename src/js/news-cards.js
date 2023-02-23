@@ -19,7 +19,6 @@ async function onPageLoadNews(news) {
         const markup = news.map(news => createMarkup(news)).join('');
         updateNews(markup);
     } catch (error) {
-        debugger;
         onError(error);
     }
 }
