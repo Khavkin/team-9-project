@@ -3,11 +3,13 @@ const modalButton = document.querySelector('.menu-burger__header');
 const closeButton = document.querySelector('.close-modal');
 
 modalButton.addEventListener('click', () => {
-  modal.style.display = 'block';
+ 
+  modal.style.top = '0';
 });
 
 closeButton.addEventListener('click', () => {
-  modal.style.display = 'none';
+ 
+  modal.style.top = '-100%';
 });
 
 window.addEventListener('click', (event) => {
@@ -21,6 +23,9 @@ const themeSwitch = document.querySelector('.theme-switch');
 if (window.innerWidth < 767) {
   themeSwitch.style.display = 'none';
 }
+
+
+
 
 
 
