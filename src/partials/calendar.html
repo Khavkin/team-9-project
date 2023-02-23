@@ -1,0 +1,43 @@
+<div class="calendar">
+    <input
+      class="calendar__input"
+      type="text"
+      name="calendar"
+      placeholder="Select a date..."
+    />
+    <svg class="calendar__icon calendar__icon--calendar">
+        <use href="./images/icons.svg#calendar"></use>
+    </svg>
+    <svg class="calendar__icon calendar__icon--up calendar-is-hidden">
+        <use href="./images/icons.svg#icon-up"></use>
+    </svg>
+    <svg class="calendar__icon calendar__icon--down">
+        <use href="./images/icons.svg#icon-down"></use>
+    </svg>
+    <div class="calendar__lining">
+        <div class="calendar__fild">
+            <div class="calendar__paginator">
+                <div class="calendar__paginator--monthes">
+                    <button class="calendar__button" id="prev-button-month">&#60</button>
+                    <span class="calendar__month-span" id="month-span"></span>
+                    <button class="calendar__button" id="next-button-month">&#62</button>
+                </div>
+                <div class="cacalendar__paginator--years">
+                    <button class="calendar__button" id="prev-button-year">&#60</button>
+                    <span class="calendar__year-span" id="year-span"></span>
+                    <button class="calendar__button" id="next-button-year">&#62</button>
+                </div>
+            </div>
+            <ul class="calendar__day-names">
+                <li>Mo</li>
+                <li>Tu</li>
+                <li>We</li>
+                <li>Th</li>
+                <li>Fr</li>
+                <li>Sa</li>
+                <li>Su</li>
+            </ul>
+            <ul class="calendar__days"></ul>
+        </div>
+    </div>
+</div>
