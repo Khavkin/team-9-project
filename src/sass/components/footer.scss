@@ -1,8 +1,22 @@
-footer {
-  height: 120px;
+.footer {
+    height: 120px;
+    flex-shrink: 0;
 
-  @media screen and (min-width: $tablet) {
-    height: 146px;
-  }
-  background-color: $color-footer-background;
+    @media screen and (min-width: $tablet) {
+        height: 146px;
+    }
+    background-color: $color-footer-background;
+}
+
+html,
+body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper {
+    flex: 1 0 auto;
 }

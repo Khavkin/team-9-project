@@ -16,7 +16,6 @@ mostPopularNews().then(onPageLoadNews);
 
 async function onPageLoadNews(news) {
     try {
-        console.log(news);
         const markup = news.map(news => createMarkup(news)).join('');
         updateNews(markup);
     } catch (error) {
@@ -60,13 +59,17 @@ function createMarkup({
     <div class="container-news-list__date-read"><span class="list-news-card__newsDate">${updated}</span>
   <a href="${url}" class="list-news-card__link-read-more" target="_blank" data-link='link'>Read more</a></div>
 </li>`;
-}
+};
+
 function updateNews(markup) {
-    ulEl.insertAdjacentHTML('beforeend', markup);
-}
+    if (ulEl !== null) {
+        ulEl.insertAdjacentHTML('beforeend', markup);
+    }
+};
+
 function onError(error) {
     console.error(error);
-}
+};
 
 if (ulEl !== null) {
     ulEl.addEventListener('click', onBtnClick);
