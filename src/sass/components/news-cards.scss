@@ -138,10 +138,9 @@
     }
 }
 
-.list-news-card__newsDate {
+.news-card__news-date {
     font-size: 14px;
     line-height: 1.36;
-    color: $color-date;
 
     @media screen and (min-width: $tablet) {
         font-size: 16px;
@@ -190,6 +189,18 @@
 
     @media screen and (min-width: $desktop) {
         left: 257px;
+    }
+}
+
+.btn-position {
+    left: 120px;
+
+    @media screen and (min-width: $tablet) {
+        left: 179px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        left: 221px;
     }
 }
 
