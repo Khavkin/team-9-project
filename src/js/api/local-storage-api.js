@@ -124,7 +124,7 @@ export default class LocalStorage {
     constructor(storageKey) {
         this._storageKey = storageKey;
 
-        this.hardcore();
+       // this.hardcore();
 
         this._data = this.load();
     }
