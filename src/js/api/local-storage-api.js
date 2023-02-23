@@ -12,111 +12,10 @@
  *    isfavorite - избранная
  *
  * }
- * 
- * import LocalStorage from './js/api/local-storage-api';
+ *
+ ***********************/
 
-const ls = new LocalStorage('test');
-const news = [
-  {
-    uri: '1234',
-    url: '',
-    image: '2222',
-    snipet: 'sdlsjdlsldkj',
-    newsdate: Date.now(),
-    readdate: Date.now(),
-    section: 'test',
-    isread: false,
-    isfavorite: false,
-  },
-  {
-    uri: '12345',
-    url: '',
-    image: '2222dfd',
-    snipet: 'sdlsjdlsldfdfdkj',
-    newsdate: Date.now(),
-    readdate: Date.now(),
-    section: 'test1',
-    isread: true,
-    isfavorite: false,
-  },
-  {
-    uri: '12345434',
-    url: '',
-    image: '2222',
-    snipet: 'sdlsjdlsldkj',
-    newsdate: Date.now(),
-    readdate: Date.now(),
-    section: 'test',
-    isread: false,
-    isfavorite: false,
-  },
-  {
-    uri: '1234-234423',
-    url: '',
-    image: '2222',
-    snipet: 'sdlsjdlsldkj',
-    newsdate: Date.now(),
-    readdate: Date.now(),
-    section: 'test',
-    isread: false,
-    isfavorite: false,
-  },
-  {
-    uri: '1234-989343',
-    url: '',
-    image: '2222',
-    snipet: 'sdlsjdlsldkj',
-    newsdate: Date.now(),
-    readdate: Date.now(),
-    section: 'test',
-    isread: false,
-    isfavorite: false,
-  },
-  {
-    uri: '1234-423345-234',
-    url: '',
-    image: '2222',
-    snipet: 'sdlsjdlsldkj',
-    newsdate: Date.now(),
-    readdate: Date.now(),
-    section: 'test',
-    isread: false,
-    isfavorite: false,
-  },
-  {
-    uri: '1234-223433-234323',
-    url: '',
-    image: '2222',
-    snipet: 'sdlsjdlsldkj',
-    newsdate: Date.now(),
-    readdate: Date.now(),
-    section: 'test',
-    isread: false,
-    isfavorite: false,
-  },
-];
-
-ls.addToFavorites(news[0]);
-ls.addToFavorites(news[1]);
-ls.addToFavorites(news[2]);
-ls.addToRead(news[2]);
-ls.deleteFromFavorites(news[2]);
-ls.addToRead(news[3]);
-ls.addToRead(news[4]);
-ls.addToRead(news[5]);
-ls.addToFavorites(news[5]);
-ls.deleteFromRead(news[5]);
-ls.addToFavorites(news[6]);
-ls.addToFavorites(news[7]);
-
-console.log(ls.getFavorites());
-console.log(ls.getRead());
-
-ls.setTheme('light');
-console.log(ls.getTheme());
- */
-
-const isTest = true;
+const isTest = false;
 
 export default class LocalStorage {
     _storageKey = '';
@@ -124,9 +23,11 @@ export default class LocalStorage {
     constructor(storageKey) {
         this._storageKey = storageKey;
 
-        this.hardcore();
+        // this.hardcore();
 
         this._data = this.load();
+
+        // console.dir(this.getItem(this._data.news[0]));
     }
 
     load() {
@@ -236,7 +137,7 @@ export default class LocalStorage {
     find(toFind) {
         // возвращает индекс в массиве новостей.
         //console.log(toFind);
-        if (typeof toGet === 'object' && toGet.hasOwnProperty('uri'))
+        if (typeof toFind === 'object' && toFind.hasOwnProperty('uri'))
             return this._data.news.findIndex(value => value.uri === toFind.uri);
         else return -1;
     }
@@ -244,7 +145,7 @@ export default class LocalStorage {
     getItem(toGet) {
         if (typeof toGet === 'object' && toGet.hasOwnProperty('uri')) {
             const index = this.find(toGet);
-            if (index >= 0) return this._data[index];
+            if (index >= 0) return this._data.news[index];
             else return null;
         }
     }
