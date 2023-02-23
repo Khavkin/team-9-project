@@ -39,7 +39,7 @@
 }
 
 .calendar__input::placeholder {
-    color: $color-date;
+    color: $color-themeSwitcher-passive;
 }
 
 .calendar__input.focus {
@@ -71,7 +71,7 @@ body.dark-theme .calendar__input.focus {
     top: 8px;
     height: 15px;
     width: 15px;
-    fill: $color-date;
+    fill: $color-themeSwitcher-passive;
 }
 
 .calendar__icon--calendar {
@@ -189,6 +189,16 @@ body.dark-theme .calendar__input.focus {
     line-height: 1.79;
     border-radius: 50%;
     cursor: pointer;
+
+    &:hover {
+        color: $color-background;
+        background-color: $color-button-hover;
+    }
+}
+
+.calendar__day:nth-child(7n),
+.calendar__day:nth-child(7n+6) {
+    color: $color-themeSwitcher-passive;
 
     &:hover {
         color: $color-background;
