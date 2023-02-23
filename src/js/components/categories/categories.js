@@ -70,6 +70,7 @@ const svg = document.querySelector(".icon")
 
 const display_button = document.querySelector(".display_buttons")
 
+
 // query
 
 butOther.addEventListener('click', clickOth);
@@ -99,35 +100,10 @@ otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
 const desktop = buttons.slice(1, 7);
 
 const tablet = buttons.slice(1,5)
-
-
-// window.addEventListener("resize",la)
-
-// function la () {
-
-// const windowSize = window.innerWidth
-
-// if (windowSize >= 1280) {
-
    
 display_button.insertAdjacentHTML('afterbegin', desktop.join(''));
-    // return
-
-// }
-
-// else if (windowSize >= 768 && window.innerWidth < 1280) {
- 
-  //  generalUl.insertAdjacentHTML('afterbegin', tablet.join(''));
-  // return
-// }
-// }
-
-
+   
 display_button.addEventListener("click", onTagClick);
-
-
-
-
 
   function onTagClick (e) {
     if (e.target.nodeName !== 'BUTTON') {
