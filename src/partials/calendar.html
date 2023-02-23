@@ -14,18 +14,18 @@
     <svg class="calendar__icon calendar__icon--down">
         <use href="./images/icons.svg#icon-down"></use>
     </svg>
-    <div class="calendar__overlay">
+    <div class="calendar__lining">
         <div class="calendar__fild">
             <div class="calendar__paginator">
                 <div class="calendar__paginator--monthes">
-                    <button class="calendar__button">&#60</button>
-                    <span>February</span>
-                    <button class="calendar__button">&#62</button>
+                    <button class="calendar__button" id="prev-button-month">&#60</button>
+                    <span class="calendar__month-span" id="month-span"></span>
+                    <button class="calendar__button" id="next-button-month">&#62</button>
                 </div>
                 <div class="cacalendar__paginator--years">
-                    <button class="calendar__button">&#60</button>
-                    <span>2023</span>
-                    <button class="calendar__button">&#62</button>
+                    <button class="calendar__button" id="prev-button-year">&#60</button>
+                    <span class="calendar__year-span" id="year-span"></span>
+                    <button class="calendar__button" id="next-button-year">&#62</button>
                 </div>
             </div>
             <ul class="calendar__day-names">
@@ -37,39 +37,7 @@
                 <li>Sa</li>
                 <li>Su</li>
             </ul>
-            <ul class="calendar__days">
-                <li class="calendar__day">1</li>
-                <li class="calendar__day">2</li>
-                <li class="calendar__day">3</li>
-                <li class="calendar__day">4</li>
-                <li class="calendar__day">5</li>
-                <li class="calendar__day">6</li>
-                <li class="calendar__day">7</li>
-                <li class="calendar__day">8</li>
-                <li class="calendar__day">9</li>
-                <li class="calendar__day">10</li>
-                <li class="calendar__day">11</li>
-                <li class="calendar__day">12</li>
-                <li class="calendar__day">13</li>
-                <li class="calendar__day">14</li>
-                <li class="calendar__day">15</li>
-                <li class="calendar__day">16</li>
-                <li class="calendar__day">17</li>
-                <li class="calendar__day">18</li>
-                <li class="calendar__day">19</li>
-                <li class="calendar__day">20</li>
-                <li class="calendar__day current-date">21</li>
-                <li class="calendar__day">22</li>
-                <li class="calendar__day">23</li>
-                <li class="calendar__day">24</li>
-                <li class="calendar__day">25</li>
-                <li class="calendar__day">26</li>
-                <li class="calendar__day">27</li>
-                <li class="calendar__day">28</li>
-                <li class="calendar__day">29</li>
-                <li class="calendar__day">30</li>
-                <li class="calendar__day">31</li>
-            </ul>
+            <ul class="calendar__days"></ul>
         </div>
     </div>
 </div>
