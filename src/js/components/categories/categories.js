@@ -65,9 +65,10 @@ const otherUl = document.querySelector('.special');
 const butOther = document.querySelector('.special_but');
 
 const allBut = document.querySelectorAll(".categories_button")
-console.log(allBut);
 
 const svg = document.querySelector(".icon")
+
+const display_button = document.querySelector(".display_buttons")
 
 // query
 
@@ -78,6 +79,7 @@ butOther.addEventListener('click', clickOth);
 function clickOth() {
   otherUl.classList.toggle('is-hidden');
   svg.classList.toggle("icon-click")
+  butOther.classList.toggle("bek-for-other")
 }
 
 const buttons = P.map(
@@ -108,7 +110,7 @@ const tablet = buttons.slice(1,5)
 // if (windowSize >= 1280) {
 
    
-    generalUl.insertAdjacentHTML('afterbegin', desktop.join(''));
+display_button.insertAdjacentHTML('afterbegin', desktop.join(''));
     // return
 
 // }
@@ -121,16 +123,22 @@ const tablet = buttons.slice(1,5)
 // }
 
 
-generalUl.addEventListener("click", onTagClick);
+display_button.addEventListener("click", onTagClick);
 
 
 
 
 
   function onTagClick (e) {
-    if (e.target.nodeName !== 'BUTTON') return;
+    if (e.target.nodeName !== 'BUTTON') {
+      return;
+    }
+
+
     const currentButton = document.querySelector('.click-chang-bac');
-    currentButton?.classList.remove('click-chang-bac');
+    if (currentButton) {
+      currentButton.classList.remove("click-chang-bac")
+    }
     e.target.classList.add('click-chang-bac');
 }
 

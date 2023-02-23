@@ -126,9 +126,15 @@ width: 112px;
 
 .click-chang-bac {
   background-color: $color-button-hover;
-
-  color: white;
+  color: $color-background;
 }
 
+.display_buttons{
+  display: flex;
+  column-gap: 16px;  
+}
 
-
+.bek-for-other{
+  background-color: $color-button-hover;
+  color: $color-background;
+}
