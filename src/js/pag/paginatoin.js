@@ -24,19 +24,6 @@ function onPaginClick(e) {
     ) {
         valuePage.curPage -= 1;
     }
-    sliceItems = null;
-    if (window.innerWidth < 768) {
-        windowWidth = 4;
-        wetherPosition = -1;
-    }
-    if (window.innerWidth > 768 && window.innerWidth < 1280) {
-        windowWidth = 7;
-        wetherPosition = 0;
-    }
-    if (window.innerWidth >= 1280) {
-        windowWidth = 8;
-        wetherPosition = 1;
-    }
 
     window.scrollTo(0, 0);
 }
@@ -57,24 +44,18 @@ pg.addEventListener('click', e => {
 
         valuePage.curPage = pageNumber;
         pagination(valuePage);
-
-        // handleButtonLeft();
-        // handleButtonRight();
     }
 });
 
-// DYNAMIC PAGINATION?]
 function pagination() {
     const { totalPages, curPage, numLinksTwoSide: delta } = valuePage;
 
-    const range = delta + 4; // use for handle visible number of links left side
-
+    const range = delta + 4;
     let render = '';
     let renderTwoSide = '';
     let dot = `<li class="pg-item"><a class="pg-link">...</a></li>`;
-    let countTruncate = 0; // use for ellipsis - truncate left side or right side
+    let countTruncate = 0;
 
-    // use for truncate two side
     const numberTruncateLeft = curPage - delta;
     const numberTruncateRight = curPage + delta;
 
@@ -137,34 +118,12 @@ document
 function handleButton(element) {
     if (element.classList.contains('prev-page')) {
         valuePage.curPage--;
-        // handleButtonLeft();
+
         btnNextPg.disabled = false;
-        //  btnLastPg.disabled = false;
     } else if (element.classList.contains('next-page')) {
         valuePage.curPage++;
-        // handleButtonRight();
+
         btnPrevPg.disabled = false;
-        //  btnFirstPg.disabled = false;
     }
     pagination();
 }
-// function handleButtonLeft() {
-//     if (valuePage.curPage === 1) {
-//         btnPrevPg.disabled = true;
-//         //  btnFirstPg.disabled = true;
-//     } else {
-//         btnPrevPg.disabled = false;
-//         //  btnFirstPg.disabled = false;
-//     }
-// }
-// function handleButtonRight() {
-//     if (valuePage.curPage === valuePage.totalPages) {
-//         //  console.log(valuePage.curPage);
-//         btnNextPg.disabled = true;
-//         //  btnLastPg.disabled = true;
-//     } else {
-//         btnNextPg.disabled = false;
-//         //  btnLastPg.disabled = false;
-//     }
-// }
-//////
