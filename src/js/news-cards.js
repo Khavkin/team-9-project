@@ -26,9 +26,12 @@ function createMarkup({
     abstract,
     title,
     updated,
+    updated_date,
     nytdsection,
+    section,
     url,
     media,
+    multimedia,
     uri,
 }) {
     // TODO: Default image doesnt work, need to fix it.
@@ -36,13 +39,18 @@ function createMarkup({
     if (typeof(media) === 'object' && media[0]) {
         // TODO: Нам це треба? в якому випадку в нас там об*єкт?
         mediaUrl = media[0]['media-metadata'][2].url;
-    } else if (typeof(media) === 'string') {
+    } else if (typeof (multimedia) === 'object') {
+        try { mediaUrl = multimedia[2].url; }
+        catch { 
+            // Oops, no image. We'll use default image.
+         }
+    } else if (typeof (media) === 'string') {
         mediaUrl = media;
     }
-    return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated}" data-sectionName="${nytdsection}" data-section="${nytdsection}" data-image="${mediaUrl}">
+    return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated || updated_date}" data-sectionName="${nytdsection || section}" data-section="${nytdsection || section}" data-image="${mediaUrl}">
   <img src="${mediaUrl}" alt="" class="list-news-card__img" />
    <div class='list-news-card__container-title'><h2 class="list-news-card__title">${title}</h2></div>
-  <span class="list-news-card__category">${nytdsection}</span>
+  <span class="list-news-card__category">${nytdsection || section}</span>
   <p class="list-news-card__description">${abstract}</p>
   <button
       type="button"
@@ -56,14 +64,14 @@ function createMarkup({
   <path d="M8.382 2.286C4.174 2.286.761 5.662.761 9.829c0 3.362 1.335 11.344 14.459 19.413a1.494 1.494 0 0 0 1.565-.004l-.006.004c13.125-8.069 14.459-16.05 14.459-19.413 0-4.167-3.413-7.543-7.621-7.543-4.206 0-7.618 4.571-7.618 4.571s-3.413-4.571-7.618-4.571z"/>
 </svg>
 </button>
-    <div class="container-news-list__date-read"><span class="list-news-card__newsDate">${updated}</span>
+    <div class="container-news-list__date-read"><span class="list-news-card__newsDate">${updated || updated_date}</span>
   <a href="${url}" class="list-news-card__link-read-more" target="_blank" data-link='link'>Read more</a></div>
 </li>`;
 };
 
 function updateNews(markup) {
     if (ulEl !== null) {
-        ulEl.insertAdjacentHTML('beforeend', markup);
+        ulEl.innerHTML = markup;
     }
 };
 
@@ -143,4 +151,4 @@ function onLinkClick(event) {
     localStorage.addToRead(toSave);
 }
 
-export { createMarkup };
+export { createMarkup, onPageLoadNews };
