@@ -1,3 +1,4 @@
+
 const P = [
   { section: 'admin', display_name: 'Admin' },
   { section: 'arts', display_name: 'Arts' },
@@ -60,9 +61,10 @@ const generalUl = document.querySelector('.categories_ul');
 
 const otherUl = document.querySelector('.special');
 
-const butOther = document.querySelector('.categories_button');
+const butOther = document.querySelector('.special_but');
 
-
+const allBut = document.querySelectorAll(".categories_button")
+console.log(allBut);
 
 const svg = document.querySelector(".icon")
 
@@ -71,15 +73,15 @@ const svg = document.querySelector(".icon")
 butOther.addEventListener('click', clickOth);
 
 
+
 function clickOth() {
-  butOther.classList.toggle('chanhe-back');
   otherUl.classList.toggle('is-hidden');
   svg.classList.toggle("icon-click")
 }
 
 const buttons = P.map(
   paragraf =>
-    `<li> <button type = "button" class ="categories_button display_button" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+    `<li> <button type = "button" class ="categories_button display_button " data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
 );
 
 const insideBut = P.map(
@@ -87,14 +89,58 @@ const insideBut = P.map(
     `<li class = "inside_li"> <button type = "button" class ="other_but" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
 );
 
-const genBut = buttons.slice(1, 7);
-generalUl.insertAdjacentHTML('afterbegin', genBut.join(''));
-
 
 const insideOth = insideBut.slice(7, 19);
 otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
 
+const desktop = buttons.slice(1, 7);
 
-const displayBut = document.querySelector(".display_button")
-console.log(displayBut);
+const tablet = buttons.slice(1,5)
+
+
+// window.addEventListener("resize",la)
+
+// function la () {
+
+// const windowSize = window.innerWidth
+
+// if (windowSize >= 1280) {
+
+   
+    generalUl.insertAdjacentHTML('afterbegin', desktop.join(''));
+    // return
+
+// }
+
+// else if (windowSize >= 768 && window.innerWidth < 1280) {
+ 
+  //  generalUl.insertAdjacentHTML('afterbegin', tablet.join(''));
+  // return
+// }
+// }
+
+
+generalUl.addEventListener("click", onTagClick);
+
+
+
+
+
+  function onTagClick (e) {
+    if (e.target.nodeName !== 'BUTTON') return;
+    const currentButton = document.querySelector('.click-chang-bac');
+    currentButton?.classList.remove('click-chang-bac');
+    e.target.classList.add('click-chang-bac');
+}
+
+
+
+
+
+  
+
+
+
+
+
 
