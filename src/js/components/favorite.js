@@ -3,20 +3,14 @@ import '../navigation.js';
 import icons from '../../images/icons.svg';
 import { Theme, refsThemeSwitcher, onCheckboxClick, changeTheme } from '../components/theme_switcher';
 
-
 refsThemeSwitcher.body.classList.add(Theme.LIGHT);
 refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
 changeTheme();
 
-
 const localStorage = new LocalStorage('team-9-project');
 
 const galleryContainer = document.querySelector('.gallery');
-console.log(galleryContainer);
-
-// const cardMarkup = createCard(localStorage.getFavorites());
- const cardMarkup = localStorage.getFavorites().map(data => createFavoriteMarkup(data)).join("");
-
+const cardMarkup = localStorage.getFavorites().map(data => createFavoriteMarkup(data)).join("");
 galleryContainer.insertAdjacentHTML('beforeend', cardMarkup);
 
 
@@ -50,4 +44,4 @@ function createFavoriteMarkup({
 }
 
 
-console.dir(localStorage.getFavorites());
+
