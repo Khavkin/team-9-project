@@ -6,77 +6,44 @@ import svgSnow from '../../images/iconsweather/snow.svg';
 import svgStorm from '../../images/iconsweather/storm.svg';
 import svgGeolocation from '../../images/iconsweather/carbonLocation.svg';
 console.log(svgGeolocation);
-// const content = document.querySelector('ul.list-news');
+const content = document.querySelector('ul.list-news');
 
 
 
-const refs = {
-    weekday: document.querySelector('.weather__weekday'),
-    dayYears: document.querySelector('.weather__date'),
-    temperature: document.querySelector('.weather__temperature'),
-    sky: document.querySelector('.weather__sky'),
-    geolocation: document.querySelector('.weather__geolocation'),
-    iconWeather: document.querySelector('.weather__icon'),
-    linkForWeatherSevenDay: document.querySelector('.weather__link'),
-    content: document.querySelector('section div.container'),
-  
-};
-
-
-
-const data = new Date();
-
-const months = ["Jan", "Feb", "Mar", "Apr", "May","Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
-let year = 0;
-let weekday = 0;
-let month = 0;
-let dayMonth = 0;
-
-function getMon() {
-month = months[data.getMonth()];
-// refs.weekday.textContent = month;
-console.log(month);
+function markupWeather() {
+  content.innerHTML = `
+  <li class="weather">
+            <div class="weather__container">
+                <span class="weather__temperature">2º</span>
+                <div class="weather__iformation-for-weather">
+                    <p class="weather__sky">Sunny</p>
+                    <img class="weather__icon-geolocation" src=${svgGeolocation} alt="icon-geoloc">
+                    <input class="weather__geolocation" type="text" name="geolocation" value="geolocation">
+                </div>
+            </div>
+            <img class="weather__icon" src="" alt="Weather Icon">
+            <p class="weather__weekday">Mon</p>
+            <p class="weather__date">21 Jan 2021</p>
+            <a class="weather__link-but" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2"
+                target="_blank" rel="noopener noreferrer">weather for week</a>
+        </li>`, fetGeolocation();
 }
 
-getMon();
 
 
-function getMonDay() {
-dayMonth = data.getUTCDate();
-// refs.weekday.textContent = dayMonth;
-console.log(dayMonth);
-}
-
-getMonDay();
-
-function getWeekday() {
-weekday = weekdays[data.getUTCDay()];
-refs.weekday.textContent = weekday;
-console.log(weekday);
-}
-
-getWeekday();
-
-function getYear() {
-year = data.getUTCFullYear();
-// refs.weekday.textContent = year;
-console.log(year);
-}
-
-getYear();
 
 
-refs.dayYears.textContent = `${dayMonth} ${month} ${year}`;
 
 
 
 
 
 // const API_KEY = "164a02a79a239efd4c817829a733c4d8";
-const coordinatsUser = navigator.geolocation.getCurrentPosition(onSuccess, onError);
-console.log(coordinatsUser);
+function fetGeolocation() {
+  const coordinatsUser = navigator.geolocation.getCurrentPosition(onSuccess, onError);
+}
+
+
 
 
 
@@ -91,7 +58,7 @@ function onSuccess (position) {
 }
 
 function onError(err) {
-  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=50.4024049&lon=30.5353666&units=metric&appid=164a02a79a239efd4c817829a733c4d8`)
+  fetch(`https://api.openweathermap.org/data/2.5/weather?lat=50.4199177&lon=30.4983085&units=metric&appid=164a02a79a239efd4c817829a733c4d8`)
     .then(r => r.json())
     .then(result => weatherDet(result))
     .catch(error => { console.log(error) });; 
@@ -116,8 +83,8 @@ function weatherDet(data) {
   refs.geolocation.value = city;
   refs.sky.textContent = sky;
   refs.temperature.textContent = `${temperature} º`;
-  refs.linkForWeatherSevenDay.href = `https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2`
-  // refs.iconWeather = iconWeather;
+  // refs.linkForWeatherSevenDay.href = `https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2`
+
   if (idWeather == 800) {
       refs.iconWeather.src = `${svgClear}`; 
     } else if (idWeather >= 200 && idWeather <= 232) {
@@ -130,30 +97,63 @@ function weatherDet(data) {
       refs.iconWeather.src = `${svgCloud}`;
     } else if ((idWeather >= 500 && idWeather <= 531) || (id >= 300 && id <= 321)) {
       refs.iconWeather.src = `${svgRain}`; 
-    }
+  }
+  
+  const date = new Date();
+
+  const months = ["Jan", "Feb", "Mar", "Apr", "May","Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+  let year = 0;
+  let weekday = 0;
+  let month = 0;
+  let dayMonth = 0;
+
+  function getMon() {
+  month = months[date.getMonth()];
+  // refs.weekday.textContent = month;
+  console.log(month);
+  }
+  getMon();
+  function getMonDay() {
+  dayMonth = date.getUTCDate();
+  // refs.weekday.textContent = dayMonth;
+  console.log(dayMonth);
+  }
+
+  getMonDay();
+
+  function getWeekday() {
+  weekday = weekdays[date.getUTCDay()];
+  refs.weekday.textContent = weekday;
+  console.log(weekday);
+  }
+
+  getWeekday();
+
+  function getYear() {
+  year = date.getUTCFullYear();
+  // refs.weekday.textContent = year;
+  console.log(year);
+  }
+
+  getYear();
+
+  refs.dayYears.textContent = `${dayMonth} ${month} ${year}`;
   // console.log(iconWeather);
   return
 }
 
-        
-function markupWeather() {
-  return (content.innerHTML = `
-  <li class="weather">
-            <div class="weather__container">
-                <span class="weather__temperature">2º</span>
-                <div class="weather__iformation-for-weather">
-                    <p class="weather__sky">Sunny</p>
-                    <img class="weather__icon-geolocation" src=${svgGeolocation} alt="icon-geoloc">
-                    <input class="weather__geolocation" type="text" name="geolocation" value="geolocation">
-                </div>
-            </div>
-            <img class="weather__icon" src="" alt="Weather Icon">
-            <p class="weather__weekday">Mon</p>
-            <p class="weather__date">21 Jan 2021</p>
-            <a class="weather__link-but" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2"
-                target="_blank" rel="noopener noreferrer">weather for week</a>
-        </li>`);
-}
-
+const refs = {
+    weekday: document.querySelector('.weather__weekday'),
+    dayYears: document.querySelector('.weather__date'),
+    temperature: document.querySelector('.weather__temperature'),
+    sky: document.querySelector('.weather__sky'),
+    geolocation: document.querySelector('.weather__geolocation'),
+    iconWeather: document.querySelector('.weather__icon'),
+    linkForWeatherSevenDay: document.querySelector('.weather__link'),
+    content: document.querySelector('section div.container'),
+  
+};
 
 export {getMon, getMonDay, getWeekday, getYear, onSuccess, onError, weatherDet, markupWeather};
