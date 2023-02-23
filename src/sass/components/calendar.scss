@@ -20,7 +20,7 @@
     line-height: 1.75;
     cursor: pointer;
     outline: none;
-    color: $color-text;
+    color: $color-themeSwitcher-passive;
 
     @media screen and (min-width: $tablet) {
         font-size: 14px;
@@ -30,6 +30,7 @@
     &:hover {
         background-color: $color-button-hover;
         border-color: $color-button-hover;
+        color: $color-background;
 
         &::placeholder {
             color: $color-background;
@@ -44,6 +45,7 @@
 .calendar__input.focus {
     background-color: $color-button-hover;
     border-color: $color-button-hover;
+    color: $color-background;
 
     &::placeholder {
         color: $color-background;
@@ -86,6 +88,11 @@ body.dark-theme .calendar__input.focus {
     }
 }
 
+.calendar__icon--up {
+    pointer-events: all;
+    cursor: pointer;
+}
+
 .calendar__input:hover ~ .calendar__icon {
     fill: $color-background;
 }
@@ -94,12 +101,12 @@ body.dark-theme .calendar__input.focus {
     fill: $color-background;
 }
 
-.calendar__overlay {
+.calendar__lining {
     position: absolute;
     top: 31px;
     right: 0px;
     width: 250px;
-    height: 300px;
+    height: 350px;
     pointer-events: none;
     overflow: hidden;
 }
@@ -131,11 +138,23 @@ body.dark-theme .calendar__input.focus {
 }
 
 .calendar__button {
-    padding: 0 5px;
+    padding: 0 4px;
     color: $color-button-hover;
     background-color: inherit;
     font-size: 20px;
     cursor: pointer;
+}
+
+.calendar__month-span {
+    display: inline-flex;
+    width: 82;
+    justify-content: center;
+}
+
+.calendar__year-span {
+    display: inline-flex;
+    width: 40;
+    justify-content: center;
 }
 
 .calendar__day-names {
@@ -177,7 +196,7 @@ body.dark-theme .calendar__input.focus {
     }
 }
 
-.current-date {
+.calendar__current-date {
     color: $color-background;
     background-color: $color-button-hover;
 }

@@ -24,7 +24,12 @@ const refs = {
 };
 
 refs.buttonForWeatherSevenDay.addEventListener('click', onFetchSiteWeatherOnSevenDay)
-function onFetchSiteWeatherOnSevenDay () {}
+function onFetchSiteWeatherOnSevenDay(e) {
+  if (e.target.nodeName === "BUTTON") {
+    return fetch('ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2');
+  }
+  return
+}
 
 const data = new Date();
 
@@ -92,17 +97,24 @@ function onSuccess (position) {
 function onError (err) {
     console.log(err.message)
 }
-
+// function gisMet(latitud, longitud) {
+//   fetch(`curl -H 'X-Gismeteo-Token: 56b30cb255.3443075'https://api.gismeteo.net/v2/search/cities/?latitude=${latitud}&longitude=${longitud}&limit=10`).then(r => r.json()).then(result => console.log(result)).catch(error => { console.log(error) });
+// }
 function weatherDet(data) {
+  // const latitud = Number(data.coord.lat.toFixed(2));
+  // const longitud = Number(data.coord.lon.toFixed(2));
+  // console.log(latitud);
+  // console.log(longitud);
   const city = data.name;
-  const cityId = data.id;
+  // const cityId = gisMet(latitud, longitud);
+  // console.log(cityId);
   const temperature = Math.floor(data.main.temp);
   const sky = data.weather[0].main;
   const idWeather = data.weather[0].id;
   refs.geolocation.value = city;
   refs.sky.textContent = sky;
-  refs.temperature.textContent = `${temperature} º`;
-  refs.linkForWeatherSevenDay.href = `https://www.gismeteo.ua/ua/weather-${city.toLowerCase()}-${cityId}/10-days/`
+  refs.temperature.textContent = `${temperature}º`;
+  // refs.linkForWeatherSevenDay.href = `https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-${city}`
   // refs.iconWeather = iconWeather;
   if (idWeather == 800) {
       refs.iconWeather.src = `${svgClear}`; 
@@ -136,7 +148,7 @@ function markupWeather() {
             <img class="weather__icon" src="" alt="Weather Icon">
             <p class="weather__weekday">Mon</p>
             <p class="weather__date">21 Jan 2021</p>
-            <button class="weather__button"><a class="weather__link" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2" target="_blank" 
+            <button type="button" class="weather__button"><a class="weather__link" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2" target="_blank" 
                 rel="noopener noreferrer">weather for week</a></button>
         </li>`);
 }
