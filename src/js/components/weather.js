@@ -5,7 +5,7 @@ import svgRain from '../../images/iconsweather/rain.svg';
 import svgSnow from '../../images/iconsweather/snow.svg';
 import svgStorm from '../../images/iconsweather/storm.svg';
 import svgGeolocation from '../../images/iconsweather/carbonLocation.svg';
-console.log(svgGeolocation);
+
 const content = document.querySelector('ul.list-news');
 
 
@@ -32,19 +32,10 @@ function markupWeather() {
 
 
 
-
-
-
-
-
-
 // const API_KEY = "164a02a79a239efd4c817829a733c4d8";
 function fetGeolocation() {
   const coordinatsUser = navigator.geolocation.getCurrentPosition(onSuccess, onError);
 }
-
-
-
 
 
 function onSuccess (position) {
@@ -53,8 +44,6 @@ function onSuccess (position) {
     .then(r => r.json())
     .then(result => weatherDet(result))
     .catch(error => { console.log(error) });
-    console.log(latitude);
-    console.log(longitude);
 }
 
 function onError(err) {
@@ -67,14 +56,7 @@ function onError(err) {
 
 
 function weatherDet(data) {
-    // const latitud = Number(data.coord.lat.toFixed(2));
-  // const longitud = Number(data.coord.lon.toFixed(2));
-  // console.log(latitud);
-  // console.log(longitud);
   const city = data.name;
-  // const cityId = data.id;
-  // const cityId = gisMet(latitud, longitud);
-  // console.log(cityId);
   const temperature = Math.floor(data.main.temp);
   refs.temperature.textContent = `${temperature}º`;
   // refs.linkForWeatherSevenDay.href = `https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-${city}`
@@ -112,35 +94,28 @@ function weatherDet(data) {
   function getMon() {
   month = months[date.getMonth()];
   // refs.weekday.textContent = month;
-  console.log(month);
   }
   getMon();
+
   function getMonDay() {
   dayMonth = date.getUTCDate();
   // refs.weekday.textContent = dayMonth;
-  console.log(dayMonth);
   }
-
   getMonDay();
 
   function getWeekday() {
   weekday = weekdays[date.getUTCDay()];
   refs.weekday.textContent = weekday;
-  console.log(weekday);
   }
-
   getWeekday();
 
   function getYear() {
   year = date.getUTCFullYear();
   // refs.weekday.textContent = year;
-  console.log(year);
   }
-
   getYear();
 
   refs.dayYears.textContent = `${dayMonth} ${month} ${year}`;
-  // console.log(iconWeather);
   return
 }
 
