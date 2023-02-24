@@ -8,21 +8,35 @@ import {
 import LocalStorage from './api/local-storage-api';
 import icons from '../images/icons.svg';
 import defaultImg from '../images/defaultImg.jpg';
+import { markupWeather } from './components/weather';
+import debounce from 'lodash.debounce';
+
+document.addEventListener('DOMContentLoaded', onChangeResize)
+
+window.addEventListener(
+    'resize',
+    debounce(() => {
+      onChangeResize();
+    }, 100)
+);
 
 const bodyEl = document.querySelector('[data-name="home"]');
 const ulEl = document.querySelector('.list-news-card');
 const iconsURL = icons.slice(0, icons.indexOf('?'));
 
+let amountOfElements = 0;
+let wetherPosition = 0;
+
 const localStorage = new LocalStorage('team-9-project');
 
-mostPopularNews().then(onPageLoadNews);
+// mostPopularNews().then(onPageLoadNews);
 // getSearchArticles().then(onPageLoadNews);
 
-async function onPageLoadNews(news, amountOfElements) {
+async function onPageLoadNews(news, amountOfElements, wetherPosition) {
     try {
         const resizeNews = news.slice(0, amountOfElements);
-        const markup = resizeNews.map(news => createMarkup(news)).join('');
-
+        const markup = resizeNews.map(news => createMarkup(news));
+        markup.splice(wetherPosition, 0, markupWeather()).join(''); 
         updateNews(markup);
     } catch (error) {
         onError(error);
@@ -104,6 +118,32 @@ function updateNews(markup) {
 function onError(error) {
     console.error(error);
 }
+
+function onChangeResize() { 
+
+  const windowSize = window.innerWidth;
+    if (windowSize < 768) {
+      amountOfElements = 4;
+      wetherPosition = 0;
+
+  }
+
+  if (windowSize >= 768 && windowSize < 1280) {
+    amountOfElements = 7;
+    wetherPosition = 1;
+
+  };
+
+  if (windowSize >= 1280) {
+    amountOfElements = 8;
+    wetherPosition = 2;
+  }
+  
+
+  mostPopularNews().then((data) => {
+    onPageLoadNews(data, amountOfElements, wetherPosition);
+  });
+};
 
 if (ulEl !== null) {
     ulEl.addEventListener('click', onBtnClick);
