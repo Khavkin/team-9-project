@@ -78,8 +78,7 @@ function onBtnClick(e) {
             'color-svg2'
         );
         const parent = e.closest('li');
-        const toSave = { ...parent.dataset,  };
-        
+        const toSave = { ...parent.dataset };
     } else {
         btn.firstElementChild.textContent = 'Add to favorite';
         btn.dataset.add = false;
@@ -89,24 +88,10 @@ function onBtnClick(e) {
         );
         const parent = e.closest('li');
         const toDel = {
-            ...parent.dataset,
-            // isFavorite: true,
-            // isRead: false,
+          ...parent.dataset,
         };
         localStorage.deleteFromFavorites(toDel);
-        parent.remove()
-        // galleryContainer.innerHTML = '';
+        parent.remove();
     }
 }
 
-// const readNewsGroupedByDate = groupByDate(readNews);
-
-// if (readNews.length === 0) {
-//     galleryEl.innerHTML = 
-//     `<h2 class="rip-title">Sorry, we haven't found any read news.
-//     </h2>
-//     <div class="rip-container container">
-//     </div>`
-// } else {
-//     galleryEl.innerHTML = createMarkupForAllDates(readNewsGroupedByDate);
-// }
