@@ -13,14 +13,6 @@ const months = [
     {name: 'December', days: 31},
 ]
 
-const currentDate = new Date();
-const currentYear = currentDate.getFullYear();
-const currentMonth = months[currentDate.getMonth()];
-const currentDay = currentDate.getDate();
-let selectedMonth = currentDate.getMonth();
-let selectedYear = currentYear;
-let dateForRequest = null;
-
 const refsCalendar = {
     calendarFild: document.querySelector('.calendar__fild'),
     calendarInput: document.querySelector('.calendar__input'),
@@ -35,13 +27,12 @@ const refsCalendar = {
     calendarNextButtonYear: document.getElementById('next-button-year'),
 };
 
-refsCalendar.calendarInput.addEventListener('focus', onCalendarInputFocus);
-refsCalendar.calendarDays.addEventListener('click', onDaysClick);
-refsCalendar.calendarIconUp.addEventListener('click', onButtonUpClick);
-refsCalendar.calendarPrevButtonMonth.addEventListener('click', onPrevButtonMonth);
-refsCalendar.calendarNextButtonMonth.addEventListener('click', onNextButtonMonth);
-refsCalendar.calendarPrevButtonYear.addEventListener('click', onPrevButtonYear);
-refsCalendar.calendarNextButtonYear.addEventListener('click', onNextButtonYear);
+const currentDate = new Date();
+const currentMonth = months[currentDate.getMonth()];
+const currentDay = currentDate.getDate();
+const currentYear = currentDate.getFullYear();
+let selectedMonth = currentDate.getMonth();
+let selectedYear = currentYear;
 
 function onCalendarInputFocus () {
     refsCalendar.calendarFild.classList.add('focus');
@@ -62,8 +53,6 @@ function onDaysClick (e) {
     refsCalendar.calendarIconUp.classList.add('calendar-is-hidden');
     refsCalendar.calendarIconDown.classList.remove('calendar-is-hidden');
     refsCalendar.calendarInput.value = `${addLeadingZero(e.target.textContent)}-${addLeadingZero(selectedMonth + 1)}-${selectedYear}`;
-    
-    dateForRequest = currentDate.setFullYear(selectedYear, selectedMonth, Number(e.target.textContent));
 }
 
 function onButtonUpClick () {
@@ -110,27 +99,18 @@ function onNextButtonMonth () {
 }
 
 function createDaysMarkup (year, month) {
-    currentDate.setFullYear(selectedYear, selectedMonth, 1);
-    let firstDay = currentDate.getDay();
-    let emptyFild = '';    
     let markup = '';
-
-    if (year % 4 === 0 && month === 28) month += 1;
-    if (firstDay === 0) firstDay += 7;
-
+    if (year % 4 === 0 && month === 28) {
+        month += 1;
+    }
     for (let i = 1; i <= month; i += 1) {
         markup +=`<li class="calendar__day" id="currentmonth-day-${i}">${i}</li>`;
     }
-    
-    for (let i = 0; i < firstDay - 1; i += 1) {
-        emptyFild += '<li class="calendar__day calendar__day--empty"></li>';
-    }
-    
-    return emptyFild + markup;
+    return markup;
 }
 
 function addLeadingZero(value) {
     return String(value).padStart(2, '0');
 }
 
-export {dateForRequest, createCurrentMonth};
+export {refsCalendar, onCalendarInputFocus, onDaysClick, onButtonUpClick, createCurrentMonth, onPrevButtonYear, onNextButtonYear, onPrevButtonMonth, onNextButtonMonth};
