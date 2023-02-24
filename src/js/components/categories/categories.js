@@ -32,7 +32,7 @@ const P = [
   { section: 'magazine', display_name: 'Magazine' },
   { section: 'movies', display_name: 'Movies' },
   { section: 'multimedia/photos', display_name: 'Multimedia/Photos' },
-  { section: 'new york', display_name: 'New York' },
+  // { section: 'new york', display_name: 'New York' },
   { section: 'obituaries', display_name: 'Obituaries' },
   { section: 'opinion', display_name: 'Opinion' },
   { section: 'parenting', display_name: 'Parenting' },
@@ -106,14 +106,31 @@ const insideBut = P.map(
 
 // зміна ширини
 
-let originalWindowWidth = window.innerHeight
-console.log(originalWindowWidth);
+// let originalWindowWidth = window.innerHeight
+
+//  const isRerenderNeeded = () => {
+//   let currentWindowWidth = window.innerWidth
 
 
-const desktop = buttons.slice(1, 7);
+//   console.log(originalWindowWidth,currentWindowWidth);
+
+//   if ((currentWindowWidth < 768 && originalWindowWidth < 768) || (currentWindowWidth >= 768 && originalWindowWidth >= 768)) {
+//     return false
+//   }
+// originalWindowWidth = window.innerWidth
+
+// return true
+//  }
+ 
+//  const renderButtons = (amount) => {
+//   const genbut  = buttons.slice(1,amount)
+//  }
+
+
 
 // const tablet = buttons.slice(1,5)
-   
+const desktop = buttons.slice(1, 7);
+
 display_button.insertAdjacentHTML('afterbegin', desktop.join(''));
    
 
