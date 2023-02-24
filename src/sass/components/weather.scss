@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     max-height: 469px;
-    padding: 37px 32px 32px 32px;
+    padding: 32px;
     background-color: $color-button-hover;
 
     @media screen and (min-width: $mobile) {
@@ -25,11 +25,11 @@
     &__container {
         display: flex;
         flex-direction: row;
-        margin-bottom: 54px;
+        margin-bottom: 50px;
         max-height: 86px;
 
         @media screen and (min-width: $tablet) {
-            width: 289px;
+            width: 280px;
             height: 86px;
             margin-bottom: 80px;
         }
@@ -71,14 +71,16 @@
         background-position: center;
         position: absolute;
         max-width: 18px;
-            height: 18px;
-        bottom: 12px;
-        left: 8px;
+        height: 18px;
+        bottom: 22%;
+        left: 7%;
+        z-index: 0;
 
         @media screen and (min-width: $tablet) {
             max-width: 27px;
             height: 27px;
-            bottom: 3px;
+            bottom: 7%;
+            left: 5%;
         }
     }
 
@@ -93,7 +95,7 @@
 
         @media screen and (min-width: $tablet) {
             max-width: 177px;
-            height: 42px;
+            height: 38px;
             padding-left: 40px;
             font-size: 20px;
         }
@@ -134,27 +136,23 @@
 
     }
 
-    &__button {
+
+    &__link-but {
         width: 160px;
         height: 34px;
         padding: 8px 14px;
         border-width: 0px;
         border-radius: 10px;
+        text-align: center;
+        font-size: 16px;
+        color: $color-background;
+        text-decoration: none;
         background-color: rgba($color: $color-background, $alpha: .3);
 
         @media screen and (min-width: $tablet) {
             width: 187px;
             height: 42px;
             padding: 10px 10px;
-        }
-    }
-
-    &__link {
-        font-size: 16px;
-        color: $color-background;
-        text-decoration: none;
-
-        @media screen and (min-width: $tablet) {
             font-size: 20px;
         }
     }
