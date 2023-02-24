@@ -41,7 +41,7 @@ function createFavoriteMarkup({
     return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${snippet}" data-title="${title}" data-newsdate="${newsdate}" data-sectionname="${sectionname}" data-section="${section}" data-image="${image}" data-isread="${isread}" data-isfavorite="${isfavorite}" data-readdate="${readdate}" >
 <img src="${mediaUrl}" alt="" class="list-news-card__img" />
  <div class='list-news-card__container-title'><h2 class="list-news-card__title">${title}</h2></div>
-<span class="list-news-card__category">${sectionname}</span>
+<span class="list-news-card__category">${sectionname || section}</span>
 <p class="list-news-card__description">${snippet}</p>
 <button
     type="button"
