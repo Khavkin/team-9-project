@@ -23,12 +23,8 @@ import {
 import LocalStorage from './js/api/local-storage-api';
 import * as FakeAPI from './js/api/fake-api';
 import './js/components/weather';
-
-import './js/components/news-list'
-
 import './js/news-cards.js';
 import './js/components/categories/categories.js'
-
 
 
 const localStorage = new LocalStorage('team-9-project');
