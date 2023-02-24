@@ -1,4 +1,10 @@
 
+import {
+  mostPopularNews,
+  categoryOfNews,
+  getSearchArticles,
+  limitResults,
+} from '../../api/nytimes-api';
 
 const P = [
   { section: 'admin', display_name: 'Admin' },
@@ -56,6 +62,8 @@ const P = [
   { section: 'your money', display_name: 'Your Money' },
 ];
 
+// всі query селектори
+
 const but = document.querySelectorAll('button');
 
 const generalUl = document.querySelector('.categories_ul');
@@ -70,13 +78,13 @@ const svg = document.querySelector(".icon")
 
 const display_button = document.querySelector(".display_buttons")
 
- 
 
-// query
 
+
+
+
+// перемикання прихованого списку 
 butOther.addEventListener('click', clickOth);
-
-
 
 function clickOth() {
   otherUl.classList.toggle('is-hidden');
@@ -84,6 +92,8 @@ function clickOth() {
   butOther.classList.toggle("bek-for-other")
 }
 
+
+// рендер кнопок 
 const buttons = P.map(
   paragraf =>
     `<li> <button type = "button" class ="categories_button display_button " data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
@@ -94,23 +104,39 @@ const insideBut = P.map(
     `<li class = "inside_li"> <button type = "button" class ="other_but" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
 );
 
+// зміна ширини
+
+// let originalWindowWidth = window.innerHeight
+// console.log(originalWindowWidth);
+
+
+const desktop = buttons.slice(1, 7);
+
+// const tablet = buttons.slice(1,5)
+   
+display_button.insertAdjacentHTML('afterbegin', desktop.join(''));
+   
+
+// const renderButtons = (amount) => {
+// const genBut = buttons.slice(1,amount)
+// }
+
+
+
+//  список який прихований 
 
 const insideOth = insideBut.slice(7, 19);
 otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
 
-const desktop = buttons.slice(1, 7);
 
-const tablet = buttons.slice(1,5)
-   
-display_button.insertAdjacentHTML('afterbegin', desktop.join(''));
-   
+// функція яка відповідає за зміну кольору кнопок
+
 display_button.addEventListener("click", onTagClick);
 
-  function onTagClick (e) {
+function onTagClick (e) {
     if (e.target.nodeName !== 'BUTTON') {
       return;
     }
-
 
     const currentButton = document.querySelector('.click-chang-bac');
     if (currentButton) {
