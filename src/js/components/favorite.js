@@ -38,7 +38,7 @@ function createFavoriteMarkup({
     if (image !== '') {
         mediaUrl = image;
     }
-    return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${snippet}" data-title="${title}" data-newsdate="${newsdate}" data-sectionname="${sectionname}" data-section="${section}" data-image="${image}" data-isread="${isread}" data-isfavorite="${isfavorite}" >
+    return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${snippet}" data-title="${title}" data-newsdate="${newsdate}" data-sectionname="${sectionname}" data-section="${section}" data-image="${image}" data-isread="${isread}" data-isfavorite="${isfavorite}" data-readdate="${readdate}" >
 <img src="${mediaUrl}" alt="" class="list-news-card__img" />
  <div class='list-news-card__container-title'><h2 class="list-news-card__title">${title}</h2></div>
 <span class="list-news-card__category">${sectionname}</span>
@@ -78,8 +78,8 @@ function onBtnClick(e) {
             'color-svg2'
         );
         const parent = e.closest('li');
-        const toSave = { ...parent.dataset, isFavorite: true, isRead: false };
-        localStorage.addToFavorites(toSave);
+        const toSave = { ...parent.dataset,  };
+        
     } else {
         btn.firstElementChild.textContent = 'Add to favorite';
         btn.dataset.add = false;
@@ -90,9 +90,11 @@ function onBtnClick(e) {
         const parent = e.closest('li');
         const toDel = {
             ...parent.dataset,
-            isFavorite: true,
-            isRead: false,
+            // isFavorite: true,
+            // isRead: false,
         };
-        galleryContainer.innerHTML = '';
+        localStorage.deleteFromFavorites(toDel);
+        parent.remove()
+        // galleryContainer.innerHTML = '';
     }
 }
