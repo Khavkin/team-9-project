@@ -15,6 +15,10 @@
 
 .read-gallery__item {
     font-family: Poppins;
+    
+    .opacity {
+        opacity: inherit;
+    }
 }
 
 .date-span {
