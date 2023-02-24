@@ -83,7 +83,7 @@ let iconIdWeather;
 function weatherDet(data) {
     const idWeather = data.weather[0].id;
 
-    if (idWeather == 800) {
+    if (idWeather === 800) {
         iconIdWeather = `${svgClear}`;
     } else if (idWeather >= 200 && idWeather <= 232) {
         iconIdWeather = `${svgStorm}`;
