@@ -39,7 +39,7 @@
 }
 
 .calendar__input::placeholder {
-    color: $color-themeSwitcher-passive;
+    color: $color-date;
 }
 
 .calendar__input.focus {
@@ -71,7 +71,7 @@ body.dark-theme .calendar__input.focus {
     top: 8px;
     height: 15px;
     width: 15px;
-    fill: $color-themeSwitcher-passive;
+    fill: $color-date;
 }
 
 .calendar__icon--calendar {
@@ -142,7 +142,6 @@ body.dark-theme .calendar__input.focus {
     color: $color-button-hover;
     background-color: inherit;
     font-size: 20px;
-    font-weight: 900;
     cursor: pointer;
 }
 
@@ -197,28 +196,9 @@ body.dark-theme .calendar__input.focus {
     }
 }
 
-.calendar__day:nth-child(7n),
-.calendar__day:nth-child(7n+6) {
-    color: $color-themeSwitcher-passive;
-
-    &:hover {
-        color: $color-background;
-        background-color: $color-button-hover;
-    }
-}
-
-.calendar__day:nth-child(7n).calendar__current-date,
-.calendar__day:nth-child(7n+6).calendar__current-date {
-    color: $color-background;
-}
-
 .calendar__current-date {
     color: $color-background;
     background-color: $color-button-hover;
-}
-
-.calendar__day--empty {
-    pointer-events: none;
 }
 
 .calendar-is-hidden {
