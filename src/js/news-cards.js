@@ -4,16 +4,29 @@ import {
     getSearchArticles,
     limitResults,
 } from './api/nytimes-api';
-
+import { geolocateUpdate } from './components/weather';
 import LocalStorage from './api/local-storage-api';
 import icons from '../images/icons.svg';
 import defaultImg from '../images/defaultImg.jpg';
+
+console.log('!!!Debug news-card!!! icons', icons);
+console.log('!!!Debug news-card!!! icons', defaultImg);
 
 const bodyEl = document.querySelector('[data-name="home"]');
 const ulEl = document.querySelector('.list-news-card');
 const iconsURL = icons.slice(0, icons.indexOf('?'));
 
+const MOBILE = 1;
+const TABLET = 2;
+const DESKTOP = 3;
+let currentMedia = getMedia();
+
+const weatherPos = [1, 2, 3];
+const curPage = document.querySelector('body').dataset.name;
+
 const localStorage = new LocalStorage('team-9-project');
+
+window.addEventListener('resize', handlerOnWindowResize);
 
 mostPopularNews().then(onPageLoadNews);
 // getSearchArticles().then(onPageLoadNews);
@@ -21,9 +34,27 @@ mostPopularNews().then(onPageLoadNews);
 async function onPageLoadNews(news, amountOfElements) {
     try {
         const resizeNews = news.slice(0, amountOfElements);
-        const markup = resizeNews.map(news => createMarkup(news)).join('');
+        const markup = resizeNews
+            .map((news, index) => {
+                if (curPage === 'home') {
+                    if (index === weatherPos[getMedia() - 1] - 1) {
+                        // console.log(
+                        //     'onPageLoadNews',
+                        //     curPage,
+                        //     getMedia(),
+                        //     index,
+                        //     'return'
+                        // );
+                        return '<li class="list-news-card__item weather"></li>';
+                    } else return createMarkup(news);
+                } else return createMarkup(news);
+            })
+            .join('');
 
         updateNews(markup);
+        if (curPage === 'home') {
+            geolocateUpdate();
+        }
     } catch (error) {
         onError(error);
     }
@@ -42,15 +73,16 @@ function createMarkup({
 }) {
     // TODO: Default image doesnt work, need to fix it.
     let mediaUrl = '../../images/defaultImg.jpg';
-    if (typeof(media) === 'object' && media[0]) {
+    if (typeof media === 'object' && media[0]) {
         // TODO: Нам це треба? в якому випадку в нас там об*єкт?
         mediaUrl = media[0]['media-metadata'][2].url;
-    } else if (typeof (multimedia) === 'object') {
-        try { mediaUrl = multimedia[2].url; }
-        catch { 
+    } else if (typeof multimedia === 'object') {
+        try {
+            mediaUrl = multimedia[2].url;
+        } catch {
             // Oops, no image. We'll use default image.
-         }
-    } else if (typeof (media) === 'string') {
+        }
+    } else if (typeof media === 'string') {
         mediaUrl = media;
     }
 
@@ -76,7 +108,7 @@ function createMarkup({
             readLink = 'opacity';
         }
     }
-    return `<li class="list-news-card__item ${readLink}" data-uri="${uri}" " data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsdate="${updated}" data-section="${section || nytdsection}" data-image="${mediaUrl}">
+    return `<li class="list-news-card__item ${readLink}" data-uri="${uri}" " data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated}" data-sectionName="${nytdsection}" data-section="${nytdsection}" data-image="${mediaUrl}">
   <img src="${mediaUrl}" alt="" class="list-news-card__img" />
    <div class='list-news-card__container-title'><h2 class="list-news-card__title">${title}</h2></div>
   <span class="list-news-card__category">${nytdsection || section}</span>
@@ -90,7 +122,9 @@ function createMarkup({
     ${useText}
 </svg>
 </button>
-    <div class="container-news-list__date-read"><span class="list-news-card__news-date ">${updated || updated_date}</span>
+    <div class="container-news-list__date-read"><span class="list-news-card__news-date ">${
+        updated || updated_date
+    }</span>
   <a href="${url}" class="list-news-card__link-read-more" target="_blank" data-link='link'>Read more</a></div>
 </li>`;
 }
@@ -191,7 +225,40 @@ function onLinkClick(event) {
         link.parentNode.parentNode.setAttribute('data-read', 'read');
         link.parentNode.parentNode.classList.add('opacity');
     }
+
     localStorage.addToRead(toSave);
+}
+
+function getMedia() {
+    if (
+        window.matchMedia('(min-width: 320px) and (max-width: 767px)').matches
+    ) {
+        return MOBILE;
+    } else if (
+        window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
+    ) {
+        return TABLET;
+    } else {
+        return DESKTOP;
+    }
+}
+
+function handlerOnWindowResize() {
+    if (curPage === 'home' && currentMedia !== getMedia()) {
+        const el = document.querySelector('.list-news-card');
+        const widget = el.querySelector('.weather');
+
+        if (widget) {
+            const tmp = el.removeChild(widget);
+            //console.log(getMedia() - 1);
+            el.children[weatherPos[getMedia() - 1] - 1].insertAdjacentElement(
+                'beforeBegin',
+                tmp
+            );
+            // console.dir(tmp);
+        }
+    }
+    if (currentMedia !== getMedia()) currentMedia = getMedia();
 }
 
 export { createMarkup, onPageLoadNews };
