@@ -6,7 +6,7 @@ import svgSnow from '../../images/iconsweather/snow.svg';
 import svgStorm from '../../images/iconsweather/storm.svg';
 import svgGeolocation from '../../images/iconsweather/carbonLocation.svg';
 console.log(svgGeolocation);
-const content = document.querySelector('.list-news');
+const content = document.querySelector('ul.list-news');
 
 markupWeather()
 
