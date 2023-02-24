@@ -1,18 +1,11 @@
-<div class="modal">
-    <div class="modal-content">
-
-        <div class="modal-nav">
-            <div class="modal-nav__container">
-                <a class="navigation__logo modal-nav__logo" href="./index.html">News</a>
-                <div class="close-modal">
-                    <div class="menu-burger__header open-menu">
-                        <span> </span>
-                    </div>
-                </div> 
-            </div>
-        </div>
-
-        <ul class="navigation__list-modal">
+<div class="modal burger__is-hidden">
+    <button class="modal__close-button">
+        <svg class="burger-button__icon" width="24" height="24">
+          <use href="./images/icons.svg#icon-cross"></use>
+        </svg>
+    </button>
+    <a class="modal__logo" href="./index.html">News</a>
+    <ul class="navigation__list-modal">
 
             <li class="navigation__item">
                 <div class="nav-item">     
@@ -49,26 +42,6 @@
                     </svg>
                 </div>
             </li>
-        </ul>
-
-        <div class="theme-switch theme-switch-modal">
-            <svg class="theme-switch__icon theme-switch__icon--light">
-                <use href="./images/icons.svg#icon-sun"></use>
-            </svg>
-            <p class="theme-switch__text theme-switch__text--light">Light</p>
-        
-            <div class="theme-switch__control">
-                <input class="theme-switch__toggle" type="checkbox" name="theme" id="theme-switch-toggle" />
-                <label class="theme-switch__track" for="theme-switch-toggle">
-                </label>
-                <div class="theme-switch__marker"></div>
-            </div>
-        
-            <svg class="theme-switch__icon theme-switch__icon--dark">
-                <use href="./images/icons.svg#icon-moon"></use>
-            </svg>
-            <p class="theme-switch__text theme-switch__text--dark">Dark</p>
-        </div>
-
-    </div>
+    </ul>
+    <include src="./partials/theme_switcher.html"></include>
 </div>

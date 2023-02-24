@@ -1,47 +1,26 @@
-.page-header {
-    min-width: $mobile;
-    @media screen and (min-width: $tablet) {
-        border-bottom: 1px solid $color-header-divider;
-    }
+.header {
+    border-bottom: 1px solid $color-header-divider;
 }
 
-.navigation__logo {
-    padding-top: 28px;
-    padding-bottom: 28px;
-
-    font-family: inherit;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 1.4;
-    color: inherit;
+.header__container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 24px 0;
 
     @media screen and (min-width: $tablet) {
-        font-size: 32px;
-    }
-
-    @media screen and (min-width: $desktop) {
-        font-size: 42px;
+        padding: 28px 0;
     }
 }
 
 .navigation {
-    display: none;
-    @media screen and (min-width: $tablet) {
-        display: flex;
-        align-items: baseline;
-        padding-top: 32px;
-        padding-bottom: 28px;
-    }
-
-    @media screen and (min-width: $desktop) {
-        padding-top: 28px;
-        padding-bottom: 28px;
-        padding-left: 16px;
-    }
-
+    display: flex;
+    align-items: baseline;
+   
     &__list {
+        display: none;
         color: inherit;
+
         @media screen and (min-width: $tablet) {
             display: flex;
             margin-right: 32px; 
@@ -53,6 +32,7 @@
             font-size: 16px;
             line-height: 1.4;      
         } 
+
         @media screen and (min-width: $desktop) {
             margin-right: 147px;
             margin-left: 102px;
@@ -99,9 +79,26 @@
     }
 }
 
+.navigation__logo {
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.4;
+    color: inherit;
+
+    @media screen and (min-width: $tablet) {
+        font-size: 32px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        font-size: 42px;
+    }
+}
+
 .search-form {
     margin-left: auto;
-    display: none;
+    display: block;
     background-color: transparent;
     height: 31px;
     flex-direction: baseline;
@@ -188,4 +185,31 @@ input {
 
 body.dark-theme .search-form__icon {
     fill: $color-background;
+    stroke: $color-background;
+}
+
+.header__burger-button {
+    display: block;
+    background-color: inherit;
+    margin-left: 14px;
+
+    @media screen and (min-width: $tablet) {
+        display: none;
+    }
+}
+
+.burger-button__icon {
+    stroke: $color-text;
+}
+
+body.dark-theme .burger-button__icon {
+    stroke: $color-background;
+}
+
+.header__theme-switcher {
+    display: none;
+
+    @media screen and (min-width: $tablet) {
+        display: block;
+    }
 }

@@ -1,8 +1,6 @@
-//import debounce from 'debounce';
-// import debounce from 'lodash.debounce';
-
 import './js/navigation.js';
 import './js/api/nytimes-api';
+import './js/components/burger-menu';
 import {dateForRequest, createCurrentMonth} from './js/components/calendar';
 import {Theme, refsThemeSwitcher, onCheckboxClick, changeTheme} from './js/components/theme_switcher';
 import LocalStorage from './js/api/local-storage-api';
