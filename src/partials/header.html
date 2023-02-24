@@ -1,41 +1,46 @@
 <header class="page-header">
-  <div class="page-header__container container">
-    <nav class="navigation">
-      <a class="navigation__logo" href="./index.html">News</a>
+    <div class="page-header__container container">
+        <nav class="navigation">
+            <a class="navigation__logo" href="./index.html">News</a>
 
-      <ul class="navigation__list">
+            <ul class="navigation__list">
+                <li class="navigation__item">
+                    <a class="navigation__link home" href="./index.html"
+                        >Home</a
+                    >
+                </li>
 
-         <li class="navigation__item">
-          <a class="navigation__link home" href="./index.html">Home</a>  
-        </li>
+                <li class="navigation__item">
+                    <a class="navigation__link favorite" href="./favorite.html"
+                        >Favorite</a
+                    >
+                </li>
 
-        <li class="navigation__item">
-          <a class="navigation__link favorite" href="./favorite.html">Favorite</a>
-        </li>
+                <li class="navigation__item">
+                    <a class="navigation__link read" href="./read.html">Read</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="search-form__conteiner">
+            <form class="search-form" id="search-form">
+                <button class="search-form__btn">
+                    <svg class="search-form__icon" width="15.59" height="14.81">
+                        <use href="./images/icons.svg#icon-search"></use>
+                    </svg>
+                </button>
+                <input
+                    type="text"
+                    class="search-form__input"
+                    id="search-form__input"
+                    placeholder="Search"
+                />
+            </form>
+        </div>
 
-        <li class="navigation__item">
-          <a class="navigation__link read" href="./read.html">Read</a>
-        </li>
+        <div class="menu-burger__header">
+            <span> </span>
+        </div>
 
-      </ul>
-    </nav>
-
-      <form class="search-form" id="search-form">
-        <button class="search-form__btn">
-          <svg class="search-form__icon" width="15.59" height="14.81">
-            <use href="./images/icons.svg#icon-search"></use>
-          </svg>
-        </button>
-        <input type="text" class="search-form__input" id="search-form__input" placeholder="Search" />
-      </form>
-
-      <div class="menu-burger__header">
-        <span> </span>
-      </div>
-
-      <include src="./partials/theme_switcher.html"></include>
-    
-  </div>
-
+        <include src="./partials/theme_switcher.html"></include>
+    </div>
 </header>
-

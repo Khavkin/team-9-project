@@ -4,10 +4,14 @@
         border-bottom: 1px solid $color-header-divider;
     }
 }
+.page-header__container{
+    display: flex;
+}
 
 .navigation__logo {
     padding-top: 28px;
     padding-bottom: 28px;
+    
 
     font-family: inherit;
     font-style: normal;
@@ -18,10 +22,12 @@
 
     @media screen and (min-width: $tablet) {
         font-size: 32px;
+        margin-right: 48px;
     }
 
     @media screen and (min-width: $desktop) {
         font-size: 42px;
+        margin-right: 102px;
     }
 }
 
@@ -29,7 +35,7 @@
     display: none;
     @media screen and (min-width: $tablet) {
         display: flex;
-        align-items: baseline;
+        align-items: center;
         padding-top: 32px;
         padding-bottom: 28px;
     }
@@ -37,15 +43,15 @@
     @media screen and (min-width: $desktop) {
         padding-top: 28px;
         padding-bottom: 28px;
-        padding-left: 16px;
+        // padding-left: 16px;
     }
 
     &__list {
         color: inherit;
         @media screen and (min-width: $tablet) {
             display: flex;
-            margin-right: 32px; 
-            margin-left: 48px;
+            // margin-right: 32px; 
+            // margin-left: 48px;
             font-weight: 700;
             font-family: inherit;
             font-style: normal;
@@ -54,8 +60,8 @@
             line-height: 1.4;      
         } 
         @media screen and (min-width: $desktop) {
-            margin-right: 147px;
-            margin-left: 102px;
+            // margin-right: 147px;
+            // margin-left: 102px;
             font-family: inherit;
             font-style: normal;
             font-weight: 700;
@@ -98,7 +104,11 @@
         }
     }
 }
-
+.search-form__conteiner{
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+}
 .search-form {
     margin-left: auto;
     display: flex;
@@ -109,16 +119,16 @@
     @media screen and (min-width: $tablet) {
         border: 1px solid $color-text;
         border-radius: 20px;
-        margin-top: 44px;
-        margin-bottom: 31px;
+        // margin-top: 44px;
+        // margin-bottom: 31px;
         width: 213px;
     }
 
     @media screen and (min-width: $desktop) {
         margin: 0 auto;
         width: 288px;
-        margin-top: 51px;
-        margin-bottom: 31px;
+        // margin-top: 51px;
+        // margin-bottom: 31px;
     }
 }
 
