@@ -99,14 +99,14 @@ function onBtnClick(e) {
     }
 }
 
-const readNewsGroupedByDate = groupByDate(readNews);
+// const readNewsGroupedByDate = groupByDate(readNews);
 
-if (readNews.length === 0) {
-    galleryEl.innerHTML = 
-    `<h2 class="rip-title">Sorry, we haven't found any read news.
-    </h2>
-    <div class="rip-container container">
-    </div>`
-} else {
-    galleryEl.innerHTML = createMarkupForAllDates(readNewsGroupedByDate);
-}
+// if (readNews.length === 0) {
+//     galleryEl.innerHTML = 
+//     `<h2 class="rip-title">Sorry, we haven't found any read news.
+//     </h2>
+//     <div class="rip-container container">
+//     </div>`
+// } else {
+//     galleryEl.innerHTML = createMarkupForAllDates(readNewsGroupedByDate);
+// }
