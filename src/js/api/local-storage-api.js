@@ -105,11 +105,11 @@ export default class LocalStorage {
 
         if (index === -1) {
             newReaded.isread = true;
-            if (!isTest) newReaded.readdate = Date.now();
+            newReaded.readdate = Date.now();
             this._data.news.push(newReaded);
         } else {
             this._data.news[index].isread = true;
-            if (!isTest) newReaded.readdate = Date.now();
+            this._data.news[index].readdate = Date.now();
         }
         this.save();
         // проверить есть ли эта новость со свойством read=true;
