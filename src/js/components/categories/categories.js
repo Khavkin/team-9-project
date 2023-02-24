@@ -6,84 +6,87 @@ const TABLET = 2;
 const DESKTOP = 3;
 let currentMedia = MOBILE;
 
-const P = [
-    { section: 'admin', display_name: 'Admin' },
-    { section: 'arts', display_name: 'Arts' },
-    { section: 'automobiles', display_name: 'Automobiles' },
-    { section: 'books', display_name: 'Books' },
-    { section: 'briefing', display_name: 'Briefing' },
-    { section: 'business', display_name: 'Business' },
-    { section: 'climate', display_name: 'Climate' },
-    { section: 'corrections', display_name: 'Corrections' },
-    {
-        section: encodeURIComponent('crosswords & games'),
-        display_name: 'Crosswords \u0026 Games',
-    },
-    { section: 'education', display_name: 'Education' },
-    { section: encodeURIComponent('en español'), display_name: 'En Español' },
-    { section: 'fashion', display_name: 'Fashion' },
-    { section: 'food', display_name: 'Food' },
-    { section: 'guides', display_name: 'Guides' },
-    { section: 'health', display_name: 'Health' },
-    // { section: 'home \u0026 garden', display_name: 'Home \u0026 Garden' },
-    // { section: 'home page', display_name: 'Home Page' },
-    // { section: 'job market', display_name: 'Job Market' },
-    { section: 'lens', display_name: 'Lens' },
-    { section: 'magazine', display_name: 'Magazine' },
-    { section: 'movies', display_name: 'Movies' },
-    {
-        section: encodeURIComponent('multimedia/photos'),
-        display_name: 'Multimedia/Photos',
-    },
-    // { section: 'new york', display_name: 'New York' },
-    { section: 'obituaries', display_name: 'Obituaries' },
-    { section: 'opinion', display_name: 'Opinion' },
-    { section: 'parenting', display_name: 'Parenting' },
-    { section: 'podcasts', display_name: 'Podcasts' },
-    {
-        section: encodeURIComponent('reader center'),
-        display_name: 'Reader Center',
-    },
-    { section: encodeURIComponent('real estate'), display_name: 'Real Estate' },
-    { section: 'science', display_name: 'Science' },
-    {
-        section: encodeURIComponent('smarter living'),
-        display_name: 'Smarter Living',
-    },
-    { section: 'sports', display_name: 'Sports' },
-    { section: 'style', display_name: 'Style' },
-    {
-        section: encodeURIComponent('sunday review'),
-        display_name: 'Sunday Review',
-    },
-    { section: 't brand', display_name: 'T Brand' },
-    { section: 't magazine', display_name: 'T Magazine' },
-    { section: 'technology', display_name: 'Technology' },
-    {
-        section: encodeURIComponent('the learning network'),
-        display_name: 'The Learning Network',
-    },
-    { section: encodeURIComponent('the upshot'), display_name: 'The Upshot' },
-    { section: encodeURIComponent('the weekly'), display_name: 'The Weekly' },
-    { section: 'theater', display_name: 'Theater' },
-    {
-        section: encodeURIComponent('times insider'),
-        display_name: 'Times Insider',
-    },
-    {
-        section: encodeURIComponent('today’s paper'),
-        display_name: 'Today’s Paper',
-    },
-    { section: 'travel', display_name: 'Travel' },
-    { section: encodeURIComponent('u.s.'), display_name: 'U.S.' },
-    { section: 'universal', display_name: 'Universal' },
-    { section: 'video', display_name: 'Video' },
-    { section: 'well', display_name: 'Well' },
-    { section: 'world', display_name: 'World' },
-    { section: encodeURIComponent('your money'), display_name: 'Your Money' },
-];
+const P = [];
+// const P = [
+//     { section: 'admin', display_name: 'Admin' },
+//     { section: 'arts', display_name: 'Arts' },
+//     { section: 'automobiles', display_name: 'Automobiles' },
+//     { section: 'books', display_name: 'Books' },
+//     { section: 'briefing', display_name: 'Briefing' },
+//     { section: 'business', display_name: 'Business' },
+//     { section: 'climate', display_name: 'Climate' },
+//     { section: 'corrections', display_name: 'Corrections' },
+//     {
+//         section: encodeURIComponent('crosswords & games'),
+//         display_name: 'Crosswords \u0026 Games',
+//     },
+//     { section: 'education', display_name: 'Education' },
+//     { section: encodeURIComponent('en español'), display_name: 'En Español' },
+//     { section: 'fashion', display_name: 'Fashion' },
+//     { section: 'food', display_name: 'Food' },
+//     { section: 'guides', display_name: 'Guides' },
+//     { section: 'health', display_name: 'Health' },
+//     // { section: 'home \u0026 garden', display_name: 'Home \u0026 Garden' },
+//     // { section: 'home page', display_name: 'Home Page' },
+//     // { section: 'job market', display_name: 'Job Market' },
+//     { section: 'lens', display_name: 'Lens' },
+//     { section: 'magazine', display_name: 'Magazine' },
+//     { section: 'movies', display_name: 'Movies' },
+//     {
+//         section: encodeURIComponent('multimedia/photos'),
+//         display_name: 'Multimedia/Photos',
+//     },
+//     // { section: 'new york', display_name: 'New York' },
+//     { section: 'obituaries', display_name: 'Obituaries' },
+//     { section: 'opinion', display_name: 'Opinion' },
+//     { section: 'parenting', display_name: 'Parenting' },
+//     { section: 'podcasts', display_name: 'Podcasts' },
+//     {
+//         section: encodeURIComponent('reader center'),
+//         display_name: 'Reader Center',
+//     },
+//     { section: encodeURIComponent('real estate'), display_name: 'Real Estate' },
+//     { section: 'science', display_name: 'Science' },
+//     {
+//         section: encodeURIComponent('smarter living'),
+//         display_name: 'Smarter Living',
+//     },
+//     { section: 'sports', display_name: 'Sports' },
+//     { section: 'style', display_name: 'Style' },
+//     {
+//         section: encodeURIComponent('sunday review'),
+//         display_name: 'Sunday Review',
+//     },
+//     { section: 't brand', display_name: 'T Brand' },
+//     { section: 't magazine', display_name: 'T Magazine' },
+//     { section: 'technology', display_name: 'Technology' },
+//     {
+//         section: encodeURIComponent('the learning network'),
+//         display_name: 'The Learning Network',
+//     },
+//     { section: encodeURIComponent('the upshot'), display_name: 'The Upshot' },
+//     { section: encodeURIComponent('the weekly'), display_name: 'The Weekly' },
+//     { section: 'theater', display_name: 'Theater' },
+//     {
+//         section: encodeURIComponent('times insider'),
+//         display_name: 'Times Insider',
+//     },
+//     {
+//         section: encodeURIComponent('today’s paper'),
+//         display_name: 'Today’s Paper',
+//     },
+//     { section: 'travel', display_name: 'Travel' },
+//     { section: encodeURIComponent('u.s.'), display_name: 'U.S.' },
+//     { section: 'universal', display_name: 'Universal' },
+//     { section: 'video', display_name: 'Video' },
+//     { section: 'well', display_name: 'Well' },
+//     { section: 'world', display_name: 'World' },
+//     { section: encodeURIComponent('your money'), display_name: 'Your Money' },
+// ];
 
 // всі query селектори
+
+getCategoriesFromAPI();
 
 const but = document.querySelectorAll('button');
 
@@ -109,16 +112,19 @@ function clickOth() {
     butOther.classList.toggle('bek-for-other');
 }
 
-// рендер кнопок
-const buttons = P.map(
-    paragraf =>
-        `<li> <button type = "button" class ="categories_button display_button " data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
-);
+let buttons = '',
+    insideBut = '';
 
-const insideBut = P.map(
-    paragraf =>
-        `<li class = "inside_li"> <button type = "button" class ="other_but" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
-);
+// рендер кнопок
+// const buttons = P.map(
+//     paragraf =>
+//         `<li> <button type = "button" class ="categories_button display_button " data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+// );
+
+// const insideBut = P.map(
+//     paragraf =>
+//         `<li class = "inside_li"> <button type = "button" class ="other_but" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+// );
 
 // зміна ширини
 
@@ -146,7 +152,7 @@ const insideBut = P.map(
 
 //display_button.insertAdjacentHTML('afterbegin', desktop.join(''));
 
-renderButtonsByMedia();
+//renderButtonsByMedia();
 
 // const renderButtons = (amount) => {
 // const genBut = buttons.slice(1,amount)
@@ -154,8 +160,8 @@ renderButtonsByMedia();
 
 //  список який прихований
 
-const insideOth = insideBut.slice(7, 19);
-otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
+//const insideOth = insideBut.slice(7, 19);
+//otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
 
 // функція яка відповідає за зміну кольору кнопок
 
@@ -261,6 +267,9 @@ function renderButtonsByMedia() {
     //console.log(toRender.join(''));
     display_button.innerHTML = '';
     display_button.insertAdjacentHTML('afterbegin', toRender.join(''));
+
+    const insideOth = insideBut.slice(7, 19);
+    otherUl.insertAdjacentHTML('afterbegin', insideOth.join(''));
 }
 
 window.addEventListener('click', handlerOnWindowClick);
@@ -275,4 +284,29 @@ function handlerOnWindowClick(e) {
             butOther.classList.toggle('bek-for-other');
         }
     }
+}
+
+function getCategoriesFromAPI() {
+    categoryOfNews().then(responce => {
+        P.length = 0;
+        // console.dir(responce);
+        responce.forEach(element => {
+            P.push({
+                section: encodeURIComponent(element.section),
+                display_name: element.display_name,
+            });
+        });
+
+        buttons = P.map(
+            paragraf =>
+                `<li> <button type = "button" class ="categories_button display_button " data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+        );
+
+        insideBut = P.map(
+            paragraf =>
+                `<li class = "inside_li"> <button type = "button" class ="other_but" data-section=${paragraf.section}>${paragraf.display_name}</button> </li>`
+        );
+        // console.log('render buttons');
+        renderButtonsByMedia();
+    });
 }
