@@ -29,7 +29,7 @@
         max-height: 86px;
 
         @media screen and (min-width: $tablet) {
-            width: 280px;
+            max-width: 280px;
             height: 86px;
             margin-bottom: 80px;
         }
@@ -85,16 +85,17 @@
     }
 
     &__geolocation {
-        max-width: 120px;
+        width: 120px;
         height: 34px;
         padding-left: 30px;
         border-width: 0px;
         border-radius: 10px;
         background-color: rgba($color: $color-background, $alpha: .3);
         color: $color-background;
+        font-size: 14px;
 
         @media screen and (min-width: $tablet) {
-            max-width: 177px;
+            width: 177px;
             height: 38px;
             padding-left: 40px;
             font-size: 20px;
