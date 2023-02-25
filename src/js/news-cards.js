@@ -111,7 +111,11 @@ function createMarkup({
             readLink = 'opacity';
         }
     }
-    return `<li class="list-news-card__item ${readLink}" data-uri="${uri}" " data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsDate="${updated}" data-sectionName="${nytdsection}" data-section="${nytdsection}" data-image="${mediaUrl}">
+    return `<li class="list-news-card__item ${readLink}" data-uri="${uri}" data-url="${url}" data-snippet="${abstract}" data-title="${title}" data-newsdate="${
+        updated || updated_date
+    }" data-sectionname="${
+        section || nytdsection
+    }" data-section="${nytdsection}" data-image="${mediaUrl}">
   <img src="${mediaUrl}" alt="" class="list-news-card__img" />
    <div class='list-news-card__container-title'><h2 class="list-news-card__title">${title}</h2></div>
   <span class="list-news-card__category">${nytdsection || section}</span>
