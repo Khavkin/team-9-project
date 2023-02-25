@@ -1,10 +1,11 @@
 import { getArticleByCategory, categoryOfNews } from '../../api/nytimes-api';
 import { onPageLoadNews } from '../../news-cards';
+import { normalizeImportFileName, getMedia } from '../../utils';
 
 const MOBILE = 1;
 const TABLET = 2;
 const DESKTOP = 3;
-let currentMedia = MOBILE;
+let currentMedia = getMedia();
 
 const P = [];
 // const P = [

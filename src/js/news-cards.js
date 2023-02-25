@@ -8,17 +8,20 @@ import { geolocateUpdate } from './components/weather';
 import LocalStorage from './api/local-storage-api';
 import icons from '../images/icons.svg';
 import defaultImg from '../images/defaultImg.jpg';
+import { getMedia, normalizeImportFileName } from './utils';
 
 console.log('!!!Debug news-card!!! icons', icons);
 console.log('!!!Debug news-card!!! icons', defaultImg);
 
 const bodyEl = document.querySelector('[data-name="home"]');
 const ulEl = document.querySelector('.list-news-card');
-const iconsURL = icons.slice(0, icons.indexOf('?'));
+const iconsURL = normalizeImportFileName(icons); //icons.slice(0, icons.indexOf('?'));
+const defaultImgURL = normalizeImportFileName(defaultImg);
 
-const MOBILE = 1;
-const TABLET = 2;
-const DESKTOP = 3;
+// const MOBILE = 1;
+// const TABLET = 2;
+// const DESKTOP = 3;
+
 let currentMedia = getMedia();
 
 const weatherPos = [1, 2, 3];
@@ -72,7 +75,7 @@ function createMarkup({
     uri,
 }) {
     // TODO: Default image doesnt work, need to fix it.
-    let mediaUrl = '../../images/defaultImg.jpg';
+    let mediaUrl = defaultImgURL; //'../../images/defaultImg.jpg';
     if (typeof media === 'object' && media[0]) {
         // TODO: Нам це треба? в якому випадку в нас там об*єкт?
         mediaUrl = media[0]['media-metadata'][2].url;
@@ -227,20 +230,6 @@ function onLinkClick(event) {
     }
 
     localStorage.addToRead(toSave);
-}
-
-function getMedia() {
-    if (
-        window.matchMedia('(min-width: 320px) and (max-width: 767px)').matches
-    ) {
-        return MOBILE;
-    } else if (
-        window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
-    ) {
-        return TABLET;
-    } else {
-        return DESKTOP;
-    }
 }
 
 function handlerOnWindowResize() {
