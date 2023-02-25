@@ -25,17 +25,18 @@ async function categoryOfNews() {
 
 // Запит по кліку на кнопку категорії
 async function getArticleByCategory(value) {
-  try {
-        let newValue = encodeURIComponent(value);
+    try {
+        //let newValue = encodeURIComponent(value);
+        let newValue = value;
         const articleFetch = await fetch(
             `${urlBase}/news/v3/content/all/${newValue}.json?${apiKey}`
         );
         const articles = await articleFetch.json();
         let { results } = articles;
         return results;
-  } catch (error) {
-      console.error(error);
-  }
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 // Функція для отримання статей з New York Times за заданим запитом та сторінкою
@@ -87,6 +88,12 @@ function limitResults(hits) {
     return Math.min(hits, 1000);
 }
 
-export { mostPopularNews, categoryOfNews, getSearchArticles, limitResults, getArticleByCategory };
+export {
+    mostPopularNews,
+    categoryOfNews,
+    getSearchArticles,
+    limitResults,
+    getArticleByCategory,
+};
 
 getSearchArticles('ukraine', 1);

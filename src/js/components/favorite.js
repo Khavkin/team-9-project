@@ -1,36 +1,47 @@
 import LocalStorage from '../api/local-storage-api';
 import '../navigation.js';
 import icons from '../../images/icons.svg';
-import { Theme, refsThemeSwitcher, onCheckboxClick, changeTheme } from '../components/theme_switcher';
-
+import {
+    Theme,
+    refsThemeSwitcher,
+    onCheckboxClick,
+    changeTheme,
+} from '../components/theme_switcher';
 
 refsThemeSwitcher.body.classList.add(Theme.LIGHT);
 refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
 changeTheme();
 
-
 const localStorage = new LocalStorage('team-9-project');
 
 const galleryContainer = document.querySelector('.gallery');
-console.log(galleryContainer);
-
-// const cardMarkup = createCard(localStorage.getFavorites());
- const cardMarkup = localStorage.getFavorites().map(data => createFavoriteMarkup(data)).join("");
-
+const cardMarkup = localStorage
+    .getFavorites()
+    .map(data => createFavoriteMarkup(data))
+    .join('');
 galleryContainer.insertAdjacentHTML('beforeend', cardMarkup);
 
-
 function createFavoriteMarkup({
-  uri, url, image,snippet,newsdate,readdate,sectionname,section,title,isread,isfavorite,
+    uri,
+    url,
+    image,
+    snippet,
+    newsdate,
+    readdate,
+    sectionname,
+    section,
+    title,
+    isread,
+    isfavorite,
 }) {
-  let mediaUrl = '../../images/defaultImg.jpg';
-  if (image !=='') {
-      mediaUrl = image;
-  }
-  return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${snippet}" data-title="${title}" data-newsdate="${newsdate}" data-sectionname="${sectionname}" data-section="${section}" data-image="${image}" data-isread="${isread}" data-isfavorite="${isfavorite}" >
+    let mediaUrl = '../../images/defaultImg.jpg';
+    if (image !== '') {
+        mediaUrl = image;
+    }
+    return `<li class="list-news-card__item" data-uri="${uri}" data-url="${url}" data-snippet="${snippet}" data-title="${title}" data-newsdate="${newsdate}" data-sectionname="${sectionname}" data-section="${section}" data-image="${image}" data-isread="${isread}" data-isfavorite="${isfavorite}" data-readdate="${readdate}" >
 <img src="${mediaUrl}" alt="" class="list-news-card__img" />
  <div class='list-news-card__container-title'><h2 class="list-news-card__title">${title}</h2></div>
-<span class="list-news-card__category">${sectionname}</span>
+<span class="list-news-card__category">${sectionname || section}</span>
 <p class="list-news-card__description">${snippet}</p>
 <button
     type="button"
@@ -49,5 +60,38 @@ function createFavoriteMarkup({
 </li>`;
 }
 
+galleryContainer.addEventListener('click', onBtnClick);
+function onBtnClick(e) {
+    e = e.target;
+    let btn = e.parentNode;
+    if (btn.type !== 'button') {
+        return;
+    }
+    if (btn.dataset.add === 'false') {
+        btn.firstElementChild.textContent = 'Remove from favorite';
+        btn.dataset.add = false;
+        btn.firstElementChild.nextElementSibling.classList.add('hidden');
+        btn.firstElementChild.nextElementSibling.nextElementSibling.classList.remove(
+            'hidden'
+        );
+        btn.firstElementChild.nextElementSibling.nextElementSibling.classList.add(
+            'color-svg2'
+        );
+        const parent = e.closest('li');
+        const toSave = { ...parent.dataset };
+    } else {
+        btn.firstElementChild.textContent = 'Add to favorite';
+        btn.dataset.add = false;
+        btn.firstElementChild.nextElementSibling.classList.remove('hidden');
+        btn.firstElementChild.nextElementSibling.nextElementSibling.classList.add(
+            'hidden'
+        );
+        const parent = e.closest('li');
+        const toDel = {
+          ...parent.dataset,
+        };
+        localStorage.deleteFromFavorites(toDel);
+        parent.remove();
+    }
+}
 
-console.dir(localStorage.getFavorites());

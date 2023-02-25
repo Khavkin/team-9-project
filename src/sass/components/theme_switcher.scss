@@ -39,8 +39,19 @@ body.dark-theme .theme-switch__marker {
 }
 
 .theme-switch {
+  display: none;
+
+  @media screen and (min-width: $tablet) {
+    margin-left: auto;
   display: flex;
   align-items: center;
+  }
+  @media screen and (min-width: $desktop) {
+    margin-left: auto;
+  display: flex;
+  align-items: center;
+  }
+  
 }
 
 .theme-switch__icon {

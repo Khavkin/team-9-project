@@ -2,20 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap');
 
 body {
-  background-color: $color-background;
-  color: $color-text;
+    background-color: $color-background;
+    color: $color-text;
 
-  font-family: 'Manrope', sans-serif;
-  font-size: 14px;
-  line-height: 1.37;
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    line-height: 1.37;
 
-  min-width: 320px;
-  transition: background-color 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 320px;
+    transition: background-color 400ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  @media screen and (min-width: $tablet) {
-    font-size: 16px;
-    line-height: 1.38;
-  }
+    @media screen and (min-width: $tablet) {
+        font-size: 16px;
+        line-height: 1.38;
+    }
 }
 
 h1,
@@ -23,78 +23,85 @@ h2,
 h3,
 ul,
 p {
-  margin: 0;
+    margin: 0;
 }
 
 ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 picture {
-  display: block;
-  max-width: 100%;
-  height: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 .container {
-  margin: 0 auto;
-  padding: 0 15px;
+    margin: 0 auto;
+    padding: 0 15px;
 
-  @media screen and (min-width: $mobile) {
-    width: 320px;
-  }
-  @media screen and (min-width: $tablet) {
-    width: 768px;
-  }
-  @media screen and (min-width: $desktop) {
-    width: 1280px;
-  }
+    @media screen and (min-width: $mobile) {
+        width: 320px;
+    }
+    @media screen and (min-width: $tablet) {
+        width: 768px;
+    }
+    @media screen and (min-width: $desktop) {
+        width: 1280px;
+    }
 }
 
 .section {
-  padding: 24px 0 60px;
-  &__favorite {
-    padding-top: 40px;
-  }
-  &__read {
-    padding: 40px 0 140px;
-  }
-
-  @media screen and (min-width: $tablet) {
-    padding: 28px 0 100px;
-
+    padding: 24px 0 60px;
     &__favorite {
-      padding: 48px 0 100px;
+        padding-top: 40px;
     }
     &__read {
-      padding: 48px 0 180px;
+        padding: 40px 0 140px;
     }
-  }
 
-  @media screen and (min-width: $desktop) {
-    padding: 28px 0 100px;
-    &__favorite {
-      padding: 60px 0 300px;
+    @media screen and (min-width: $tablet) {
+        padding: 28px 0 100px;
+
+        &__favorite {
+            padding: 48px 0 100px;
+        }
+        &__read {
+            padding: 48px 0 180px;
+        }
     }
-    &__read {
-      padding: 60px 0 210px;
+
+    @media screen and (min-width: $desktop) {
+        padding: 28px 0 100px;
+        &__favorite {
+            padding: 60px 0 300px;
+        }
+        &__read {
+            padding: 60px 0 210px;
+        }
     }
-  }
 }
 
 button {
-  border: 0;
-  padding: 0;
+    border: 0;
+    padding: 0;
+}
+
+.main__menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
 }

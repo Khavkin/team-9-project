@@ -68,8 +68,9 @@ function createMarkupForOneDate(date, news) {
         newsList += createMarkup({
             abstract: newsEntity.snippet,
             title: newsEntity.title,
-            updated: newsEntity.newsdate,
-            nytdsection: newsEntity.sectionname,
+            updated: formatDate(newsEntity.readdate || 
+            newsEntity.newsdate),
+            nytdsection: newsEntity.sectionname || newsEntity.section,
             url: newsEntity.url,
             media: newsEntity.image,
             uri: newsEntity.uri
