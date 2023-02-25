@@ -4,44 +4,53 @@
           <use href="./images/icons.svg#icon-cross"></use>
         </svg>
     </button>
-    <a class="modal__logo" href="./index.html">News</a>
-    <ul class="navigation__list-modal">
-
-            <li class="navigation__item">
-                <div class="nav-item">     
-                    <svg class="nav__img" width="32px" height="32px">
-                        <use href="./images/icons.svg#icon-home-color"></use>
-                    </svg>
-                    <a class="navigation__link home" href="./index.html">Home</a>
-                    <svg class="nav__pointer" width="24px" height="24px">
+    <div>
+        <a class="modal__logo" href="./index.html">News</a>
+        <ul class="modal__list">
+            <li class="modal__item">
+                <a class="modal__link" href="./index.html">
+                    <div class="modal-link__group">     
+                        <svg class="modal-link__image" width="32px" height="32px">
+                            <use href="./images/icons.svg#icon-home-color"></use>
+                        </svg>
+                        <span class="modal-link__text">Home</span>
+                    </div>
+                    <svg class="modal-link__pointer" width="24px" height="24px">
                         <use href="./images/icons.svg#icon-chevron-right"></use>
                     </svg>
-                </div>
+                </a>
             </li>
 
-            <li class="navigation__item">
-                <div class="nav-item">
-                    <svg class="nav__img" width="32px" height="32px">
-                        <use href="./images/icons.svg#icon-heart-color"></use>
-                    </svg>
-                    <a class="navigation__link favorite" href="./favorite.html">Favorite</a>
-                    <svg class="nav__pointer" width="24px" height="24px">
+            <li class="modal__item">
+                <a class="modal__link" href="./index.html">
+                    <div class="modal-link__group">     
+                        <svg class="modal-link__image" width="32px" height="32px">
+                            <use href="./images/icons.svg#icon-heart-color"></use>
+                        </svg>
+                        <span class="modal-link__text">Favorite</span>
+                    </div>
+                    <svg class="modal-link__pointer" width="24px" height="24px">
                         <use href="./images/icons.svg#icon-chevron-right"></use>
                     </svg>
-                </div>
+                </a>
             </li>
 
-            <li class="navigation__item">
-                <div class="nav-item">
-                    <svg class="nav__img" width="32px" height="32px">
-                        <use href="./images/icons.svg#icon-book"></use>
-                    </svg>
-                    <a class="navigation__link read" href="./read.html">Read</a>
-                    <svg class="nav__pointer" width="24px" height="24px">
+            <li class="modal__item">
+                <a class="modal__link" href="./index.html">
+                    <div class="modal-link__group">     
+                        <svg class="modal-link__image" width="32px" height="32px">
+                            <use href="./images/icons.svg#icon-book"></use>
+                        </svg>
+                        <span class="modal-link__text">Read</span>
+                    </div>
+                    <svg class="modal-link__pointer" width="24px" height="24px">
                         <use href="./images/icons.svg#icon-chevron-right"></use>
                     </svg>
-                </div>
+                </a>
             </li>
-    </ul>
-    <include src="./partials/theme_switcher.html"></include>
+        </ul>
+    </div>
+    <div class="modal__theme-switcher">
+        <include src="./partials/theme_switcher.html"></include>
+    </div>
 </div>
