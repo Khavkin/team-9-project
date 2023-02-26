@@ -1,0 +1,74 @@
+.paginator,
+.paginator__carousel,
+.paginator__carousel-wrapper {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    @media screen and (min-width: 768px) {
+        gap: 8px;
+        height: 31px;
+    }
+}
+
+.paginator__carousel {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.paginator__carousel-wrapper {
+    width: 92px;
+    position: relative;
+    overflow: hidden;
+    @media screen and (min-width: 768px) {
+        width: 238px;
+    }
+}
+
+.paginator__button {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.36;
+    text-align: center;
+
+    color: $color-text;
+
+    background: $color-text-dark;
+    border: 1px solid $color-button-hover;
+    border-radius: 2px;
+
+    cursor: pointer;
+
+    @media screen and (min-width: 768px) {
+        width: 33px;
+        height: 31px;
+        font-size: 16px;
+        line-height: 1.37;
+    }
+}
+.paginator__button--prev,
+.paginator__button--next {
+    width: 72px;
+    height: 28px;
+}
+@media screen and (min-width: 768px) {
+    .paginator__button--prev,
+    .paginator__button--next {
+        width: 78px;
+        height: 31px;
+    }
+}
+
+.paginator__button--current {
+    background-color: $color-text-link;
+    color: $color-text-dark;
+}
