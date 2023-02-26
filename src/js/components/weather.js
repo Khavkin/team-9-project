@@ -79,6 +79,15 @@ function onError(err) {
         });
     console.log(err.message);
 }
+const dynamicFontSize = (data) => {
+    const nameCityGeolocation = document.querySelector('.weather__geolocation');
+    if (data.length > 12) {
+        return (nameCityGeolocation.style.fontSize = '14px',
+        data.length[13] ="\0a");
+    }
+    return data.length;
+}
+
 let iconIdWeather;
 function weatherDet(data) {
     const idWeather = data.weather[0].id;
@@ -122,9 +131,9 @@ function weatherDet(data) {
             <p class="weather__date">${dayMonth} ${month} ${year}</p>
             <a class="weather__link-but" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2"
                 target="_blank" rel="noopener noreferrer">weather for week</a>`
-        );
+        ), dynamicFontSize(data.name);
 
-    return `
+    return (`
     <li class="weather">
             <div class="weather__container">
                 <span class="weather__temperature">${Math.floor(
@@ -143,7 +152,7 @@ function weatherDet(data) {
             <p class="weather__date">${dayMonth} ${month} ${year}</p>
             <a class="weather__link-but" href="https://ua.sinoptik.ua/%D0%BF%D0%BE%D0%B3%D0%BE%D0%B4%D0%B0-%D0%BA%D0%B8%D1%97%D0%B2"
                 target="_blank" rel="noopener noreferrer">weather for week</a>
-  </li>`;
+  </li>`, dynamicFontSize(data.name));
 }
 
 // geolocateUpdate();
