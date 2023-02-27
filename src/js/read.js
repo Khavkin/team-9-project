@@ -5,18 +5,9 @@
 import LocalStorage from './api/local-storage-api';
 import icons from '../images/icons.svg';
 import './navigation.js';
-import {
-    Theme,
-    refsThemeSwitcher,
-    onCheckboxClick,
-    changeTheme,
-} from './components/theme_switcher';
+import './components/theme_switcher';
 import { createMarkup } from './news-cards.js';
 import { normalizeImportFileName } from './utils';
-
-refsThemeSwitcher.body.classList.add(Theme.LIGHT);
-refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
-changeTheme();
 
 const ls = new LocalStorage('team-9-project');
 const readNews = ls.getRead();
