@@ -43,6 +43,8 @@ refsCalendar.calendarNextButtonMonth.addEventListener('click', onNextButtonMonth
 refsCalendar.calendarPrevButtonYear.addEventListener('click', onPrevButtonYear);
 refsCalendar.calendarNextButtonYear.addEventListener('click', onNextButtonYear);
 
+createCurrentMonth();
+
 function onCalendarInputFocus () {
     refsCalendar.calendarFild.classList.add('focus');
     refsCalendar.calendarInput.classList.add('focus');
@@ -132,5 +134,3 @@ function createDaysMarkup (year, month) {
 function addLeadingZero(value) {
     return String(value).padStart(2, '0');
 }
-
-export {dateForRequest, createCurrentMonth};

@@ -8,6 +8,10 @@ const refsThemeSwitcher = {
     checkboxTheme: document.querySelector('#theme-switch-toggle'),
 };
 
+refsThemeSwitcher.body.classList.add(Theme.LIGHT);
+refsThemeSwitcher.checkboxTheme.addEventListener('change', onCheckboxClick);
+changeTheme();
+
 function onCheckboxClick() {
     refsThemeSwitcher.body.classList.toggle(Theme.DARK);
     refsThemeSwitcher.body.classList.toggle(Theme.LIGHT);
@@ -22,5 +26,3 @@ function changeTheme() {
         onCheckboxClick();
     }
 }
-
-export {Theme, refsThemeSwitcher, onCheckboxClick, changeTheme};
