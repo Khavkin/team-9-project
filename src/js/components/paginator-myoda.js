@@ -45,7 +45,7 @@ export default class Paginator {
             return;
         }
 
-        this.currentPage = currentPage;
+        this.currentPage = 7; //currentPage;
         this._itemsPerPage = itemsPerPage;
         this._totalItems = totalItems;
         this._pagesCount = Math.ceil(totalItems / itemsPerPage);
@@ -64,6 +64,18 @@ export default class Paginator {
                     `Selector ${this._carouselWrapperSelector} not found`
                 );
                 return;
+            }
+            if (
+                this.currentPage > this.buttons[this._centerButtonsCount] &&
+                this.currentPage < this._pagesCount
+            ) {
+                this._scrollButtons(
+                    -1,
+                    this.currentPage -
+                        this.buttons[this._centerButtonsCount] +
+                        this._scrollCount -
+                        1
+                );
             }
         }
     }
@@ -93,7 +105,7 @@ export default class Paginator {
                 index + 1 === this.currentPage
                     ? 'paginator__button--current'
                     : ''
-            }" type="button" data-page=${index + 1}>${index + 1}</button></li>`;
+            }" type="button" data-page=${btn}>${btn}</button></li>`;
             //   `<li><button type="button">${pointsCheck(
             //   btn,
             //   index,
@@ -147,7 +159,7 @@ export default class Paginator {
                     tmp.classList.toggle('paginator__button--current');
                     if (this._isOuterCarouselButton(tmp)) return;
                     if (!isVisible(tmp, this._wrapper)) {
-                        this._scrollButtons(1, 1);
+                        this._scrollButtons(1, this._scrollCount);
                     } else {
                         // console.log('visible');
                     }
@@ -168,7 +180,7 @@ export default class Paginator {
                     if (this._isOuterCarouselButton(tmp)) return;
                     if (!isVisible(tmp, this._wrapper)) {
                         // console.log('hidden');
-                        this._scrollButtons(-1, 1);
+                        this._scrollButtons(-1, this._scrollCount);
                         //  console.log('New pos', isVisible(tmp, this._wrapper));
                     } else {
                         // console.log('visible');
@@ -197,7 +209,7 @@ export default class Paginator {
     }
 
     _resizeWrapper() {
-        if (this._pagesCount < this._buttonsCount) {
+        if (this._pagesCount > this._buttonsCount) {
             // const newSize =
             //   this._pagesCount > 2
             //     ? (this._pagesCount - 2) * this._buttonWidth + (this._pagesCount - 3) * this._margin
@@ -206,7 +218,7 @@ export default class Paginator {
             const newSize =
                 this._pagesCount > 2
                     ? this._centerButtonsCount * this._buttonWidth +
-                      (this._pagesCount - 3) * this._margin
+                      (this._centerButtonsCount - 1) * this._margin
                     : 0;
             console.log('newSize=', newSize);
             this._wrapper.style.width = `${newSize}px`;
@@ -214,8 +226,16 @@ export default class Paginator {
     }
 
     _scrollButtons(direction, count) {
+        // this._carouselPosition +=
+        //     direction * (this._buttonWidth * count + this._margin);
+        // console.log(this.currentPage, this._pagesCount, count);
+        // count =
+        //     this.currentPage + count > this._pagesCount - count
+        //         ? this._pagesCount - count - this.currentPage
+        //         : count;
+        // console.log(count);
         this._carouselPosition +=
-            direction * (this._buttonWidth * count + this._margin);
+            direction * (this._buttonWidth * count + this._margin * count);
         this._carousel.style.left = `${this._carouselPosition}px`;
         console.log(this._carousel.style.left);
     }
