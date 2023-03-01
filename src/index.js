@@ -3,6 +3,7 @@
 
 import './js/navigation.js';
 import './js/api/nytimes-api';
+import './js/components/search';
 import './js/components/theme_switcher';
 import './js/components/calendar';
 import LocalStorage from './js/api/local-storage-api';
