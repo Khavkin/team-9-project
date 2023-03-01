@@ -6,7 +6,7 @@ import LocalStorage from './api/local-storage-api';
 import icons from '../images/icons.svg';
 import './navigation.js';
 import './components/theme_switcher';
-import { createMarkup } from './news-cards.js';
+import { createMarkup, onBtnClick } from './news-cards.js';
 import { normalizeImportFileName } from './utils';
 
 const ls = new LocalStorage('team-9-project');
@@ -94,8 +94,9 @@ function createMarkupForOneDate(date, news) {
             ${newsList}
         </ul>
     </li>`;
-}
+};
 // TODO: refactor function toggle (children and parent elements) because of dependency on DOM tree
+document.querySelector('.news-list').addEventListener('click', onBtnClick);
 
 function toggleDate(e) {
     e.preventDefault();
@@ -113,7 +114,7 @@ function toggleDate(e) {
             'display'
         );
     }
-}
+};
 
 const iconsEl = document.getElementsByClassName('read-gallery__iconswrap');
 const iconsArr = Array.from(iconsEl);
