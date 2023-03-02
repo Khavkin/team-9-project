@@ -4,13 +4,22 @@ import icons from '../../images/icons.svg';
 import './theme_switcher';
 
 const localStorage = new LocalStorage('team-9-project');
-
 const galleryContainer = document.querySelector('.gallery');
+const favoriteNews = localStorage.getFavorites();
 const cardMarkup = localStorage
     .getFavorites()
     .map(data => createFavoriteMarkup(data))
     .join('');
 galleryContainer.insertAdjacentHTML('beforeend', cardMarkup);
+
+if (favoriteNews.length === 0) {
+    galleryContainer.innerHTML = `<h2 class="rip-title">Sorry, we haven't found any favorite news.
+    </h2>
+    <div class="rip-container container">
+    </div>`;
+} else {
+    galleryContainer.innerHTML = createFavoriteMarkup();
+}
 
 function createFavoriteMarkup({
     uri,

@@ -100,8 +100,8 @@ function createMarkup({
     let btDataAdd = 'true';
 
     if (getDataLocalStorage) {
-        if (getDataLocalStorage.isfavorite) {
-            useText = `<use  href="${iconsURL}#icon-favorite" data-favorite class=" color-svg1 hidden"></use>
+        if (getDataLocalStorage.isfavorite || getDataLocalStorage.isRead) {
+            useText = `<use  href="${iconsURL}#icon-favorite" data-favorite class="color-svg1 hidden"></use>
             <use  href="${iconsURL}#icon-favorite-filled" data-favorite class=" color-svg2 "></use>`;
             btnText = 'Remove from favorite';
             btnPosition = 'btn-position-reload-page';
@@ -151,6 +151,7 @@ if (ulEl !== null) {
 }
 
 function onBtnClick(e) {
+    console.log("We're inside onBtnClick function");
     e = e.target;
 
     let btn = e.parentNode;
@@ -254,4 +255,4 @@ function handlerOnWindowResize() {
     if (currentMedia !== getMedia()) currentMedia = getMedia();
 }
 
-export { createMarkup, onPageLoadNews };
+export { createMarkup, onPageLoadNews, onBtnClick };
