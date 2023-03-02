@@ -1,9 +1,9 @@
 import { getSearchArticles } from '../api/nytimes-api';
 
 const refs = {
-    form: document.querySelector('.search-form'),
+    form: document.querySelector('.header__search-form'),
     input: document.querySelector('.search-form__input'),
-    button: document.querySelector('.search-form__btn'),
+    button: document.querySelector('.search-form__button'),
     newsList: document.querySelector('.list-news-card'),
     badRequaest: document.querySelector('.bad-request'),
     wether: document.querySelector('.weather'),

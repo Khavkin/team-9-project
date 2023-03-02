@@ -1,20 +1,24 @@
-.page-header {
-    min-width: $mobile;
+.header {
+    border-bottom: 1px solid $color-header-divider;
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 15px;
+
     @media screen and (min-width: $tablet) {
-        border-bottom: 1px solid $color-header-divider;
+        padding: 28px 15px;
     }
 }
-.page-header__container{
+
+.navigation {
     display: flex;
+    align-items: baseline;
 }
 
 .navigation__logo {
-    padding-top: 28px;
-    padding-bottom: 28px;
-    
-
-    font-family: inherit;
-    font-style: normal;
     font-weight: 700;
     font-size: 24px;
     line-height: 1.4;
@@ -22,174 +26,106 @@
 
     @media screen and (min-width: $tablet) {
         font-size: 32px;
-        margin-right: 48px;
     }
 
     @media screen and (min-width: $desktop) {
         font-size: 42px;
-        margin-right: 102px;
     }
 }
 
-.navigation {
+.navigation__list {
     display: none;
+    font-weight: 700;
+    color: inherit;
+    font-size: 16px;
+    line-height: 1.4;
+
     @media screen and (min-width: $tablet) {
         display: flex;
-        align-items: center;
-        padding-top: 32px;
-        padding-bottom: 28px;
-    }
+        margin-left: 48px;
+    } 
 
     @media screen and (min-width: $desktop) {
-        padding-top: 28px;
-        padding-bottom: 28px;
-        // padding-left: 16px;
-    }
-
-    &__list {
-        color: inherit;
-        @media screen and (min-width: $tablet) {
-            display: flex;
-            // margin-right: 32px; 
-            // margin-left: 48px;
-            font-weight: 700;
-            font-family: inherit;
-            font-style: normal;
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 1.4;      
-        } 
-        @media screen and (min-width: $desktop) {
-            // margin-right: 147px;
-            // margin-left: 102px;
-            font-family: inherit;
-            font-style: normal;
-            font-weight: 700;
-            font-size: 18px;
-            line-height: 1.4;
-        }
-    }
-
-    &__item {
-        &:not(:first-child) {
-            @media screen and (min-width: $tablet) {
-                margin-left: 44px;
-            }
-            @media screen and (min-width: $desktop) {
-                margin-left: 69px;
-            }
-        }
-    }
-
-    &__link {
-        @media screen and (min-width: $tablet) {
-            display: block;
-            position: relative;
-        }
-    }
-
-    .active {
-        &::after {
-            @media screen and (min-width: $tablet) {
-                content: '';
-                position: absolute;
-                bottom: -8px;
-                left: -10%;
-                width: 120%;
-                height: 0px;
-                background-color: $color-button-hover;
-                border: 1px solid $color-text-link;
-                display: block;
-            }
-        }
+        font-size: 18px;
+        margin-left: 102px;
     }
 }
-.search-form__conteiner{
-    display: flex;
-    margin-left: auto;
-    align-items: center;
+
+.navigation__item:not(:first-child) {
+    margin-left: 44px;
+   
+    @media screen and (min-width: $desktop) {
+        margin-left: 69px;
+    }
 }
-.search-form {
-    margin-left: auto;
-    display: flex;
-    background-color: transparent;
+
+.navigation__link {
+    display: block;
+    position: relative;
+}
+
+.navigation__link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: -10%;
+    width: 120%;
+    height: 0px;
+    background-color: $color-button-hover;
+    border: 1px solid $color-text-link;
+    display: block;
+}
+
+.header__search-form {
+    position: relative;
+    width: 173px;
     height: 31px;
-    flex-direction: baseline;
-
+    border: 1px solid $color-text;
+    border-radius: 20px;
+    
     @media screen and (min-width: $tablet) {
-        border: 1px solid $color-text;
-        border-radius: 20px;
-        // margin-top: 44px;
-        // margin-bottom: 31px;
         width: 213px;
     }
 
     @media screen and (min-width: $desktop) {
-        margin: 0 auto;
         width: 288px;
-        // margin-top: 51px;
-        // margin-bottom: 31px;
     }
 }
 
-body.dark-theme .search-form {
-    @media screen and (min-width: $tablet) {
-        border: 1px solid $color-background;
-    }
+body.dark-theme .header__search-form {
+    border-color: $color-background;
 }
 
-input {
-    font-size: 12px;
-    color: $color-text;
+.search-form__input {
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
     border: none;
-    background: none;
+    border-radius: 20px;
     outline: none;
-    &:focus {
-        color: $color-text;
-    }
+    padding: 0 12px 0 48px;
 
-    @media screen and (max-width: $tablet) {
-        padding: 0;
-        transition: 0.4s;
-        width: 0;
-    }
+    font-size: 12px;
+    line-height: 1.75;
+    color: $color-text;
 
     @media screen and (min-width: $tablet) {
-        padding: 5px 0;
         font-size: 14px;
-        line-height: calc(24 / 14);
+        line-height: 1.7;;
     }
 }
 
-// @media screen and (max-width: $tablet) {
-//     &:hover {
-//         margin-top: 1px;
-//         border: 1px solid $color-text;
-//         border-radius: 20px;
-//         input {
-//             width: 125px;
-//             padding: 8px 0;
-//         }
+body.dark-theme .search-form__input {
+    color: $color-background;
+}
 
-//         .search-field__btn {
-//             padding: 6px 16px 5px 12px;
-//         }
-//     }
-// }
-
-
-.search-form__btn {
-    background: transparent;
+.search-form__button {
+    position: absolute;
+    top: 6px;
+    left: 12px;
+    padding: 0;
+    background-color: inherit;
     cursor: pointer;
-
-    @media screen and (max-width: $tablet) {
-        color: $color-text;
-        transition: 0.4s;
-    }
-
-    @media screen and (min-width: $tablet) {
-        padding: 8px 19px 8px 14px;
-    }
 }
 
 .search-form__icon {
@@ -198,4 +134,29 @@ input {
 
 body.dark-theme .search-form__icon {
     fill: $color-background;
+}
+
+.header__burger-button {
+    display: block;
+    background-color: inherit;
+    
+    @media screen and (min-width: $tablet) {
+        display: none;
+    }
+}
+
+.burger-button__icon {
+    stroke: $color-text;
+}
+
+body.dark-theme .burger-button__icon {
+    stroke: $color-background;
+}
+
+.header__theme-switcher {
+    display: none;
+
+    @media screen and (min-width: $tablet) {
+        display: block;
+    }
 }
