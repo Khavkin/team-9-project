@@ -4,11 +4,11 @@ body.light-theme {
 }
 
 body.light-theme .theme-switch__icon--light {
-  fill: $color-themeSwitcher-active;
+  fill: $color-text-link;
 }
 
 body.light-theme .theme-switch__text--light {
-  color: $color-themeSwitcher-active;
+  color: $color-text-link;
 }
     
 body.dark-theme {
@@ -17,11 +17,11 @@ body.dark-theme {
 }
 
 body.dark-theme .theme-switch__icon--dark {
-  fill: $color-themeSwitcher-active;
+  fill: $color-text-link;
 }
 
 body.dark-theme .theme-switch__text--dark {
-  color: $color-themeSwitcher-active;
+  color: $color-text-link;
 }
 
 body.dark-theme .theme-switch__control {
@@ -30,7 +30,7 @@ body.dark-theme .theme-switch__control {
 }
 
 body.dark-theme .theme-switch__track {
-  background-color: $color-themeSwitcher-active;
+  background-color: $color-text-link;
 }
 
 body.dark-theme .theme-switch__marker {
@@ -46,7 +46,7 @@ body.dark-theme .theme-switch__marker {
 
 .theme-switch__icon {
   display: block;
-  fill: $color-themeSwitcher-passive;
+  fill: $color-text-date;
   height: 21px;
   width: 21px;
 
@@ -57,7 +57,7 @@ body.dark-theme .theme-switch__marker {
 
 .theme-switch__text {
   display: none;
-  color: $color-themeSwitcher-passive;
+  color: $color-text-date;
   font-size: 18px;
   line-height: 1.33;
 
@@ -75,7 +75,7 @@ body.dark-theme .theme-switch__marker {
   border-radius: 20px;
   border-style: solid;
   border-width: 1px;
-  border-color: $color-themeSwitcher-active;
+  border-color: $color-text-link;
   margin-right: 8px;
   margin-left: 8px;
 
@@ -104,7 +104,7 @@ body.dark-theme .theme-switch__marker {
 }
 
 .theme-switch__marker {
-  background-color: $color-themeSwitcher-active;
+  background-color: $color-text-link;
   width: 16px;
   height: 16px;
   border-radius: 50%;

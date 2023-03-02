@@ -1,32 +1,10 @@
 const modal = document.querySelector('.modal');
-const modalButton = document.querySelector('.menu-burger__header');
-const closeButton = document.querySelector('.close-modal');
+const openMobilBurgerButton = document.querySelector('.header__burger-button');
+const closeMobilBurgerButton = document.querySelector('.modal__close-button');
 
-modalButton.addEventListener('click', () => {
- 
-  modal.style.top = '0';
-});
+openMobilBurgerButton.addEventListener('click', toggleModal);
+closeMobilBurgerButton.addEventListener('click', toggleModal);
 
-closeButton.addEventListener('click', () => {
- 
-  modal.style.top = '-100%';
-});
-
-window.addEventListener('click', (event) => {
-  if (event.target === modal) {
-    modal.style.display = 'none';
-  }
-});
-
-const themeSwitch = document.querySelector('.theme-switch');
-
-if (window.innerWidth < 767) {
-  themeSwitch.style.display = 'none';
+function toggleModal() {
+  modal.classList.toggle('burger__is-hidden');
 }
-
-
-
-
-
-
-
