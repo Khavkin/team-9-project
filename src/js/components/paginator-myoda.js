@@ -17,10 +17,21 @@
  *   scrollCount - количество кнопок на которое нужно сместить если кнопка крайняя внутри карусели кнопок (первая и последняя всегда на своих местах) или за пределами экрана.
  */
 // import './style.css';
+
+/**
+ * TODO
+ * 1. Добавить номера крайних кнопок в карусели. - DONE
+ * 1.1 Менять текст кнопки если слева или справа есть скрытые кнопки. - DONE
+ * 2. Сделать измение пагинатора при изменении размеров экрана.
+ * 3. Исправить рисование текущей кнопки, если она за пределами зоны видимости. -DONE
+ * 4. Сделать листание на любое количество кнопок.
+ */
 export default class Paginator {
-    _centerButtonsCount = 5;
+    _maxCenterButtonsCount = 5;
+    _centerButtonsCount = 0;
     _buttonsCount = 7; // ???
     _scrollCount = 1;
+    _firstCarouselButton = 2;
     _selector = '.paginator';
     _carouselWrapperSelector = '.paginator__carousel-wrapper';
     _carouselSelector = '.paginator__carousel';
@@ -45,13 +56,22 @@ export default class Paginator {
             return;
         }
 
-        this.currentPage = 7; //currentPage;
         this._itemsPerPage = itemsPerPage;
         this._totalItems = totalItems;
         this._pagesCount = Math.ceil(totalItems / itemsPerPage);
+        this.currentPage =
+            currentPage > this._pagesCount ? this._pagesCount : currentPage;
+        if (this._pagesCount > 2) {
+            this._centerButtonsCount =
+                this._pagesCount - 2 > this._maxCenterButtonsCount
+                    ? this._maxCenterButtonsCount
+                    : this._pagesCount - 2;
+        }
         this.buttons = []; //new Array(this._buttonsCount);
+        //console.log('constructor');
+        //console.dir(this);
         this.render();
-        if (this._pagesCount) {
+        if (this._pagesCount > 2) {
             this._wrapper = document.querySelector(
                 this._carouselWrapperSelector
             );
@@ -66,11 +86,12 @@ export default class Paginator {
                 return;
             }
             if (
+                // Если текущая страница за пределами карусели, то cдвинуть карусель
                 this.currentPage > this.buttons[this._centerButtonsCount] &&
                 this.currentPage < this._pagesCount
             ) {
                 this._scrollButtons(
-                    -1,
+                    -this._scrollCount,
                     this.currentPage -
                         this.buttons[this._centerButtonsCount] +
                         this._scrollCount -
@@ -78,10 +99,15 @@ export default class Paginator {
                 );
             }
         }
+        //console.log('currentPage', this.currentPage);
+        if (this.currentPage === 1) this._disableButton('prev');
+        if (this.currentPage === this._pagesCount) this._disableButton('next');
     }
 
     render() {
+        // console.dir(this);
         if (this._pagesCount < 2) {
+            // Если страниц меньше 2х, то скрыть пагинатор.
             this._element.style.display = 'none';
             return '';
         }
@@ -96,16 +122,20 @@ export default class Paginator {
         //   tmp = btnNeed - 1;
         // }
         for (let i = 0; i < this._pagesCount; i += 1) {
+            // Заполнение массива с номерами страниц.
             this.buttons[i] = i + 1;
         }
 
         markup = this.buttons.map((btn, index, array) => {
+            // Формирование разметки под цифровые кнопки
             //console.log(btn);
             return `<li><button  class="paginator__button ${
                 index + 1 === this.currentPage
                     ? 'paginator__button--current'
                     : ''
-            }" type="button" data-page=${btn}>${btn}</button></li>`;
+            }" type="button" data-page=${btn} title= "Page ${btn}">${
+                this._isDotted(btn) ? '...' : btn
+            }</button></li>`;
             //   `<li><button type="button">${pointsCheck(
             //   btn,
             //   index,
@@ -120,22 +150,22 @@ export default class Paginator {
                 ? `<li class="paginator__carousel-wrapper"><ul class="paginator__carousel">${markup
                       .slice(1, markup.length - 1)
                       .join('')}</ul></li>`
-                : '';
+                : ''; // Выделение кнопок под карусель
 
         markup =
-            `<li><button  class="paginator__button paginator__button--prev" data-page="prev" type="button">Prev</button></li>` +
+            `<li><button  class="paginator__button paginator__button--prev" data-page="prev" type="button" title="Previous page">Prev</button></li>` +
             `${first}` +
             center +
             // `<li class="paginator__carousel-wrapper"><ul class="paginator__carousel">${center}</ul></li>` +
             `${last}` +
-            `<li><button class="paginator__button paginator__button--next" data-page="next" type="button">Next</button></li>`;
+            `<li><button class="paginator__button paginator__button--next" data-page="next" type="button" title="Next page">Next</button></li>`;
         //console.dir(markup);
         this._element.insertAdjacentHTML('afterbegin', markup);
     }
 
     handlerOnClick(e) {
-        console.dir(e.target.dataset);
-        console.dir(e.target);
+        //  console.dir(e.target.dataset);
+        //  console.dir(e.target);
         const target = e.target;
         if (target.nodeName === 'BUTTON') {
             if ('page' in target.dataset) {
@@ -154,6 +184,10 @@ export default class Paginator {
                     this._getButton(this.currentPage).classList.toggle(
                         'paginator__button--current'
                     );
+                    if (this.currentPage === 2) this._disableButton('prev');
+
+                    this._enableButton('next');
+
                     this.currentPage -= 1;
                     const tmp = this._getButton(this.currentPage);
                     tmp.classList.toggle('paginator__button--current');
@@ -169,11 +203,16 @@ export default class Paginator {
             case 'next':
                 //console.dir(this._getButton(this.currentPage).classList);
 
-                if (this.currentPage === this._pagesCount) return;
-                else {
+                if (this.currentPage === this._pagesCount) {
+                    this._disableButton('next');
+                    return;
+                } else {
                     this._getButton(this.currentPage).classList.toggle(
                         'paginator__button--current'
                     );
+                    if (this.currentPage === this._pagesCount - 1)
+                        this._disableButton('next');
+                    this._enableButton('prev');
                     this.currentPage += 1;
                     const tmp = this._getButton(this.currentPage);
                     tmp.classList.toggle('paginator__button--current');
@@ -189,13 +228,51 @@ export default class Paginator {
                 break;
             default:
                 if (this.currentPage === page) return;
-                {
+                else {
                     this._getButton(this.currentPage).classList.toggle(
                         'paginator__button--current'
                     );
+
                     this.currentPage = +page;
                     const tmp = this._getButton(this.currentPage);
                     tmp.classList.toggle('paginator__button--current');
+                    if (this.currentPage === 1) {
+                        this._disableButton('prev');
+                        this._enableButton('next');
+                    } else if (this.currentPage === this._pagesCount) {
+                        this._disableButton('next');
+                        this._enableButton('prev');
+                    } else {
+                        this._enableButton('next');
+                        this._enableButton('prev');
+                    }
+
+                    if (
+                        this.currentPage === 1 &&
+                        this._firstCarouselButton !== 0
+                    ) {
+                        // перемещаем карусель на начало.
+
+                        this._scrollButtons(1, this._firstCarouselButton - 2);
+                    }
+                    if (
+                        this.currentPage === this._pagesCount &&
+                        this._firstCarouselButton !== 0
+                    ) {
+                        // перемещаем карусель на конец.
+                        //                   console.log(this._firstCarouselButton);
+                        this._scrollButtons(
+                            -1,
+                            this._pagesCount -
+                                this._centerButtonsCount -
+                                this._firstCarouselButton
+                        );
+                    }
+
+                    if (this._isDotted(this.currentPage))
+                        this.currentPage === this._firstCarouselButton
+                            ? this._scrollButtons(1, 2)
+                            : this._scrollButtons(-1, 2);
                 }
         }
 
@@ -209,35 +286,47 @@ export default class Paginator {
     }
 
     _resizeWrapper() {
-        if (this._pagesCount > this._buttonsCount) {
-            // const newSize =
-            //   this._pagesCount > 2
-            //     ? (this._pagesCount - 2) * this._buttonWidth + (this._pagesCount - 3) * this._margin
-            //     : 0;
+        //if (this._pagesCount > this._buttonsCount) {
+        // const newSize =
+        //   this._pagesCount > 2
+        //     ? (this._pagesCount - 2) * this._buttonWidth + (this._pagesCount - 3) * this._margin
+        //     : 0;
 
-            const newSize =
-                this._pagesCount > 2
-                    ? this._centerButtonsCount * this._buttonWidth +
-                      (this._centerButtonsCount - 1) * this._margin
-                    : 0;
-            console.log('newSize=', newSize);
-            this._wrapper.style.width = `${newSize}px`;
-        }
+        const newSize =
+            this._pagesCount > 2
+                ? this._centerButtonsCount * this._buttonWidth +
+                  (this._centerButtonsCount - 1) * this._margin
+                : 0;
+        // console.log('newSize=', newSize);
+        // this._wrapper.style.width = `${newSize}px`;
+        // }
     }
 
     _scrollButtons(direction, count) {
-        // this._carouselPosition +=
-        //     direction * (this._buttonWidth * count + this._margin);
-        // console.log(this.currentPage, this._pagesCount, count);
-        // count =
-        //     this.currentPage + count > this._pagesCount - count
-        //         ? this._pagesCount - count - this.currentPage
-        //         : count;
-        // console.log(count);
+        if (direction < 0)
+            count =
+                this._firstCarouselButton + count + this._centerButtonsCount >
+                this._pagesCount
+                    ? this._pagesCount -
+                      (this._firstCarouselButton +
+                          count +
+                          this._centerButtonsCount)
+                    : count;
+        else count = this._firstCarouselButton - count < 2 ? 1 : count;
         this._carouselPosition +=
             direction * (this._buttonWidth * count + this._margin * count);
         this._carousel.style.left = `${this._carouselPosition}px`;
-        console.log(this._carousel.style.left);
+        // console.log(
+        //     'scroll buttons-',
+        //     this._carousel.style.left,
+        //     this._firstCarouselButton
+        // );
+        this._repaintDotted(direction, count);
+        // console.log(
+        //     'scroll buttons-',
+        //     this._carousel.style.left,
+        //     this._firstCarouselButton
+        // );
     }
 
     _isOuterCarouselButton(button) {
@@ -278,6 +367,55 @@ export default class Paginator {
             }
         }
     }
+
+    _isDotted(button) {
+        if (button === 2 || button === this._pagesCount - 1) return false;
+        if (
+            button === this._firstCarouselButton ||
+            button === this._firstCarouselButton + this._centerButtonsCount - 1
+        )
+            return true;
+    }
+
+    _repaintDotted(direction, count) {
+        const fcb = this._firstCarouselButton;
+        let tmpBtn = this._getButton(fcb);
+        tmpBtn.innerHTML = tmpBtn.dataset.page;
+        tmpBtn = this._getButton(fcb + this._centerButtonsCount - 1);
+        tmpBtn.innerHTML = tmpBtn.dataset.page;
+        this._firstCarouselButton += count * -direction;
+        if (this._isDotted(this._firstCarouselButton)) {
+            tmpBtn = this._getButton(this._firstCarouselButton);
+            tmpBtn.innerHTML = '...';
+        }
+
+        // console.log(
+        //     'cbuttons',
+        //     this._firstCarouselButton,
+        //     this._firstCarouselButton + this._centerButtonsCount - 1
+        // );
+        if (
+            this._isDotted(
+                this._firstCarouselButton + this._centerButtonsCount - 1
+            )
+        ) {
+            tmpBtn = this._getButton(
+                this._firstCarouselButton + this._centerButtonsCount - 1
+            );
+            tmpBtn.innerHTML = '...';
+        }
+    }
+
+    _disableButton(button) {
+        // button='Prev',1..N,'Next'
+        const btn = this._getButton(button);
+        btn.disabled = true;
+    }
+    _enableButton(button) {
+        // button='Prev',1..N,'Next'
+        const btn = this._getButton(button);
+        btn.disabled = false;
+    }
 }
 
 function pointsCheck(value, index, array, currPage) {
@@ -286,7 +424,7 @@ function pointsCheck(value, index, array, currPage) {
         //console.log('array[array.length] - value', array[array.length - 1] - value);
         if (array[index + 1] - value === 1) return `${value}`;
         else {
-            console.log(value, index, array[index], array.length);
+            // console.log(value, index, array[index], array.length);
             return `...`;
         }
     } else return value;

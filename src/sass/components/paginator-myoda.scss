@@ -47,6 +47,9 @@
     border-radius: 2px;
 
     cursor: pointer;
+    &:disabled {
+        color: $color-text-date;
+    }
 
     @media screen and (min-width: 768px) {
         width: 33px;

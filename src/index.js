@@ -16,6 +16,6 @@ import Paginator from './js/components/paginator-myoda';
 const localStorage = new LocalStorage('team-9-project');
 const paginator = new Paginator({
     itemsPerPage: 1,
-    totalItems: 10,
-    currentPage: 3,
+    totalItems: 20,
+    currentPage: 1,
 });

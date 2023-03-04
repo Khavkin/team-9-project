@@ -33,7 +33,6 @@
             height: 86px;
             margin-bottom: 80px;
         }
-
     }
 
     &__iformation-for-weather {
@@ -92,7 +91,7 @@
         padding-right: 5px;
         border-width: 0px;
         border-radius: 10px;
-        background-color: rgba($color: $color-background, $alpha: .3);
+        background-color: rgba($color: $color-background, $alpha: 0.3);
         color: $color-background;
         font-size: 14px;
 
@@ -136,9 +135,7 @@
             margin-bottom: 28px;
             font-size: 36px;
         }
-
     }
-
 
     &__link-but {
         width: 160px;
@@ -150,7 +147,7 @@
         font-size: 16px;
         color: $color-background;
         text-decoration: none;
-        background-color: rgba($color: $color-background, $alpha: .3);
+        background-color: rgba($color: $color-background, $alpha: 0.3);
 
         @media screen and (min-width: $tablet) {
             width: 187px;
