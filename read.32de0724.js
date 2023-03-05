@@ -1,0 +1,2 @@
+var modal=document.querySelector(".modal"),openMobilBurgerButton=document.querySelector(".header__burger-button"),closeMobilBurgerButton=document.querySelector(".modal__close-button");function toggleModal(){modal.classList.toggle("burger__is-hidden")}openMobilBurgerButton.addEventListener("click",toggleModal),closeMobilBurgerButton.addEventListener("click",toggleModal);
+//# sourceMappingURL=read.32de0724.js.map
