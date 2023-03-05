@@ -1,3 +1,4 @@
+import { getMedia } from '../utils';
 /* Как использовать.
  * import Paginator from './paginator.js';
  * const pag = new Paginator({ itemsPerPage: 1, totalItems: 10, [currentPage] }, setup);
@@ -71,37 +72,7 @@ export default class Paginator {
         //console.log('constructor');
         //console.dir(this);
         this.render();
-        if (this._pagesCount > 2) {
-            this._wrapper = document.querySelector(
-                this._carouselWrapperSelector
-            );
-            this._carousel = document.querySelector(this._carouselSelector);
-            // console.log('wrapper-', this._wrapper);
-            if (this._wrapper) {
-                this._resizeWrapper();
-            } else {
-                console.error(
-                    `Selector ${this._carouselWrapperSelector} not found`
-                );
-                return;
-            }
-            if (
-                // Если текущая страница за пределами карусели, то cдвинуть карусель
-                this.currentPage > this.buttons[this._centerButtonsCount] &&
-                this.currentPage < this._pagesCount
-            ) {
-                this._scrollButtons(
-                    -this._scrollCount,
-                    this.currentPage -
-                        this.buttons[this._centerButtonsCount] +
-                        this._scrollCount -
-                        1
-                );
-            }
-        }
-        //console.log('currentPage', this.currentPage);
-        if (this.currentPage === 1) this._disableButton('prev');
-        if (this.currentPage === this._pagesCount) this._disableButton('next');
+        this._prepare();
     }
 
     render() {
@@ -111,16 +82,10 @@ export default class Paginator {
             this._element.style.display = 'none';
             return '';
         }
-        // let btnNeed = this._pagesCount > this._buttonsCount ? this._buttonsCount : this._pagesCount;
-        // let tmp = btnNeed;
 
-        // //const btnTemplate = `<li><button type="button"></button></li>`;
         let markup = '';
         this._element.innerHTML = '';
-        // if (this._pagesCount > btnNeed) {
-        //   this.buttons[btnNeed - 1] = this._pagesCount;
-        //   tmp = btnNeed - 1;
-        // }
+
         for (let i = 0; i < this._pagesCount; i += 1) {
             // Заполнение массива с номерами страниц.
             this.buttons[i] = i + 1;
@@ -136,12 +101,6 @@ export default class Paginator {
             }" type="button" data-page=${btn} title= "Page ${btn}">${
                 this._isDotted(btn) ? '...' : btn
             }</button></li>`;
-            //   `<li><button type="button">${pointsCheck(
-            //   btn,
-            //   index,
-            //   array,
-            //   this.currentPage
-            // )}</button></li>`;
         });
         const first = markup[0];
         const last = markup[markup.length - 1];
@@ -156,7 +115,6 @@ export default class Paginator {
             `<li><button  class="paginator__button paginator__button--prev" data-page="prev" type="button" title="Previous page">Prev</button></li>` +
             `${first}` +
             center +
-            // `<li class="paginator__carousel-wrapper"><ul class="paginator__carousel">${center}</ul></li>` +
             `${last}` +
             `<li><button class="paginator__button paginator__button--next" data-page="next" type="button" title="Next page">Next</button></li>`;
         //console.dir(markup);
@@ -298,7 +256,7 @@ export default class Paginator {
                   (this._centerButtonsCount - 1) * this._margin
                 : 0;
         // console.log('newSize=', newSize);
-        // this._wrapper.style.width = `${newSize}px`;
+        this._wrapper.style.width = `${newSize}px`;
         // }
     }
 
@@ -342,30 +300,25 @@ export default class Paginator {
     }
 
     reCreate({ itemsPerPage, totalItems, currentPage = 1 }, setup = {}) {
-        console.log('YEh! You call reCreate, but now it not work');
-        return;
+        // console.log('YEh! You call reCreate, but now it not work');
+        // return;
 
-        this.currentPage = currentPage;
         this._itemsPerPage = itemsPerPage;
         this._totalItems = totalItems;
         this._pagesCount = Math.ceil(totalItems / itemsPerPage);
-        this.buttons = []; //new Array(this._buttonsCount);
-        this.render();
-        if (this._pagesCount) {
-            this._wrapper = document.querySelector(
-                this._carouselWrapperSelector
-            );
-            this._carousel = document.querySelector(this._carouselSelector);
-            // console.log('wrapper-', this._wrapper);
-            if (this._wrapper) {
-                this._resizeWrapper();
-            } else {
-                console.error(
-                    `Selector ${this._carouselWrapperSelector} not found`
-                );
-                return;
-            }
+        this.currentPage =
+            currentPage > this._pagesCount ? this._pagesCount : currentPage;
+        if (this._pagesCount > 2) {
+            this._centerButtonsCount =
+                this._pagesCount - 2 > this._maxCenterButtonsCount
+                    ? this._maxCenterButtonsCount
+                    : this._pagesCount - 2;
         }
+        this.buttons = []; //new Array(this._buttonsCount);
+        //console.log('constructor');
+        //console.dir(this);
+        this.render();
+        this._prepare();
     }
 
     _isDotted(button) {
@@ -415,6 +368,40 @@ export default class Paginator {
         // button='Prev',1..N,'Next'
         const btn = this._getButton(button);
         btn.disabled = false;
+    }
+
+    _prepare() {
+        if (this._pagesCount > 2) {
+            this._wrapper = document.querySelector(
+                this._carouselWrapperSelector
+            );
+            this._carousel = document.querySelector(this._carouselSelector);
+            // console.log('wrapper-', this._wrapper);
+            if (this._wrapper) {
+                this._resizeWrapper();
+            } else {
+                console.error(
+                    `Selector ${this._carouselWrapperSelector} not found`
+                );
+                return;
+            }
+            if (
+                // Если текущая страница за пределами карусели, то cдвинуть карусель
+                this.currentPage > this.buttons[this._centerButtonsCount] &&
+                this.currentPage < this._pagesCount
+            ) {
+                this._scrollButtons(
+                    -this._scrollCount,
+                    this.currentPage -
+                        this.buttons[this._centerButtonsCount] +
+                        this._scrollCount -
+                        1
+                );
+            }
+        }
+        //console.log('currentPage', this.currentPage);
+        if (this.currentPage === 1) this._disableButton('prev');
+        if (this.currentPage === this._pagesCount) this._disableButton('next');
     }
 }
 
