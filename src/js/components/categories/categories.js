@@ -198,7 +198,8 @@ function handlerOnULClick(e) {
     // console.dir(target);
     if ('section' in target.dataset) {
         let category = target.dataset.section;
-        getArticleByCategory(category).then(onPageLoadNews);
+        //Закомментировано для работы app-dispatcher!!!!!!!!!!!!!!!!!!!
+        //getArticleByCategory(category).then(onPageLoadNews);
 
         if (target.classList.contains('categories_button')) {
             const currentButton = document.querySelector('.click-chang-bac');
