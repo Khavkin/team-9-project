@@ -10,8 +10,8 @@ import icons from '../images/icons.svg';
 import defaultImg from '../images/defaultImg.jpg';
 import { getMedia, normalizeImportFileName } from './utils';
 
-//console.log('!!!Debug news-card!!! icons', icons);
-//console.log('!!!Debug news-card!!! icons', defaultImg);
+console.log('!!!Debug news-card!!! icons', icons);
+console.log('!!!Debug news-card!!! icons', defaultImg);
 
 const bodyEl = document.querySelector('[data-name="home"]');
 const ulEl = document.querySelector('.list-news-card');
@@ -29,9 +29,9 @@ const curPage = document.querySelector('body').dataset.name;
 
 const localStorage = new LocalStorage('team-9-project');
 
-//window.addEventListener('resize', handlerOnWindowResize);
+window.addEventListener('resize', handlerOnWindowResize);
 
-//mostPopularNews().then(onPageLoadNews);
+mostPopularNews().then(onPageLoadNews);
 // getSearchArticles().then(onPageLoadNews);
 
 async function onPageLoadNews(news, amountOfElements) {
@@ -255,64 +255,4 @@ function handlerOnWindowResize() {
     if (currentMedia !== getMedia()) currentMedia = getMedia();
 }
 
-function createMarkup2({
-    uri,
-    url,
-    sectionname,
-    section,
-    newsdate,
-    snippet,
-    title,
-    image,
-    isfavorite,
-    isread,
-}) {
-    //console.log('CreateMarkup2');
-    const mediaUrl = image !== '' ? image : defaultImgURL;
-
-    const getDataLocalStorage = localStorage.getItem({ uri });
-    //console.dir()
-
-    let useText = `<use  href="${iconsURL}#icon-favorite" data-favorite class=" color-svg1"></use>
-    <use  href="${iconsURL}#icon-favorite-filled" data-favorite class=" color-svg2 hidden"></use>`;
-
-    let readLink = '';
-    let btnText = 'Add to favorite';
-    let btnPosition = '';
-    let btDataAdd = 'true';
-
-    if (getDataLocalStorage) {
-        if (getDataLocalStorage.isfavorite || getDataLocalStorage.isRead) {
-            useText = `<use  href="${iconsURL}#icon-favorite" data-favorite class="color-svg1 hidden"></use>
-            <use  href="${iconsURL}#icon-favorite-filled" data-favorite class=" color-svg2 "></use>`;
-            btnText = 'Remove from favorite';
-            btnPosition = 'btn-position-reload-page';
-            btDataAdd = 'false';
-        }
-        if (getDataLocalStorage.isread) {
-            readLink = 'opacity';
-        }
-    }
-    // console.log('createMarkup2 before return markup');
-    return `<li class="list-news-card__item ${readLink}" data-uri="${uri}" data-url="${url}" data-snippet="${snippet}" data-title="${title}" data-newsdate="${newsdate}" data-sectionname="${
-        sectionname || section
-    }" data-section="${section}" data-image="${mediaUrl}">
-  <img src="${mediaUrl}" alt="" class="list-news-card__img" />
-   <div class='list-news-card__container-title'><h2 class="list-news-card__title">${title}</h2></div>
-  <span class="list-news-card__category">${sectionname || section}</span>
-  <p class="list-news-card__description">${snippet}</p>
-  <button
-      type="button"
-      class="list-news-card__btn-add-favorite ${btnPosition}"
-      data-add="${btDataAdd}"
-    ><span class="list-news-card__btn-add-favorite--text">${btnText}</span>
-    <svg width="13" height="12" class="list-news-card__add-favorite--svg">
-    ${useText}
-</svg>
-</button>
-    <div class="container-news-list__date-read"><span class="list-news-card__news-date ">${newsdate}</span>
-  <a href="${url}" class="list-news-card__link-read-more" target="_blank" data-link='link'>Read more</a></div>
-</li>`;
-}
-
-export { createMarkup, onPageLoadNews, onBtnClick, createMarkup2 };
+export { createMarkup, onPageLoadNews, onBtnClick };
