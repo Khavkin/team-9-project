@@ -1,3 +1,4 @@
+import { paginatorSetup, PAGINATOR_SELECTOR } from '../const';
 import { getMedia } from '../utils';
 /* Как использовать.
  * import Paginator from './paginator.js';
@@ -28,65 +29,74 @@ import { getMedia } from '../utils';
  * 4. Сделать листание на любое количество кнопок.
  */
 export default class Paginator {
-    _maxCenterButtonsCount = 5;
-    _centerButtonsCount = 0;
-    _buttonsCount = 7; // ???
-    _scrollCount = 1;
-    _firstCarouselButton = 2;
-    _selector = '.paginator';
-    _carouselWrapperSelector = '.paginator__carousel-wrapper';
-    _carouselSelector = '.paginator__carousel';
-    _element = null;
-    _wrapper = null;
-    _carousel = null;
-    _pagesCount = 0;
-    _buttonWidth = 33;
-    _carouselPosition = 0;
-    _margin = 8;
+    #maxCenterButtonsCount = 5;
+    #centerButtonsCount = 0;
+    #buttonsCount = 7; // ???
+    #scrollCount = 1;
+    #firstCarouselButton = 2;
+    #selector = PAGINATOR_SELECTOR; // '.paginator';
+    #carouselWrapperSelector = `${this.#selector}__carousel-wrapper`;
+    #carouselSelector = `${this.#selector}__carousel`;
+    #element = null;
+    #wrapper = null;
+    #carousel = null;
+    #pagesCount = 0;
+    #itemsPerPage = 0;
+    #totalItems = 0;
+    #buttonWidth = 33;
+    #carouselPosition = 0;
+    #margin = 8;
+    #setup = [...paginatorSetup];
+
     onClick = null; // callback function
 
-    constructor({ itemsPerPage, totalItems, currentPage = 1 }, setup = {}) {
-        this._element = document.querySelector(this._selector);
-        if (this._element) {
-            this._element.addEventListener(
+    constructor({ itemsPerPage, totalItems, currentPage = 1 }, setup = []) {
+        this.#element = document.querySelector(this.#selector);
+        if (this.#element) {
+            this.#element.addEventListener(
                 'click',
                 this.handlerOnClick.bind(this)
             );
         } else {
-            console.error(`Selector ${this._selector} not found`);
+            console.error(`Selector ${this.#selector} not found`);
             return;
         }
-
-        this._itemsPerPage = itemsPerPage;
-        this._totalItems = totalItems;
-        this._pagesCount = Math.ceil(totalItems / itemsPerPage);
-        this.currentPage =
-            currentPage > this._pagesCount ? this._pagesCount : currentPage;
-        if (this._pagesCount > 2) {
-            this._centerButtonsCount =
-                this._pagesCount - 2 > this._maxCenterButtonsCount
-                    ? this._maxCenterButtonsCount
-                    : this._pagesCount - 2;
+        if (setup) {
+            (this.#setup = []), (this.#setup = setup), this.#applySetup();
         }
-        this.buttons = []; //new Array(this._buttonsCount);
-        //console.log('constructor');
-        //console.dir(this);
-        this.render();
-        this._prepare();
+
+        this.reCreate({ itemsPerPage, totalItems, currentPage }, setup);
+        // this.#itemsPerPage = itemsPerPage;
+
+        // this.#totalItems = totalItems;
+        // this.#pagesCount = Math.ceil(totalItems / itemsPerPage);
+        // this.currentPage =
+        //     currentPage > this.#pagesCount ? this.#pagesCount : currentPage;
+        // if (this.#pagesCount > 2) {
+        //     this.#centerButtonsCount =
+        //         this.#pagesCount - 2 > this.#maxCenterButtonsCount
+        //             ? this.#maxCenterButtonsCount
+        //             : this.#pagesCount - 2;
+        // }
+        // this.buttons = []; //new Array(this.#buttonsCount);
+        // //console.log('constructor');
+        // //console.dir(this);
+        // this.render();
+        // this.#prepare();
     }
 
     render() {
-        // console.dir(this);
-        if (this._pagesCount < 2) {
+        console.dir(this);
+        if (this.#pagesCount < 2) {
             // Если страниц меньше 2х, то скрыть пагинатор.
-            this._element.style.display = 'none';
+            this.#element.style.display = 'none';
             return '';
-        }
+        } else this.#element.style.display = null;
 
         let markup = '';
-        this._element.innerHTML = '';
+        this.#element.innerHTML = '';
 
-        for (let i = 0; i < this._pagesCount; i += 1) {
+        for (let i = 0; i < this.#pagesCount; i += 1) {
             // Заполнение массива с номерами страниц.
             this.buttons[i] = i + 1;
         }
@@ -99,13 +109,13 @@ export default class Paginator {
                     ? 'paginator__button--current'
                     : ''
             }" type="button" data-page=${btn} title= "Page ${btn}">${
-                this._isDotted(btn) ? '...' : btn
+                this.#isDotted(btn) ? '...' : btn
             }</button></li>`;
         });
         const first = markup[0];
         const last = markup[markup.length - 1];
         const center =
-            this._pagesCount > 2
+            this.#pagesCount > 2
                 ? `<li class="paginator__carousel-wrapper"><ul class="paginator__carousel">${markup
                       .slice(1, markup.length - 1)
                       .join('')}</ul></li>`
@@ -118,7 +128,7 @@ export default class Paginator {
             `${last}` +
             `<li><button class="paginator__button paginator__button--next" data-page="next" type="button" title="Next page">Next</button></li>`;
         //console.dir(markup);
-        this._element.insertAdjacentHTML('afterbegin', markup);
+        this.#element.insertAdjacentHTML('afterbegin', markup);
     }
 
     handlerOnClick(e) {
@@ -127,31 +137,31 @@ export default class Paginator {
         const target = e.target;
         if (target.nodeName === 'BUTTON') {
             if ('page' in target.dataset) {
-                this._processButtonClick(target.dataset.page);
+                this.#processButtonClick(target.dataset.page);
             }
         }
     }
 
-    _processButtonClick(page) {
+    #processButtonClick(page) {
         //console.log(page);
 
         switch (page) {
             case 'prev':
                 if (this.currentPage === 1) return;
                 else {
-                    this._getButton(this.currentPage).classList.toggle(
+                    this.#getButton(this.currentPage).classList.toggle(
                         'paginator__button--current'
                     );
-                    if (this.currentPage === 2) this._disableButton('prev');
+                    if (this.currentPage === 2) this.#disableButton('prev');
 
-                    this._enableButton('next');
+                    this.#enableButton('next');
 
                     this.currentPage -= 1;
-                    const tmp = this._getButton(this.currentPage);
+                    const tmp = this.#getButton(this.currentPage);
                     tmp.classList.toggle('paginator__button--current');
-                    if (this._isOuterCarouselButton(tmp)) return;
-                    if (!isVisible(tmp, this._wrapper)) {
-                        this._scrollButtons(1, this._scrollCount);
+                    if (this.#isOuterCarouselButton(tmp)) break; //return;
+                    if (!isVisible(tmp, this.#wrapper)) {
+                        this.#scrollButtons(1, this.#scrollCount);
                     } else {
                         // console.log('visible');
                     }
@@ -159,26 +169,26 @@ export default class Paginator {
 
                 break;
             case 'next':
-                //console.dir(this._getButton(this.currentPage).classList);
+                //console.dir(this.#getButton(this.currentPage).classList);
 
-                if (this.currentPage === this._pagesCount) {
-                    this._disableButton('next');
+                if (this.currentPage === this.#pagesCount) {
+                    this.#disableButton('next');
                     return;
                 } else {
-                    this._getButton(this.currentPage).classList.toggle(
+                    this.#getButton(this.currentPage).classList.toggle(
                         'paginator__button--current'
                     );
-                    if (this.currentPage === this._pagesCount - 1)
-                        this._disableButton('next');
-                    this._enableButton('prev');
+                    if (this.currentPage === this.#pagesCount - 1)
+                        this.#disableButton('next');
+                    this.#enableButton('prev');
                     this.currentPage += 1;
-                    const tmp = this._getButton(this.currentPage);
+                    const tmp = this.#getButton(this.currentPage);
                     tmp.classList.toggle('paginator__button--current');
-                    if (this._isOuterCarouselButton(tmp)) return;
-                    if (!isVisible(tmp, this._wrapper)) {
+                    if (this.#isOuterCarouselButton(tmp)) break; // return;
+                    if (!isVisible(tmp, this.#wrapper)) {
                         // console.log('hidden');
-                        this._scrollButtons(-1, this._scrollCount);
-                        //  console.log('New pos', isVisible(tmp, this._wrapper));
+                        this.#scrollButtons(-1, this.#scrollCount);
+                        //  console.log('New pos', isVisible(tmp, this.#wrapper));
                     } else {
                         // console.log('visible');
                     }
@@ -187,50 +197,50 @@ export default class Paginator {
             default:
                 if (this.currentPage === page) return;
                 else {
-                    this._getButton(this.currentPage).classList.toggle(
+                    this.#getButton(this.currentPage).classList.toggle(
                         'paginator__button--current'
                     );
 
                     this.currentPage = +page;
-                    const tmp = this._getButton(this.currentPage);
+                    const tmp = this.#getButton(this.currentPage);
                     tmp.classList.toggle('paginator__button--current');
                     if (this.currentPage === 1) {
-                        this._disableButton('prev');
-                        this._enableButton('next');
-                    } else if (this.currentPage === this._pagesCount) {
-                        this._disableButton('next');
-                        this._enableButton('prev');
+                        this.#disableButton('prev');
+                        this.#enableButton('next');
+                    } else if (this.currentPage === this.#pagesCount) {
+                        this.#disableButton('next');
+                        this.#enableButton('prev');
                     } else {
-                        this._enableButton('next');
-                        this._enableButton('prev');
+                        this.#enableButton('next');
+                        this.#enableButton('prev');
                     }
 
                     if (
                         this.currentPage === 1 &&
-                        this._firstCarouselButton !== 0
+                        this.#firstCarouselButton !== 0
                     ) {
                         // перемещаем карусель на начало.
 
-                        this._scrollButtons(1, this._firstCarouselButton - 2);
+                        this.#scrollButtons(1, this.#firstCarouselButton - 2);
                     }
                     if (
-                        this.currentPage === this._pagesCount &&
-                        this._firstCarouselButton !== 0
+                        this.currentPage === this.#pagesCount &&
+                        this.#firstCarouselButton !== 0
                     ) {
                         // перемещаем карусель на конец.
-                        //                   console.log(this._firstCarouselButton);
-                        this._scrollButtons(
+                        //                   console.log(this.#firstCarouselButton);
+                        this.#scrollButtons(
                             -1,
-                            this._pagesCount -
-                                this._centerButtonsCount -
-                                this._firstCarouselButton
+                            this.#pagesCount -
+                                this.#centerButtonsCount -
+                                this.#firstCarouselButton
                         );
                     }
 
-                    if (this._isDotted(this.currentPage))
-                        this.currentPage === this._firstCarouselButton
-                            ? this._scrollButtons(1, 2)
-                            : this._scrollButtons(-1, 2);
+                    if (this.#isDotted(this.currentPage))
+                        this.currentPage === this.#firstCarouselButton
+                            ? this.#scrollButtons(1, 2)
+                            : this.#scrollButtons(-1, 2);
                 }
         }
 
@@ -238,170 +248,231 @@ export default class Paginator {
         //this.reCreate(4, 10, 1);
     }
 
-    _getButton(page) {
+    #getButton(page) {
         //console.log(`[data-page='${page}]'`);
-        return this._element.querySelector(`[data-page='${page}']`);
+        return this.#element.querySelector(`[data-page='${page}']`);
     }
 
-    _resizeWrapper() {
-        //if (this._pagesCount > this._buttonsCount) {
+    #resizeWrapper() {
+        //if (this.#pagesCount > this.#buttonsCount) {
         // const newSize =
-        //   this._pagesCount > 2
-        //     ? (this._pagesCount - 2) * this._buttonWidth + (this._pagesCount - 3) * this._margin
+        //   this.#pagesCount > 2
+        //     ? (this.#pagesCount - 2) * this.#buttonWidth + (this.#pagesCount - 3) * this.#margin
         //     : 0;
 
         const newSize =
-            this._pagesCount > 2
-                ? this._centerButtonsCount * this._buttonWidth +
-                  (this._centerButtonsCount - 1) * this._margin
+            this.#pagesCount > 2
+                ? this.#centerButtonsCount * this.#buttonWidth +
+                  (this.#centerButtonsCount - 1) * this.#margin
                 : 0;
         // console.log('newSize=', newSize);
-        this._wrapper.style.width = `${newSize}px`;
+        this.#wrapper.style.width = `${newSize}px`;
         // }
     }
 
-    _scrollButtons(direction, count) {
+    #scrollButtons(direction, count) {
         if (direction < 0)
             count =
-                this._firstCarouselButton + count + this._centerButtonsCount >
-                this._pagesCount
-                    ? this._pagesCount -
-                      (this._firstCarouselButton +
+                this.#firstCarouselButton + count + this.#centerButtonsCount >
+                this.#pagesCount
+                    ? this.#pagesCount -
+                      (this.#firstCarouselButton +
                           count +
-                          this._centerButtonsCount)
+                          this.#centerButtonsCount)
                     : count;
-        else count = this._firstCarouselButton - count < 2 ? 1 : count;
-        this._carouselPosition +=
-            direction * (this._buttonWidth * count + this._margin * count);
-        this._carousel.style.left = `${this._carouselPosition}px`;
+        else count = this.#firstCarouselButton - count < 2 ? 1 : count;
+        this.#carouselPosition +=
+            direction * (this.#buttonWidth * count + this.#margin * count);
+        this.#carousel.style.left = `${this.#carouselPosition}px`;
         // console.log(
         //     'scroll buttons-',
-        //     this._carousel.style.left,
-        //     this._firstCarouselButton
+        //     this.#carousel.style.left,
+        //     this.#firstCarouselButton
         // );
-        this._repaintDotted(direction, count);
+        this.#repaintDotted(direction, count);
         // console.log(
         //     'scroll buttons-',
-        //     this._carousel.style.left,
-        //     this._firstCarouselButton
+        //     this.#carousel.style.left,
+        //     this.#firstCarouselButton
         // );
     }
 
-    _isOuterCarouselButton(button) {
+    #isOuterCarouselButton(button) {
         const dataValue = button.dataset.page;
-        const outerButtons = ['prev', '1', `${this._pagesCount}`, 'next'];
+        const outerButtons = ['prev', '1', `${this.#pagesCount}`, 'next'];
         // console.log(outerButtons.indexOf(dataValue), dataValue, [
         //   'prev',
         //   '1',
-        //   `${this._pagesCount}`,
+        //   `${this.#pagesCount}`,
         //   'next',
         // ]);
         return outerButtons.indexOf(dataValue) < 0 ? false : true;
     }
 
-    reCreate({ itemsPerPage, totalItems, currentPage = 1 }, setup = {}) {
+    reCreate({ itemsPerPage, totalItems, currentPage = 1 }, setup = []) {
         // console.log('YEh! You call reCreate, but now it not work');
         // return;
 
-        this._itemsPerPage = itemsPerPage;
-        this._totalItems = totalItems;
-        this._pagesCount = Math.ceil(totalItems / itemsPerPage);
-        this.currentPage =
-            currentPage > this._pagesCount ? this._pagesCount : currentPage;
-        if (this._pagesCount > 2) {
-            this._centerButtonsCount =
-                this._pagesCount - 2 > this._maxCenterButtonsCount
-                    ? this._maxCenterButtonsCount
-                    : this._pagesCount - 2;
+        console.log(
+            `paginator reCreate ${itemsPerPage}, ${totalItems}, ${currentPage}`
+        );
+        console.dir(setup);
+
+        if (setup) {
+            (this.#setup = []), (this.#setup = [...setup]), this.#applySetup();
         }
-        this.buttons = []; //new Array(this._buttonsCount);
+
+        this.#itemsPerPage = itemsPerPage;
+        this.#totalItems = totalItems;
+        this.#pagesCount = Math.ceil(this.#totalItems / this.#itemsPerPage);
+        this.currentPage =
+            currentPage > this.#pagesCount ? this.#pagesCount : currentPage;
+        console.log(
+            'paginator reCreate pc,mcbc',
+            this.#pagesCount,
+            this.#maxCenterButtonsCount
+        );
+        if (this.#pagesCount > 2) {
+            this.#centerButtonsCount =
+                this.#pagesCount - 2 >= this.#maxCenterButtonsCount
+                    ? this.#maxCenterButtonsCount
+                    : this.#pagesCount - 2;
+        }
+        this.buttons = []; //new Array(this.#buttonsCount);
         //console.log('constructor');
         //console.dir(this);
         this.render();
-        this._prepare();
+        this.#prepare();
     }
 
-    _isDotted(button) {
-        if (button === 2 || button === this._pagesCount - 1) return false;
+    #isDotted(button) {
+        // console.log(
+        //     `isDotted button=${button} pagesCount=${
+        //         this.#pagesCount
+        //     } first Car=${this.#firstCarouselButton} centerBC=${
+        //         this.#centerButtonsCount
+        //     }`
+        // );
+        if (button === 2 || button === this.#pagesCount - 1) return false;
+        1;
         if (
-            button === this._firstCarouselButton ||
-            button === this._firstCarouselButton + this._centerButtonsCount - 1
+            button === this.#firstCarouselButton ||
+            button === this.#firstCarouselButton + this.#centerButtonsCount - 1
         )
             return true;
     }
 
-    _repaintDotted(direction, count) {
-        const fcb = this._firstCarouselButton;
-        let tmpBtn = this._getButton(fcb);
+    #repaintDotted(direction, count) {
+        const fcb = this.#firstCarouselButton;
+        let tmpBtn = this.#getButton(fcb);
         tmpBtn.innerHTML = tmpBtn.dataset.page;
-        tmpBtn = this._getButton(fcb + this._centerButtonsCount - 1);
+        tmpBtn = this.#getButton(fcb + this.#centerButtonsCount - 1);
         tmpBtn.innerHTML = tmpBtn.dataset.page;
-        this._firstCarouselButton += count * -direction;
-        if (this._isDotted(this._firstCarouselButton)) {
-            tmpBtn = this._getButton(this._firstCarouselButton);
+        this.#firstCarouselButton += count * -direction;
+        if (this.#isDotted(this.#firstCarouselButton)) {
+            tmpBtn = this.#getButton(this.#firstCarouselButton);
             tmpBtn.innerHTML = '...';
         }
 
         // console.log(
         //     'cbuttons',
-        //     this._firstCarouselButton,
-        //     this._firstCarouselButton + this._centerButtonsCount - 1
+        //     this.#firstCarouselButton,
+        //     this.#firstCarouselButton + this.#centerButtonsCount - 1
         // );
         if (
-            this._isDotted(
-                this._firstCarouselButton + this._centerButtonsCount - 1
+            this.#isDotted(
+                this.#firstCarouselButton + this.#centerButtonsCount - 1
             )
         ) {
-            tmpBtn = this._getButton(
-                this._firstCarouselButton + this._centerButtonsCount - 1
+            tmpBtn = this.#getButton(
+                this.#firstCarouselButton + this.#centerButtonsCount - 1
             );
             tmpBtn.innerHTML = '...';
         }
     }
 
-    _disableButton(button) {
+    #disableButton(button) {
         // button='Prev',1..N,'Next'
-        const btn = this._getButton(button);
-        btn.disabled = true;
+        const btn = this.#getButton(button);
+        if (btn) btn.disabled = true;
     }
-    _enableButton(button) {
+    #enableButton(button) {
         // button='Prev',1..N,'Next'
-        const btn = this._getButton(button);
-        btn.disabled = false;
+        const btn = this.#getButton(button);
+        if (btn) btn.disabled = false;
     }
 
-    _prepare() {
-        if (this._pagesCount > 2) {
-            this._wrapper = document.querySelector(
-                this._carouselWrapperSelector
+    #prepare() {
+        if (this.#pagesCount > 2) {
+            this.#wrapper = document.querySelector(
+                this.#carouselWrapperSelector
             );
-            this._carousel = document.querySelector(this._carouselSelector);
-            // console.log('wrapper-', this._wrapper);
-            if (this._wrapper) {
-                this._resizeWrapper();
+            this.#carousel = document.querySelector(this.#carouselSelector);
+            // console.log('wrapper-', this.#wrapper);
+            if (this.#wrapper) {
+                this.#resizeWrapper();
             } else {
                 console.error(
-                    `Selector ${this._carouselWrapperSelector} not found`
+                    `Selector ${this.#carouselWrapperSelector} not found`
                 );
                 return;
             }
             if (
                 // Если текущая страница за пределами карусели, то cдвинуть карусель
-                this.currentPage > this.buttons[this._centerButtonsCount] &&
-                this.currentPage < this._pagesCount
+                this.currentPage > this.buttons[this.#centerButtonsCount] &&
+                this.currentPage < this.#pagesCount
             ) {
-                this._scrollButtons(
-                    -this._scrollCount,
+                this.#scrollButtons(
+                    -this.#scrollCount,
                     this.currentPage -
-                        this.buttons[this._centerButtonsCount] +
-                        this._scrollCount -
+                        this.buttons[this.#centerButtonsCount] +
+                        this.#scrollCount -
                         1
                 );
             }
         }
         //console.log('currentPage', this.currentPage);
-        if (this.currentPage === 1) this._disableButton('prev');
-        if (this.currentPage === this._pagesCount) this._disableButton('next');
+        if (this.currentPage === 1) this.#disableButton('prev');
+        if (this.currentPage === this.#pagesCount) this.#disableButton('next');
+    }
+
+    #applySetup() {
+        const setup = this.#setup;
+        console.log('media', setup[getMedia() - 1]);
+        if (setup) {
+            const dataForCurrentMedia = setup[getMedia() - 1];
+            //console.dir(this);
+            for (let key in dataForCurrentMedia) {
+                switch (key) {
+                    case 'maxCenterButtonsCount':
+                        this.#maxCenterButtonsCount = dataForCurrentMedia[key];
+                        break;
+                    case 'buttonWidth':
+                        this.#buttonWidth = dataForCurrentMedia[key];
+                        break;
+                    case 'scrollCount':
+                        this.#scrollCount = dataForCurrentMedia[key];
+                        break;
+                    case 'margin':
+                        this.#margin = dataForCurrentMedia[key];
+                        break;
+                    //maxCenterButtonsCount: 3, buttonWidth: 28, scrollCount: 1, margin: 4
+                }
+                //     if (this.hasOwnProperty(key)) {
+
+                //         this[key] = dataForCurrentMedia[key];
+                //     } else if (this.hasOwnProperty(`#{key}`)) {
+                //         console.log(`#{key}`);
+                //this[`#{key}`] = dataForCurrentMedia[key];
+            }
+
+            //     console.error(
+            //         `Invalid key ${key} in setup object of Paginator`
+            //     );
+            // }
+        }
+        console.log('applysetup');
+        console.dir(this);
     }
 }
 

@@ -11,11 +11,12 @@ import LocalStorage from './js/api/local-storage-api';
 import './js/components/weather';
 import './js/news-cards.js';
 import './js/components/categories/categories.js';
-import Paginator from './js/components/paginator-myoda';
+// import Paginator from './js/components/paginator-myoda';
+import './js/components/app-dispatcher/app-dispatcher';
 
 const localStorage = new LocalStorage('team-9-project');
-const paginator = new Paginator({
-    itemsPerPage: 1,
-    totalItems: 20,
-    currentPage: 1,
-});
+// const paginator = new Paginator({
+//     itemsPerPage: 1,
+//     totalItems: 20,
+//     currentPage: 1,
+// });
