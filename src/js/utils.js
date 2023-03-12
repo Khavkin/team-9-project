@@ -4,7 +4,8 @@ const DESKTOP = 3;
 
 export function getMedia() {
     if (
-        window.matchMedia('(min-width: 320px) and (max-width: 767px)').matches
+        //window.matchMedia('(min-width: 320px) and (max-width: 767px)').matches
+        window.matchMedia('(max-width: 767px)').matches
     ) {
         return MOBILE;
     } else if (
@@ -20,4 +21,24 @@ export function normalizeImportFileName(fileName) {
     return fileName.indexOf('?') >= 0
         ? fileName.slice(0, fileName.indexOf('?'))
         : fileName;
+}
+
+export function getPageStartIndex(page, itemsPerPage) {
+    return (page - 1) * itemsPerPage;
+}
+
+export function calculateLimit(index, offset) {
+    const limit = Math.ceil(Math.abs((index - offset) / 20)) * 20;
+    console.log(index, offset, limit);
+    return limit === 0 ? 20 : limit;
+}
+
+export function formatDate(date) {
+    const tmpDate = new Date(date);
+
+    const formatDate = `${String(tmpDate.getDate()).padStart(2, '0')}-${String(
+        tmpDate.getMonth() + 1
+    ).padStart(2, '0')}-${tmpDate.getFullYear()}`;
+
+    return formatDate;
 }
