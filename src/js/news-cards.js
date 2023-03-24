@@ -150,68 +150,79 @@ if (ulEl !== null) {
     ulEl.addEventListener('click', onBtnClick);
 }
 
-function onBtnClick(e) {
+function onBtnClick(event) {
     console.log("We're inside onBtnClick function");
-    e = e.target;
+    const target = event.target;
 
-    let btn = e.parentNode;
+    // console.log(target, [...target.classList].join('').indexOf('favorite'));
+    // console.dir(target.dataset['favorite']);
+    if (
+        [...target.classList].join('').indexOf('favorite') >= 0 ||
+        target.dataset['favorite'] === ''
+    ) {
+        const btn = target.closest('button');
 
-    if (btn.type !== 'button') {
-        return;
-    }
-
-    if (btn.dataset.add === 'true') {
-        btn.firstElementChild.textContent = 'Remove from favorite';
-        btn.dataset.add = false;
-
-        btn.classList.add('btn-position');
-        btn.classList.remove('btn-position-reload-page');
-        btn.firstElementChild.nextElementSibling.firstElementChild.classList.add(
-            'hidden'
-        );
-
-        btn.firstElementChild.nextElementSibling.lastElementChild.classList.remove(
-            'hidden'
-        );
-
-        btn.firstElementChild.nextElementSibling.lastElementChild.classList.add(
-            'color-svg2'
-        );
-
-        const parent = e.closest('li');
-
-        const toSave = { ...parent.dataset, isfavorite: true, isread: false };
-
-        if (toSave.isFavorite === true) {
-            btn.parentNode.setAttribute('data-favorite', 'favorite');
+        if (btn.type !== 'button') {
+            return;
         }
 
-        localStorage.addToFavorites(toSave);
-    } else {
-        btn.firstElementChild.textContent = 'Add to favorite';
-        btn.dataset.add = true;
+        if (btn.dataset.add === 'true') {
+            btn.firstElementChild.textContent = 'Remove from favorite';
+            btn.dataset.add = false;
 
-        btn.classList.remove('btn-position');
-        btn.classList.remove('btn-position-reload-page');
+            btn.classList.add('btn-position');
+            btn.classList.remove('btn-position-reload-page');
+            btn.firstElementChild.nextElementSibling.firstElementChild.classList.add(
+                'hidden'
+            );
 
-        btn.firstElementChild.nextElementSibling.firstElementChild.classList.remove(
-            'hidden'
-        );
-        btn.firstElementChild.nextElementSibling.lastElementChild.classList.add(
-            'hidden'
-        );
-        const parent = e.closest('li');
+            btn.firstElementChild.nextElementSibling.lastElementChild.classList.remove(
+                'hidden'
+            );
 
-        const toDel = {
-            ...parent.dataset,
-            isfavorite: false,
-            isread: false,
-        };
+            btn.firstElementChild.nextElementSibling.lastElementChild.classList.add(
+                'color-svg2'
+            );
 
-        if (toDel.isfavorite === false) {
-            btn.parentNode.setAttribute('data-favorite', 'false');
+            const parent = target.closest('li');
+
+            const toSave = {
+                ...parent.dataset,
+                isfavorite: true,
+                isread: false,
+            };
+
+            if (toSave.isFavorite === true) {
+                btn.parentNode.setAttribute('data-favorite', 'favorite');
+            }
+
+            localStorage.addToFavorites(toSave);
+        } else {
+            btn.firstElementChild.textContent = 'Add to favorite';
+            btn.dataset.add = true;
+
+            btn.classList.remove('btn-position');
+            btn.classList.remove('btn-position-reload-page');
+
+            btn.firstElementChild.nextElementSibling.firstElementChild.classList.remove(
+                'hidden'
+            );
+            btn.firstElementChild.nextElementSibling.lastElementChild.classList.add(
+                'hidden'
+            );
+            const parent = target.closest('li');
+
+            const toDel = {
+                ...parent.dataset,
+                isfavorite: false,
+                isread: false,
+            };
+
+            if (toDel.isfavorite === false) {
+                btn.parentNode.setAttribute('data-favorite', 'false');
+            }
+            localStorage.deleteFromFavorites(toDel);
         }
-        localStorage.deleteFromFavorites(toDel);
     }
 }
 
