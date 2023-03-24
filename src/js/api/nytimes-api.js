@@ -140,14 +140,14 @@ async function getArticleByCategory2(value, offset = 0, limit = 20) {
 
 async function getSearchArticles2(searchQuery, pageNumber, date) {
     let dateForUrl = '';
-    try {
-        let date = JSON.parse(localStorage.getItem('date'))
-            .replace('/', '')
-            .replace('/', '');
-        dateForUrl = formatDateForUrl(date);
-    } catch (error) {
-        // Якщо не вдалося отримати дату з локального сховища, то не додаємо її в URL
-    }
+    // try {
+    //     let date = JSON.parse(localStorage.getItem('date'))
+    //         .replace('/', '')
+    //         .replace('/', '');
+    //     dateForUrl = formatDateForUrl(date);
+    // } catch (error) {
+    //     // Якщо не вдалося отримати дату з локального сховища, то не додаємо її в URL
+    // }
 
     const articlesFetch = await fetch(
         `${urlBase}/search/v2/articlesearch.json?q=${searchQuery}&${apiKey}&page=${pageNumber}${dateForUrl}`
@@ -155,19 +155,26 @@ async function getSearchArticles2(searchQuery, pageNumber, date) {
     const articles = await articlesFetch.json();
 
     let { response, errors } = articles;
+    console.dir(response);
 
     if (errors) {
         handleErrors(errors);
         return;
     }
 
-    const sumPage = limitResults(response.meta.hits);
-    let { docs } = response;
+    const results = {
+        results: response.docs,
+        status: articles.status,
+        num_results: response.meta.hits > 500 ? 500 : response.meta.hits,
+    };
 
-    console.log(docs);
-    console.log(sumPage);
+    // const sumPage = limitResults(response.meta.hits);
+    // let { docs } = response;
 
-    return docs;
+    // console.log(docs);
+    // console.log(sumPage);
+
+    return results;
 }
 
 //getArticleByCategory2('science', 0);

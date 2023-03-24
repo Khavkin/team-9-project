@@ -104,7 +104,42 @@ export default class AppDispatcher {
     }
 
     async #handlerSearchOnSubmit(event) {
-        console.dir(event);
+        event.preventDefault();
+        const itemsPerPage = itemsPerPageOnMedia[getMedia() - 1];
+        this.#currentPage = 1;
+        console.dir(event.target.elements[0]);
+        const query = event.target.elements[0].value;
+
+        //const query = event.
+
+        if (query !== '') {
+            this.#spinner.showSpinner();
+            await this.#dataset.getNewsBySearch(query, 0, '');
+
+            console.log('getTotalNews', this.#dataset.getTotalNews());
+            this.#paginator.reCreate(
+                {
+                    itemsPerPage,
+                    totalItems: this.#dataset.getTotalNews(),
+                    currentPage: this.#currentPage,
+                },
+                paginatorSetup
+            );
+
+            await this.#galleryRender.showPage(1, itemsPerPage, this.#dataset);
+
+            this.#spinner.hideSpinner();
+        }
+
+        //  const value = input.value;
+        // const data = await getSearchArticles2(value, page);
+        // console.dir(data);
+
+        //  if (data.length === 0) {
+        //      //newsBox.innerHTML = '';
+        //     // badRequaest.style.display = 'block';
+        //  }
+        //console.dir(event);
     }
 
     async #handlerOnSetDate(event) {
