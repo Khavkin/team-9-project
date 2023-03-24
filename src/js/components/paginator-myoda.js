@@ -86,7 +86,7 @@ export default class Paginator {
     }
 
     render() {
-        console.dir(this);
+        //console.dir(this);
         if (this.#pagesCount < 2) {
             // Если страниц меньше 2х, то скрыть пагинатор.
             this.#element.style.display = 'none';
@@ -310,28 +310,26 @@ export default class Paginator {
     }
 
     reCreate({ itemsPerPage, totalItems, currentPage = 1 }, setup = []) {
-        // console.log('YEh! You call reCreate, but now it not work');
-        // return;
-
-        console.log(
-            `paginator reCreate ${itemsPerPage}, ${totalItems}, ${currentPage}`
-        );
-        console.dir(setup);
+        // console.log(
+        //     `paginator reCreate ${itemsPerPage}, ${totalItems}, ${currentPage}`
+        // );
+        // console.dir(setup);
 
         if (setup) {
             (this.#setup = []), (this.#setup = [...setup]), this.#applySetup();
         }
-
+        this.#carouselPosition = 0;
+        this.#firstCarouselButton = 2;
         this.#itemsPerPage = itemsPerPage;
         this.#totalItems = totalItems;
         this.#pagesCount = Math.ceil(this.#totalItems / this.#itemsPerPage);
         this.currentPage =
             currentPage > this.#pagesCount ? this.#pagesCount : currentPage;
-        console.log(
-            'paginator reCreate pc,mcbc',
-            this.#pagesCount,
-            this.#maxCenterButtonsCount
-        );
+        // console.log(
+        //     'paginator reCreate pc,mcbc',
+        //     this.#pagesCount,
+        //     this.#maxCenterButtonsCount
+        // );
         if (this.#pagesCount > 2) {
             this.#centerButtonsCount =
                 this.#pagesCount - 2 >= this.#maxCenterButtonsCount
@@ -438,7 +436,7 @@ export default class Paginator {
 
     #applySetup() {
         const setup = this.#setup;
-        console.log('media', setup[getMedia() - 1]);
+        //  console.log('media', setup[getMedia() - 1]);
         if (setup) {
             const dataForCurrentMedia = setup[getMedia() - 1];
             //console.dir(this);
@@ -471,8 +469,8 @@ export default class Paginator {
             //     );
             // }
         }
-        console.log('applysetup');
-        console.dir(this);
+        //      console.log('applysetup');
+        //     console.dir(this);
     }
 }
 

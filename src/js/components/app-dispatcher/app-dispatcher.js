@@ -123,6 +123,12 @@ export default class AppDispatcher {
         this.#spinner.showSpinner();
         await this.#galleryRender.showPage(page, itemsPerPage, this.#dataset);
         this.#spinner.hideSpinner();
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+        });
     }
 
     async #init() {
