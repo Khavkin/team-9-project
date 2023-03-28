@@ -27,10 +27,11 @@ export function getPageStartIndex(page, itemsPerPage) {
     return (page - 1) * itemsPerPage;
 }
 
-export function calculateLimit(index, offset) {
-    const limit = Math.ceil(Math.abs((index - offset) / 20)) * 20;
+export function calculateLimit(index, offset, defaultLimit = 20) {
+    const limit =
+        Math.ceil(Math.abs((index - offset) / defaultLimit)) * defaultLimit;
     console.log(index, offset, limit);
-    return limit === 0 ? 20 : limit;
+    return limit === 0 ? defaultLimit : limit;
 }
 
 export function formatDate(date) {

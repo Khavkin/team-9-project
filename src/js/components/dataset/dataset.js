@@ -1,7 +1,7 @@
 import {
     mostPopularNews2,
     categoryOfNews,
-    getSearchArticles,
+    getSearchArticles2,
     limitResults,
     getArticleByCategory2,
 } from '../../api/nytimes-api';
@@ -20,6 +20,8 @@ export default class Dataset {
     #currentQuery = POPULAR;
     #currentCategory = '';
     #currentFilter = '';
+    #currentSearchQuery = '';
+    #currentSearchPage = 0;
     constructor() {}
 
     async getMostPopularNews() {
@@ -138,6 +140,65 @@ export default class Dataset {
         }
     }
 
+    async getNewsBySearch(query, page, date) {
+        try {
+            const result = await getSearchArticles2(query, page, date);
+            if (result.status === 'OK') {
+                console.dir(result.results);
+
+                const tmp = result.results.map(
+                    (
+                        {
+                            uri,
+                            web_url,
+                            section_name,
+                            pub_date,
+                            abstract,
+                            headline,
+                            multimedia,
+                        },
+                        index
+                    ) => {
+                        //console.log(`index=${index}-`, media[0]['media-metadata'][2].url);
+                        const result = {
+                            uri,
+                            url: web_url,
+                            sectionname: section_name,
+                            section: section_name,
+                            newsdate: formatDate(pub_date),
+                            snippet: abstract,
+                            title: headline.main ?? '',
+                            isfavorite: false,
+                            isread: false,
+                        };
+                        //console.log(multimedia, index);
+                        if (multimedia === null || multimedia.length === 0)
+                            result.image = '';
+                        else
+                            result.image =
+                                'https://www.nytimes.com/' + multimedia[0].url;
+                        return result;
+                    }
+                );
+                // console.dir(this.#data);
+                if (page === 0) this.#data = [];
+                console.log('mapped data');
+                console.dir(tmp);
+                this.#data.push(...tmp);
+                // console.dir(this.#data);
+                this.#numResults = result.num_results;
+                this.#currentQuery = SEARCH;
+                this.#currentSearchQuery = query;
+                this.#currentCategory = '';
+                this.#currentSearchPage = page;
+            }
+        } catch (error) {
+            console.error(
+                `Ошибка ${error} получения новостей по запросу ${query} page=${page} date=${date}`
+            );
+        }
+    }
+
     async getData(startIndex, count) {
         // const { #data } = this;
 
@@ -158,15 +219,27 @@ export default class Dataset {
             result = data.slice(startIndex, startIndex + count);
         } else {
             // можно получить еще
-            const offset = this.getDataLength();
-            const limit = calculateLimit(startIndex, offset);
             //  console.log(limit, offset);
+
             if (this.#currentQuery === CATEGORY) {
+                const offset = this.getDataLength();
+                const limit = calculateLimit(startIndex, offset);
                 await this.getNewsByCategory(
                     this.#currentCategory,
                     offset,
                     limit
                 );
+                result = this.#data.slice(startIndex, startIndex + count);
+            } else if (this.#currentQuery === SEARCH) {
+                //const offset = this.getDataLength();
+                // const limit = calculateLimit(startIndex, offset);
+
+                await this.getNewsBySearch(
+                    this.#currentSearchQuery,
+                    this.#currentSearchPage + 1,
+                    this.#currentFilter
+                );
+
                 result = this.#data.slice(startIndex, startIndex + count);
             }
         }
@@ -182,6 +255,9 @@ export default class Dataset {
                 break;
             case CATEGORY:
                 total = this.#data.length; //500; //this._data.length + this._numResults;
+                break;
+            case SEARCH:
+                total = this.#numResults; //500; //this._data.length + this._numResults;
                 break;
         }
         return total;

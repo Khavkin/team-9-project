@@ -21,7 +21,7 @@ let valuePage = {
 
 let page = 1;
 
-form.addEventListener('submit', onFormSumbit);
+//form.addEventListener('submit', onFormSumbit);
 
 async function onFormSumbit(e) {
     e.preventDefault();
