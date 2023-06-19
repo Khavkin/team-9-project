@@ -116,5 +116,19 @@ function onBtnClick(e) {
             localStorage.deleteFromFavorites(toDel);
             parent.remove();
         }
+    } else {
+        if (e.dataset.link !== 'link') {
+            return;
+        }
+
+        const parent = e.closest('li');
+
+        const toSave = { ...parent.dataset, isread: true };
+        if (toSave.isread === true) {
+            e.parentNode.parentNode.setAttribute('data-read', 'read');
+            e.parentNode.parentNode.classList.add('opacity');
+        }
+
+        localStorage.addToRead(toSave);
     }
 }
