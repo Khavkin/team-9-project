@@ -77,8 +77,8 @@ function onBtnClick(e) {
 
     //let btn = e.parentNode;
 
-    console.log(e, [...e.classList].join('').indexOf('remove'));
-    console.dir(e.dataset['favorite']);
+    // console.log(e, [...e.classList].join('').indexOf('remove'));
+    // console.dir(e.dataset['favorite']);
 
     if (
         [...e.classList].join('').indexOf('remove') >= 0 ||
