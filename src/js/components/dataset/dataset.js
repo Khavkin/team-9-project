@@ -12,7 +12,6 @@ import { calculateLimit, formatDate } from '../../utils';
 const POPULAR = 1;
 const CATEGORY = 2;
 const SEARCH = 3;
-//const MAX_NEWS_COUNT = 500;
 
 export default class Dataset {
     #data = [];
@@ -44,7 +43,6 @@ export default class Dataset {
                     },
                     index
                 ) => {
-                    //console.log(`index=${index}-`, media[0]['media-metadata'][2].url);
                     const result = {
                         uri,
                         url,
@@ -56,8 +54,7 @@ export default class Dataset {
                         isfavorite: false,
                         isread: false,
                     };
-                    if (media === null || media.length === 0)
-                        result.image = ''; //noImageURL;
+                    if (media === null || media.length === 0) result.image = '';
                     else result.image = media[0]['media-metadata'][2].url;
                     return result;
                 }
@@ -70,28 +67,15 @@ export default class Dataset {
             );
         }
         this.#currentQuery = POPULAR;
-        //console.dir(this);
     }
 
     async getNewsByCategory(category, offset, limit) {
         try {
             const result = await getArticleByCategory2(category, offset, limit);
             if (result.status === 'OK') {
-                //  console.dir(result.results);
-
                 const tmp = result.results.map(
                     (
                         {
-                            // uri,
-                            // url,
-                            // section,
-                            // nytdsection,
-                            // published_date,
-                            // updated,
-                            // abstract,
-                            // title,
-                            // media,
-                            // multimedia,
                             uri,
                             url,
                             section,
@@ -103,7 +87,6 @@ export default class Dataset {
                         },
                         index
                     ) => {
-                        //console.log(`index=${index}-`, media[0]['media-metadata'][2].url);
                         const result = {
                             uri,
                             url,
@@ -117,19 +100,20 @@ export default class Dataset {
                             isfavorite: false,
                             isread: false,
                         };
-                        //console.log(multimedia, index);
-                        if (multimedia === null) result.image = '';
+
+                        if (multimedia === null || multimedia.length === 0)
+                            result.image = '';
                         else
                             result.image =
                                 multimedia[multimedia.length - 1].url;
                         return result;
                     }
                 );
-                // console.dir(this.#data);
+
                 if (offset === 0) this.#data = [];
                 this.#data.push(...tmp);
-                // console.dir(this.#data);
-                this.#numResults = this.#data.length; //result.num_results;
+
+                this.#numResults = this.#data.length;
                 this.#currentQuery = CATEGORY;
                 this.#currentCategory = category;
             }
@@ -144,8 +128,6 @@ export default class Dataset {
         try {
             const result = await getSearchArticles2(query, page, date);
             if (result.status === 'OK') {
-                console.dir(result.results);
-
                 const tmp = result.results.map(
                     (
                         {
@@ -159,7 +141,6 @@ export default class Dataset {
                         },
                         index
                     ) => {
-                        //console.log(`index=${index}-`, media[0]['media-metadata'][2].url);
                         const result = {
                             uri,
                             url: web_url,
@@ -171,7 +152,7 @@ export default class Dataset {
                             isfavorite: false,
                             isread: false,
                         };
-                        //console.log(multimedia, index);
+
                         if (multimedia === null || multimedia.length === 0)
                             result.image = '';
                         else
@@ -180,17 +161,17 @@ export default class Dataset {
                         return result;
                     }
                 );
-                // console.dir(this.#data);
+
                 if (page === 0) this.#data = [];
-                console.log('mapped data');
-                console.dir(tmp);
+
                 this.#data.push(...tmp);
-                // console.dir(this.#data);
+
                 this.#numResults = result.num_results;
                 this.#currentQuery = SEARCH;
                 this.#currentSearchQuery = query;
                 this.#currentCategory = '';
                 this.#currentSearchPage = page;
+                this.#currentFilter = '';
             }
         } catch (error) {
             console.error(
@@ -200,26 +181,21 @@ export default class Dataset {
     }
 
     async getData(startIndex, count) {
-        // const { #data } = this;
-
         let result = [];
         if (
             startIndex + count <= this.#data.length ||
             (startIndex + count > this.#data.length &&
                 this.#data.length === this.getTotalNews())
         ) {
-            // result = this.#data.slice(startIndex, startIndex + count);
             const data =
                 this.#currentFilter !== ''
                     ? this.#data.filter(({ newsdate }) => {
-                          // console.log(newsdate, this.#currentFilter);
                           return newsdate === this.#currentFilter;
                       })
                     : this.#data;
             result = data.slice(startIndex, startIndex + count);
         } else {
             // можно получить еще
-            //  console.log(limit, offset);
 
             if (this.#currentQuery === CATEGORY) {
                 const offset = this.getDataLength();
@@ -231,9 +207,6 @@ export default class Dataset {
                 );
                 result = this.#data.slice(startIndex, startIndex + count);
             } else if (this.#currentQuery === SEARCH) {
-                //const offset = this.getDataLength();
-                // const limit = calculateLimit(startIndex, offset);
-
                 await this.getNewsBySearch(
                     this.#currentSearchQuery,
                     this.#currentSearchPage + 1,
@@ -251,13 +224,28 @@ export default class Dataset {
         let total = 0;
         switch (this.#currentQuery) {
             case POPULAR:
-                total = this.#data.length;
+                total =
+                    this.#currentFilter !== ''
+                        ? this.#data.filter(({ newsdate }) => {
+                              return newsdate === this.#currentFilter;
+                          }).length
+                        : this.#data.length;
                 break;
             case CATEGORY:
-                total = this.#data.length; //500; //this._data.length + this._numResults;
+                total =
+                    this.#currentFilter !== ''
+                        ? this.#data.filter(({ newsdate }) => {
+                              return newsdate === this.#currentFilter;
+                          }).length
+                        : this.#data.length;
                 break;
             case SEARCH:
-                total = this.#numResults; //500; //this._data.length + this._numResults;
+                total =
+                    this.#currentFilter !== ''
+                        ? this.#data.filter(({ newsdate }) => {
+                              return newsdate === this.#currentFilter;
+                          }).length
+                        : 10; //this.#numResults; for future develop
                 break;
         }
         return total;
@@ -268,7 +256,6 @@ export default class Dataset {
     }
 
     setFilter(filter) {
-        console.log('set filter-', filter);
         this.#currentFilter = filter;
     }
 }

@@ -1,12 +1,7 @@
 import { createMarkup2 } from '../../news-cards';
-import {
-    getMedia,
-    normalizeImportFileName,
-    getPageStartIndex,
-} from '../../utils';
-import { itemsPerPageOnMedia } from '../../const';
+import { getMedia, getPageStartIndex } from '../../utils';
+
 import { geolocateUpdate } from '../weather';
-//import LocalStorage from '../../api/local-storage-api';
 
 export default class GalleryRender {
     #galleryElement = null;

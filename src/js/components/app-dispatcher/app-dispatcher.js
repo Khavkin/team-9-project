@@ -2,7 +2,7 @@ import Paginator from '../paginator-myoda';
 import Dataset from '../dataset/dataset';
 import GalleryRender from '../gallery-render/gallery-render';
 import Spinner from '../spinner/spinner';
-import { formatDate, getMedia, getPageStartIndex } from '../../utils';
+import { getMedia, getPageStartIndex } from '../../utils';
 import { itemsPerPageOnMedia, paginatorSetup } from '../../const';
 
 export default class AppDispatcher {
@@ -65,10 +65,6 @@ export default class AppDispatcher {
             'setdate',
             this.#handlerOnSetDate.bind(this)
         );
-
-        this.#calendarElement.addEventListener('keyup', event =>
-            console.log(event)
-        );
     }
 
     async #handlerCategoryOnClick(event) {
@@ -91,7 +87,7 @@ export default class AppDispatcher {
             this.#paginator.reCreate(
                 {
                     itemsPerPage,
-                    totalItems: this.#dataset.getDataLength(), //this.#dataset.getTotalNews(),
+                    totalItems: this.#dataset.getDataLength(),
                     currentPage: this.#currentPage,
                 },
                 paginatorSetup
@@ -105,18 +101,16 @@ export default class AppDispatcher {
 
     async #handlerSearchOnSubmit(event) {
         event.preventDefault();
+
         const itemsPerPage = itemsPerPageOnMedia[getMedia() - 1];
         this.#currentPage = 1;
-        console.dir(event.target.elements[0]);
-        const query = event.target.elements[0].value;
 
-        //const query = event.
+        const query = event.target.elements[0].value;
 
         if (query !== '') {
             this.#spinner.showSpinner();
             await this.#dataset.getNewsBySearch(query, 0, '');
 
-            console.log('getTotalNews', this.#dataset.getTotalNews());
             this.#paginator.reCreate(
                 {
                     itemsPerPage,
@@ -130,30 +124,30 @@ export default class AppDispatcher {
 
             this.#spinner.hideSpinner();
         }
-
-        //  const value = input.value;
-        // const data = await getSearchArticles2(value, page);
-        // console.dir(data);
-
-        //  if (data.length === 0) {
-        //      //newsBox.innerHTML = '';
-        //     // badRequaest.style.display = 'block';
-        //  }
-        //console.dir(event);
     }
 
     async #handlerOnSetDate(event) {
         const date = event.target.value;
-        console.dir(event.target);
-        console.log('value-', event.target.value);
+        const itemsPerPage = itemsPerPageOnMedia[getMedia() - 1];
+        this.#currentPage = 1;
+
         this.#dataset.setFilter(date);
-        console.dir(await this.#dataset.getData(0, 7));
+
+        this.#paginator.reCreate(
+            {
+                itemsPerPage,
+                totalItems: this.#dataset.getTotalNews(),
+                currentPage: this.#currentPage,
+            },
+            paginatorSetup
+        );
+
+        await this.#galleryRender.showPage(1, itemsPerPage, this.#dataset);
     }
 
     async #handlerPaginatorOnClick(page) {
         const itemsPerPage = itemsPerPageOnMedia[getMedia() - 1];
         this.#currentPage = page;
-        console.log(this);
 
         this.#spinner.showSpinner();
         await this.#galleryRender.showPage(page, itemsPerPage, this.#dataset);
@@ -171,7 +165,6 @@ export default class AppDispatcher {
 
         this.#spinner.showSpinner();
         await this.#dataset.getMostPopularNews();
-        console.log(this.#dataset.getTotalNews());
 
         window.addEventListener(
             'resize',
@@ -202,7 +195,7 @@ export default class AppDispatcher {
             );
             itemsPerPage = itemsPerPageOnMedia[media - 1];
             const page = Math.floor(startIndex / itemsPerPage) + 1;
-            console.log(startIndex, page, itemsPerPage, media);
+
             await this.#galleryRender.showPage(
                 page,
                 itemsPerPage,

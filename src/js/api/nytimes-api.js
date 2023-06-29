@@ -99,27 +99,24 @@ export {
     getSearchArticles2,
 };
 
-//getSearchArticles('ukraine', 1);
-
 async function mostPopularNews2() {
     const articleFetch = await fetch(mostPopularNewsUrl);
     const articles = await articleFetch.json();
-    //const response = articles.results;
+
     const response = {
         results: articles.results,
         status: articles.status,
         num_results: articles.num_results,
     };
-    //  console.log(articles);
+
     return response;
 }
 
 // Запит по кліку на кнопку категорії
 async function getArticleByCategory2(value, offset = 0, limit = 20) {
     try {
-        //let newValue = encodeURIComponent(value);
         let newValue = value;
-        // console.log(value, offset, limit);
+
         const offsetstr = `limit=${limit}&offset=${offset}&`;
         const articleFetch = await fetch(
             `${urlBase}/news/v3/content/all/${newValue}.json?${offsetstr}${apiKey}`
@@ -130,8 +127,7 @@ async function getArticleByCategory2(value, offset = 0, limit = 20) {
             status: articles.status,
             num_results: articles.num_results,
         };
-        //let { results } = articles;
-        //console.dir(response);
+
         return response;
     } catch (error) {
         console.error(error);
@@ -140,14 +136,6 @@ async function getArticleByCategory2(value, offset = 0, limit = 20) {
 
 async function getSearchArticles2(searchQuery, pageNumber, date) {
     let dateForUrl = '';
-    // try {
-    //     let date = JSON.parse(localStorage.getItem('date'))
-    //         .replace('/', '')
-    //         .replace('/', '');
-    //     dateForUrl = formatDateForUrl(date);
-    // } catch (error) {
-    //     // Якщо не вдалося отримати дату з локального сховища, то не додаємо її в URL
-    // }
 
     const articlesFetch = await fetch(
         `${urlBase}/search/v2/articlesearch.json?q=${searchQuery}&${apiKey}&page=${pageNumber}${dateForUrl}`
@@ -155,7 +143,6 @@ async function getSearchArticles2(searchQuery, pageNumber, date) {
     const articles = await articlesFetch.json();
 
     let { response, errors } = articles;
-    console.dir(response);
 
     if (errors) {
         handleErrors(errors);
@@ -167,12 +154,6 @@ async function getSearchArticles2(searchQuery, pageNumber, date) {
         status: articles.status,
         num_results: response.meta.hits > 500 ? 500 : response.meta.hits,
     };
-
-    // const sumPage = limitResults(response.meta.hits);
-    // let { docs } = response;
-
-    // console.log(docs);
-    // console.log(sumPage);
 
     return results;
 }
