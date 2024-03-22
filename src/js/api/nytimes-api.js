@@ -2,28 +2,25 @@ const apiKey = 'api-key=G4nD622lnyF5V3gyZS7dbGHuMUYNgZ8K';
 const urlBase = 'https://api.nytimes.com/svc';
 const mostPopularNewsUrl = `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?${apiKey}`;
 
-// Запит на популярні новини
+// Popular news request
 async function mostPopularNews() {
     const articleFetch = await fetch(mostPopularNewsUrl);
     const articles = await articleFetch.json();
     const response = articles.results;
-    //   console.log(response);
     return response;
 }
 
-// Запит по категоріям
+// Request after category
 async function categoryOfNews() {
     const categoryList = await fetch(
         `${urlBase}//news/v3/content/section-list.json?${apiKey}`
     );
     const categories = await categoryList.json();
     const response = categories.results;
-    //   console.log(response);
-
     return response;
 }
 
-// Запит по кліку на кнопку категорії
+// Request after click on category button
 async function getArticleByCategory(value) {
     try {
         //let newValue = encodeURIComponent(value);
@@ -39,7 +36,7 @@ async function getArticleByCategory(value) {
     }
 }
 
-// Функція для отримання статей з New York Times за заданим запитом та сторінкою
+// Function for getting articles from NYT after search query and page
 async function getSearchArticles(searchQuery, pageNumber) {
     let dateForUrl = '';
     try {
@@ -48,7 +45,7 @@ async function getSearchArticles(searchQuery, pageNumber) {
             .replace('/', '');
         dateForUrl = formatDateForUrl(date);
     } catch (error) {
-        // Якщо не вдалося отримати дату з локального сховища, то не додаємо її в URL
+        // If it was not possible to fetch data from localStorage, don't add it to URL
     }
 
     const articlesFetch = await fetch(
@@ -66,19 +63,19 @@ async function getSearchArticles(searchQuery, pageNumber) {
     const sumPage = limitResults(response.meta.hits);
     let { docs } = response;
 
-    console.log(docs);
-    console.log(sumPage);
+    // console.log(docs);
+    // console.log(sumPage);
 
     return docs;
 }
 
 /* Службові функції */
-// Функція для форматування дати для використання в URL
+// Function for date convertion for using in URL
 function formatDateForUrl(date) {
     return `&begin_date=${date}&end_date=${date}`;
 }
 
-// Функція для обробки помилок
+// Function for errors
 function handleErrors(errors) {
     alert(JSON.parse(errors));
 }
@@ -109,10 +106,12 @@ async function mostPopularNews2() {
         num_results: articles.num_results,
     };
 
+    // console.log(response)
+
     return response;
 }
 
-// Запит по кліку на кнопку категорії
+// Request after click on category button
 async function getArticleByCategory2(value, offset = 0, limit = 20) {
     try {
         let newValue = value;
@@ -127,7 +126,6 @@ async function getArticleByCategory2(value, offset = 0, limit = 20) {
             status: articles.status,
             num_results: articles.num_results,
         };
-
         return response;
     } catch (error) {
         console.error(error);

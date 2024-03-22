@@ -18,9 +18,9 @@ const ulEl = document.querySelector('.list-news-card');
 const iconsURL = normalizeImportFileName(icons); //icons.slice(0, icons.indexOf('?'));
 const defaultImgURL = normalizeImportFileName(defaultImg);
 
-// const MOBILE = 1;
-// const TABLET = 2;
-// const DESKTOP = 3;
+const MOBILE = 1;
+const TABLET = 2;
+const DESKTOP = 3;
 
 let currentMedia = getMedia();
 
@@ -78,6 +78,7 @@ function createMarkup({
     let mediaUrl = defaultImgURL; //'../../images/defaultImg.jpg';
     if (typeof media === 'object' && media[0]) {
         // TODO: Нам це треба? в якому випадку в нас там об*єкт?
+    
         mediaUrl = media[0]['media-metadata'][2].url;
     } else if (typeof multimedia === 'object') {
         try {
@@ -151,7 +152,6 @@ if (ulEl !== null) {
 }
 
 function onBtnClick(event) {
-    console.log("We're inside onBtnClick function");
     const target = event.target;
 
     // console.log(target, [...target.classList].join('').indexOf('favorite'));

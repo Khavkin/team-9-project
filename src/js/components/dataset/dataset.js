@@ -105,7 +105,7 @@ export default class Dataset {
                             result.image = '';
                         else
                             result.image =
-                                multimedia[multimedia.length - 1].url;
+                                multimedia[multimedia.length - 2].url;
                         return result;
                     }
                 );
